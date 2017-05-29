@@ -11,7 +11,7 @@
 #include "Posicion.h"
 #include "Pila.h"
 
-
+//Prueba
 typedef ListaOrdenadaArreglo ListaOrdenada;
 //typedef ListaOrdenadaLSE ListaOrdenada;
 using namespace std;
