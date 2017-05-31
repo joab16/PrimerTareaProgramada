@@ -91,19 +91,26 @@ void menu()
 
 	int salida = 0;
 	posicion p1;
-	posicion p2;
 	elemento e1;
-	elemento e2;
+	int opcion = 0;
+	//ListaOrdenada *lista = new ListaOrdenada;
 	int modelo = 0;
 	cout << "                Que herramienta desea utilizar?" << endl;
 	cout << "Las herramientas son: 1-Lista Posicionada, 2-Lista Indexada, 3-Lista Ordenada" << endl;
 	cin >> modelo;
+	L1->Iniciar();
+	L2->Iniciar();
+	L3->Iniciar();
+	if (modelo == 3)
+	{
+		cout << "Las funciones que puede realizar son: -1 = Salir, 1 = Agregar, 2 = Borrar, 3 = Primero, 4 = Siguiente, 5 = Ultimo, \n 6 = Anterior, 7 = Listar, 8 = Iguales, 9 = Copiar, 10 = Contenida, 11 = Pertenece, 12 = EliminarIntersec, \n 13 = Union1, 14 = Union2, 15 = Interseccion1, 16 = Interseccion2" << endl;
+	}
 	while(salida != -1)
 	{   
 	switch (modelo)
 	{
 	case 1:
-		cout << "Las funciones que puede realizar son: -1 = Salir, 1 = Insertar, 3 = Borrar,\n 4 = ModificarElemento, 5 = Intercambiar, 6 = Primera,\n 7 = Ultima, 8 = Siguiente, 9 = Anterior,\n 10 = Recuperar," << endl;
+		cout << "Las funciones que puede realizar son: -1 = Salir, 1 = Insertar, 3 = Borrar,\n 4 = ModificarElemento, 5 = Intercambiar, 6 = Primera, 7 = Ultima, 8 = Siguiente, 9 = Anterior, 10 = Recuperar," << endl;
 		cin >> salida;
 		switch (salida)
 		{
@@ -131,24 +138,22 @@ void menu()
 			break;
 		}
 	case 3:
-		L1->Iniciar();
-		L2->Iniciar();
-		L3->Iniciar();
-		cout << "Tiene a su disposicion 2 listas L1 y L2" << endl;
-		cout << "Las funciones que puede realizar son: -1 = Salir, 1 = Agregar, 2 = Borrar, 3 = Primero,\n 4 = Siguiente, 5 = Ultimo, 6 = Anterior,\n 7 = Listar, 8 = Iguales, 9 = Copiar,\n 10 = Contenida, 11 = Pertenece, 12 = EliminarIntersec,\n 13 = Union1, 14 = Union2, 15 = Interseccion1, 16 = Interseccion2" << endl;
+		//cout << "Las funciones que puede realizar son: -1 = Salir, 1 = Agregar, 2 = Borrar, 3 = Primero, 4 = Siguiente, 5 = Ultimo, \n 6 = Anterior, 7 = Listar, 8 = Iguales, 9 = Copiar, 10 = Contenida, 11 = Pertenece, 12 = EliminarIntersec, \n 13 = Union1, 14 = Union2, 15 = Interseccion1, 16 = Interseccion2" << endl;
+		cout << "Escriba el numero con la funcion que desea realizar ahora?" << endl;
+		//cout <<"Que desea hacer ahora?"
 		cin >> salida;
 		switch (salida)
 		{
 		case 1:
 			cout << "En cual lista desea agregar elementos? 1 = L1, 2 = L2" << endl;
-			cin >> e1;
-			if (e1 = 1)
+			cin >> opcion;
+			if (opcion == 1)
 			{
 				cout << "Cual elemento desea insertar?" << endl;
 				cin >> e1;
 				L1->Agregar(e1);
 			}
-			else
+			else if(opcion == 2)
 			{ 
 				cout << "Cual elemento desea insertar?" << endl;
 				cin >> e1;
@@ -157,14 +162,14 @@ void menu()
 			break;
 		case 2:
 			cout << "En cual lista desea borrar elementos? 1 = L1, 2 = L2" << endl;
-			cin >> e1;
-			if (e1 = 1)
+			cin >> opcion;
+			if (opcion == 1)
 			{
 				cout << "Cual elemento desea borrar?" << endl;
 				cin >> e1;
 				L1->Borrar(e1);
 			}
-			else
+			else if (opcion == 2)
 			{
 				cout << "Cual elemento desea borrar?" << endl;
 				cin >> e1;
@@ -172,71 +177,154 @@ void menu()
 			}
 			break;
 		case 3:
-			cout << "El primer elemento de la lista es: " << L1->Primero() << endl;
+			cout << "De cual lista desea conocer el primer elemento? 1 = L1, 2 = L2" << endl;
+			cin >> opcion;
+			if (opcion == 1)
+			{
+				L1->Primero();
+			}
+			else if (e1 == 2)
+			{
+				L2->Primero();
+			}
 			break;
 		case 4:
-			cout << "Ingrese el elemento para el que desea saber el siguiente" << endl;
-			cin >> e1;
-			cout << "El elemento siguiente a la posicion es: " << L1->Siguiente(e1) << endl;
+			cout << "De cual lista desea conocer el siguiente elemento? 1 = L1, 2 = L2" << endl;
+			cin >> opcion;
+			if (opcion == 1)
+			{
+				cout << "Ingrese el elemento para el que desea saber el siguiente" << endl;
+				cin >> e1;
+				cout << "El siguiente elemento es: " << L1->Siguiente(e1) << endl;
+			}
+			else if (opcion == 2)
+			{
+				cout << "Ingrese el elemento para el que desea saber el siguiente" << endl;
+				cin >> e1;
+				cout << "El siguiente elemento es: " << L2->Siguiente(e1) << endl;
+			}
 			break;
 		case 5:
-			cout << "El ultimo elemento de la lista es: " << L1->Ultimo() << endl;
+			cout << "De cual lista desea conocer el ultimo elemento? 1 = L1, 2 = L2" << endl;
+			cin >> opcion;
+			if (opcion == 1)
+			{
+				L1->Ultimo();
+			}
+			else if (opcion == 2)
+			{
+				L2->Ultimo();
+			}
 			break;
 		case 6:
-			cout << "Ingrese el elemento para el que desea saber el anterior" << endl;
-			cin >> e1;
-			cout << "El elemento anterior a la posicion es: " << L1->Anterior(e1) << endl;
+			cout << "De cual lista desea conocer el anterior elemento? 1 = L1, 2 = L2" << endl;
+			cin >> opcion;
+			if (opcion == 1)
+			{
+				cout << "Ingrese el elemento para el que desea saber el anterior" << endl;
+				cin >> e1;
+				cout << "El elemento anterior es: " << L1->Anterior(e1) << endl;
+			}
+			else if (opcion == 2)
+			{
+				cout << "Ingrese el elemento para el que desea saber el anterior" << endl;
+				cin >> e1;
+				cout << "El elemento anterior es: " << L2->Anterior(e1) << endl;
+			}
 			break;
 		case 7:
 			cout << "Cual lista desea imprimir? 1 = L1, 2 = L2" << endl;
-				cin >> e1;
-			if (e1 = 1)
+			cin >> opcion;
+			if (opcion == 1)
 			{
 				L1->Listar();
+				cout << endl;
 			}
-			else
+			else if (opcion == 2)
 			{
 				L2->Listar();
+				cout << endl;
 			}
 			break;
 		case 8:
-			iguales(L1, L2);
+			if (iguales(L1, L2) == true)
+			{
+				cout << "La lista L1 es igual a la lista L2" << endl;
+			}
+			else if (!iguales(L1, L2))
+			{
+				cout << "La lista L1 es diferente a la lista L2" << endl;
+			}
 			break;
 		case 9:
 			copiar(L1, L2);
+			L2->Listar();
+			cout << endl;
 			break;
 		case 10:
-			contenida(L1, L2);
+			if (contenida(L1, L2) == true)
+			{
+				cout << "La lista L1 si esta contenida en L2" << endl;
+			}
+			else if (contenida(L1, L2) == false)
+			{
+				cout << "La lista L1 no esta contenida en L2" << endl;
+			}
 			break;
 		case 11:
 			cout << "En cual lista desea saber si el elemento pertenece? 1 = L1, 2 = L2" << endl;
-				cin >> e1;
-			if (e1 = 1)
+			cin >> opcion;
+			if (opcion == 1)
 			{
 				cout << "Ingrese el elemento para saber si pertenece a la lista" << endl;
 				cin >> e1;
-				pertenece(L1, e1);
+				if (pertenece(L1, e1)== true)
+				{
+					cout << "El elemento si pertenece a la lista" << endl;
+				}
+				else if (!pertenece(L1, e1))
+				{
+					cout << "El elemento no pertenece a la lista" << endl;
+
+				}
 			}
-			else
+			else if (opcion == 2)
 			{
 				cout << "Ingrese el elemento para saber si pertenece a la lista" << endl;
 				cin >> e1;
-				pertenece(L2, e1);
+				if(pertenece(L2, e1) == true)
+				{ 
+					cout << "El elemento si pertenece a la lista" << endl;
+				}
+				else if (!pertenece(L2, e1))
+				{
+					cout << "El elemento no pertenece a la lista" << endl;
+
+				}
 			}
 			break;
 		case 12:
 			eliminar(L1, L2);
+			cout << "Despues de eliminar la interseccion los elementos en la lista L1" << endl;
+			L1->Listar();
+			cout << endl;
 			break;
 		case 13:
-			union1(L1, L1);
+			cout << "1 forma: Despues de unir los elementos de L1 y L2 en la lista L1" << endl;
+			union1(L1, L2);
+			L1->Listar();
 			break;
 		case 14:
+			cout << "2 forma: Despues de unir los elementos de L1 y L2 en la lista L3" << endl;
 			union2(L1, L2, L3);
+			L3->Listar();
 			break;
 		case 15:
+			cout << "1 forma: Despues de ingresar en L3 los elementos que estan tanto en L1 como L2" << endl;
 			interseccion1(L1, L2);
 			break;
 		case 16:
+			cout << "2 forma: Despues de ingresar en L3 los elementos que estan tanto en L1 como L2" << endl;
 			interseccion2(L1, L2);
 			break;
 		default:
@@ -846,7 +934,7 @@ bool iguales(ListaOrdenada *L1, ListaOrdenada *L2)
 	elemento elem2 = L2->Primero();
 	if (L1->NumElem() != L2->NumElem())
 	{
-		cout << "No son iguales" << endl;
+		//cout << "No son iguales" << endl;
 		return false;
 	}
 	else
@@ -859,12 +947,12 @@ bool iguales(ListaOrdenada *L1, ListaOrdenada *L2)
 		}
 		if (L1->Ultimo() == L2->Ultimo())
 		{
-			cout << "Son iguales" << endl;
+			//cout << "Son iguales" << endl;
 			return true;
 		}
 		else
 		{
-			cout << "No son iguales" << endl;
+			//cout << "No son iguales" << endl;
 			return false;
 		}
 	}
@@ -913,14 +1001,14 @@ bool contenida(ListaOrdenada *L1, ListaOrdenada *L2)
     bool contenida = false;
 	if (iguales(L1, L2))  //si ambas listas son iguales esta contenida 
 	{
-		cout << "La lista esta contenida" << endl;
+		//cout << "La lista esta contenida" << endl;
 		return true;
 	}
 	else
 	{
 		if (L1->NumElem() > L2->NumElem()) //si el numero de elementos de L1 es mayor, que el de L2 no puede estar contenida en L2
 		{
-			cout << "La lista no esta contenida" << endl;
+			//cout << "La lista no esta contenida" << endl;
 			return false;
 		}
 		while (!contenida)
@@ -930,13 +1018,13 @@ bool contenida(ListaOrdenada *L1, ListaOrdenada *L2)
 				if (e1 == L1->Ultimo())
 				{
 					contenida = true;
-					cout << "La lista esta contenida" << endl;
+					//cout << "La lista esta contenida" << endl;
 					return contenida;
 				}
 				else if (e2 == L2->Ultimo())
 				{
 					contenida = true;
-					cout << "La lista esta contenida" << endl;
+					//cout << "La lista esta contenida" << endl;
 					return contenida;
 				}
 				else if(e1 != L1->Ultimo() && e2 != L2->Ultimo())
@@ -951,7 +1039,7 @@ bool contenida(ListaOrdenada *L1, ListaOrdenada *L2)
 				if(e1 < e2)
 				{
 					contenida = false;
-					cout << "La lista no esta contenida" << endl;
+					//cout << "La lista no esta contenida" << endl;
 					return false;
 				}
 				else if (e1 > e2 && e2 != L2->Ultimo())
@@ -962,13 +1050,13 @@ bool contenida(ListaOrdenada *L1, ListaOrdenada *L2)
 				else if (e1 == L1->Ultimo())
 				{
 					contenida = false;
-					cout << "La lista no esta contenida" << endl;
+					//cout << "La lista no esta contenida" << endl;
 					return contenida;
 				}
 				else if (e2 == L2->Ultimo())
 				{
 					contenida = false;
-					cout << "La lista no esta contenida" << endl;
+					//cout << "La lista no esta contenida" << endl;
 					return contenida;
 				}
 			}
