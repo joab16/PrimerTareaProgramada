@@ -1,19 +1,21 @@
 #include <iostream>
 #include <stdlib.h>
 #include "stdafx.h"
-#include "Lista_Posicionada_Arreglo.h"
+//#include "Lista_Posicionada_Arreglo.h"
 #include "Lista_Posicionada_DE.h"
-#include "Lista_Posicionada_SE.h"
+//#include "Lista_Posicionada_SE.h"
 #include "ListaIndexadaArreglo.h"
 #include "ListaIndexadaSE.h"
 #include "ListaOrdenadaArreglo.h"
 //#include "ListaOrdenadaLSE.h"
 #include "Posicion.h"
-#include "Pila.h"
 
 
 typedef ListaOrdenadaArreglo ListaOrdenada;
 //typedef ListaOrdenadaLSE ListaOrdenada;
+typedef Lista_Posicionada_DE ListaPosicionada;
+//typedef Lista_Posicionada_Arreglo ListaPosicionada;
+//typedef Lista_Posicionada_SE ListaPosicionada;
 using namespace std;
 
 void menu();
@@ -21,10 +23,7 @@ void listaOrdenadaArreglo();
 void listaOrdenadaLSE();
 void listaIndexadaArreglo();
 void listaIndexadaSE();
-void listaPosicionadaSE();
-void listaPosicionadaDE();
-void listaPosicionadaArreglo();
-void pila();
+void listaPosicionada();
 
 ListaOrdenada *L1 = new ListaOrdenada;
 ListaOrdenada *L2 = new ListaOrdenada;
@@ -518,277 +517,49 @@ void listaOrdenadaLSE()
 Prueba de la Estructura de Datos Lista Posicionada implementada por una Lista Simplemente Enlazada
 
 */
-void listaPosicionadaSE()
-{
-	cout << "---Lista Posicionada implementada por una Lista Simplemente Enlazada---" << endl;
-	cout << endl;
-	Lista_Posicionada_SE Lista;
-	Lista.iniciar();
-	cout << "Se agregan los elementos 10,14,16,12,8 usanndo los métodos: insertar y agregarAlFinal" << endl;
-	Lista.agregarAlFinal(10);
-	Lista.agregarAlFinal(14);
-	Lista.agregarAlFinal(16);
-	Lista.insertar(12, Lista.siguiente(Lista.primera()));
-	Lista.insertar(8, Lista.primera());
-	posS p = Lista.primera();
-	cout << "Los elementos de la Lista son:" << endl;
-	for (int i = 0; i < Lista.numElem(); i++)
-	{
-		cout << Lista.recuperar(p) << endl;
-		p = Lista.siguiente(p);
-	}
-	cout << "Borramos el primer elemento de la Lista(8)" << endl;
-	Lista.borrar(Lista.primera());
-	cout << "Los elementos de la Lista son:" << endl;
-	p = Lista.primera();
-	for (int i = 0; i < Lista.numElem(); i++)
-	{
-		cout << Lista.recuperar(p) << endl;
-		p = Lista.siguiente(p);
-	}
-	cout << "Modificamos el segundo elemento de la Lista(12) por un 13" << endl;
-	Lista.modificarElemento(13, Lista.siguiente(Lista.primera()));
-	cout << "Los elementos de la Lista son:" << endl;
-	p = Lista.primera();
-	for (int i = 0; i < Lista.numElem(); i++)
-	{
-		cout << Lista.recuperar(p) << endl;
-		p = Lista.siguiente(p);
-	}
-	cout << "Intercambiamos el primer elemento(10) con el ultimno de la Lista(16)" << endl;
-	Lista.intercambiar(Lista.primera(), Lista.ultima());
-	cout << "Los elementos de la Lista son:" << endl;
-	p = Lista.primera();
-	for (int i = 0; i < Lista.numElem(); i++)
-	{
-		cout << Lista.recuperar(p) << endl;
-		p = Lista.siguiente(p);
-	}
-	cout << "Eliminamos la posicion anterior a la ultima de la Lista(14)" << endl;
-	Lista.borrar((Lista.anterior(Lista.ultima())));
-	cout << "Los elementos de la Lista son:" << endl;
-	p = Lista.primera();
-	for (int i = 0; i < Lista.numElem(); i++)
-	{
-		cout << Lista.recuperar(p) << endl;
-		p = Lista.siguiente(p);
-	}
-	cout << "Verificamos si la la lista no esta vacia" << endl;
-	int elementos = Lista.numElem();
-	if (Lista.vacia())
-	{
-		cout << "La lista se encuentra vacia" << endl;
-	}
-	else
-	{
-		cout << "La Lista no esta vacia, en realidad contiene: " << elementos << " elementos" << endl;
-	}
-	cout << "Ahora si vaciaremos la lista" << endl;
-	Lista.vaciar();
-	elementos = Lista.numElem();
-	if (Lista.vacia())
-	{
-		cout << "Ahora la Lista si esta vacia, es decir contiene: " << elementos << " elementos" << endl;
-	}
-	else
-	{
-		cout << "La Lista no esta vacia" << endl;
-	}
-	cout << "Procederemos a destruir la Lista, gracias por probarla" << endl;
-	Lista.destruir();
-	cout << "Lista destruida" << endl;
-	cout << endl;
-	//LO QUE SIGUE ES PROBANDO QUE EL PROGRAMA SE CAE CUANDO SE LE AGREGA UN ELEMENTO DESPUES DE DESTRUIDA LA LISTA
-	//    cout << "Los elementos de la Lista son:" << endl;
-	//    p = Lista.primera();
-	//    Lista.agregarAlFinal(12);
-	//    for (int i = 0; i < Lista.numElem(); i++) {
-	//        cout << Lista.recuperar(p) << endl;
-	//        p = Lista.siguiente(p);
-	//    }
-}
-/**
 
-Prueba de la Estructura de Datos Lista Posicionada implementada por una Lista Doblemente Enlazada
-
-*/
-
-void listaPosicionadaDE()
+void listaPosicionada()
 {
 	cout << "---Lista Posicionada implementada por una Lista Doblemente Enlazada---" << endl;
-	cout << endl;
-	Lista_Posicionada_DE Lista;
-	Lista.iniciar();
+	ListaPosicionada* Lista = new ListaPosicionada();
 	cout << "Se agregan los elementos 10,14,16,12,8 usanndo los métodos: insertar y agregarAlFinal" << endl;
-	Lista.agregarAlFinal(10);
-	Lista.agregarAlFinal(14);
-	Lista.agregarAlFinal(16);
-	Lista.insertar(12, Lista.siguiente(Lista.primera()));
-	Lista.insertar(8, Lista.primera());
-	pos p = Lista.primera();
-	cout << "Los elementos de la Lista son:" << endl;
-	for (int i = 0; i < Lista.numElem(); i++)
-	{
-		cout << Lista.recuperar(p) << endl;
-		p = Lista.siguiente(p);
-	}
+	Lista->agregarAlFinal(10);
+	Lista->agregarAlFinal(14);
+	Lista->agregarAlFinal(16);
+	Lista->insertar(12, Lista->siguiente(Lista->primera()));
+	Lista->insertar(8, Lista->primera());
+	Lista->listar();
 	cout << "Borramos el primer elemento de la Lista(8)" << endl;
-	Lista.borrar(Lista.primera());
-	cout << "Los elementos de la Lista son:" << endl;
-	p = Lista.primera();
-	for (int i = 0; i < Lista.numElem(); i++)
-	{
-		cout << Lista.recuperar(p) << endl;
-		p = Lista.siguiente(p);
-	}
+	Lista->borrar(Lista->primera());
+	Lista->listar();
 	cout << "Modificamos el segundo elemento de la Lista(12) por un 13" << endl;
-	Lista.modificarElemento(13, Lista.siguiente(Lista.primera()));
-	cout << "Los elementos de la Lista son:" << endl;
-	p = Lista.primera();
-	for (int i = 0; i < Lista.numElem(); i++)
-	{
-		cout << Lista.recuperar(p) << endl;
-		p = Lista.siguiente(p);
-	}
+	Lista->modificarElemento(13, Lista->siguiente(Lista->primera()));
+	Lista->listar();
 	cout << "Intercambiamos el primer elemento(10) con el ultimno de la Lista(16)" << endl;
-	Lista.intercambiar(Lista.primera(), Lista.ultima());
-	cout << "Los elementos de la Lista son:" << endl;
-	p = Lista.primera();
-	for (int i = 0; i < Lista.numElem(); i++)
-	{
-		cout << Lista.recuperar(p) << endl;
-		p = Lista.siguiente(p);
-	}
+	Lista->intercambiar(Lista->primera(), Lista->ultima());
+	Lista->listar();
 	cout << "Eliminamos la posicion anterior a la ultima de la Lista(14)" << endl;
-	Lista.borrar((Lista.anterior(Lista.ultima())));
-	cout << "Los elementos de la Lista son:" << endl;
-	p = Lista.primera();
-	for (int i = 0; i < Lista.numElem(); i++)
-	{
-		cout << Lista.recuperar(p) << endl;
-		p = Lista.siguiente(p);
-	}
+	Lista->borrar((Lista->anterior(Lista->ultima())));
+	Lista->listar();
 	cout << "Verificamos si la la lista no esta vacia" << endl;
-	int elementos = Lista.numElem();
-	if (Lista.vacia())
-	{
+	int elementos = Lista->numElem();
+	if (Lista->vacia()) {
 		cout << "La lista se encuentra vacia" << endl;
 	}
-	else
-	{
-		cout << "La Lista no esta vacia, en realidad contiene: " << elementos << " elementos" << endl;
+	else {
+		cout << "La Lista no está vacia, en realidad contiene: " << elementos << " elementos" << endl;
 	}
-	cout << "Ahora si vaciaremos la lista" << endl;
-	Lista.vaciar();
-	elementos = Lista.numElem();
-	if (Lista.vacia())
-	{
-		cout << "Ahora la Lista si esta vacia, es decir contiene: " << elementos << " elementos" << endl;
+	cout << "Ahora sí vaciaremos la lista" << endl;
+	Lista->vaciar();
+	elementos = Lista->numElem();
+	if (Lista->vacia()) {
+		cout << "Ahora la Lista sí está vacia, es decir contiene: " << elementos << " elementos" << endl;
 	}
-	else
-	{
-		cout << "La Lista no esta vacia" << endl;
+	else {
+		cout << "La Lista no está vacia" << endl;
 	}
 	cout << "Procederemos a destruir la Lista, gracias por probarla" << endl;
-	Lista.destruir();
-	cout << "Lista destruida" << endl;
-	cout << endl;
-	//LO QUE SIGUE ES PROBANDO QUE EL PROGRAMA SE CAE CUANDO SE LE AGREGA UN ELEMENTO DESPUES DE DESTRUIDA LA LISTA
-	/*cout << "Los elementos de la Lista son:" << endl;
-	p = Lista.primera();
-	Lista.agregarAlFinal(12);
-	for (int i = 0; i < Lista.numElem(); i++) {
-	cout << Lista.recuperar(p) << endl;
-	p = Lista.siguiente(p);
-	}
-	*/
-}
-
-/**
-
-Prueba de la Estructura de Datos Lista Posicionada implementada por un Arreglo
-
-*/
-void listaPosicionadaArreglo()
-{
-	cout << "---Lista Posicionada implementada por un Arreglo---" << endl;
-	cout << endl;
-	Lista_Posicionada_Arreglo Lista;
-	Lista.iniciar();
-	cout << "Se agregan los elementos 10,14,16,12,8 usanndo los métodos: insertar y agregarAlFinal" << endl;
-	Lista.agregarAlFinal(10);
-	Lista.agregarAlFinal(14);
-	Lista.agregarAlFinal(16);
-	Lista.insertar(12, Lista.siguiente(Lista.primera()));
-	Lista.insertar(8, Lista.primera());
-	posA p = Lista.primera();
-	cout << "Los elementos de la Lista son:" << endl;
-	for (int i = 0; i < Lista.numElem(); i++)
-	{
-		cout << Lista.recuperar(p) << endl;
-		p = Lista.siguiente(p);
-	}
-	cout << "Borramos el primer elemento de la Lista(8)" << endl;
-	Lista.borrar(Lista.primera());
-	cout << "Los elementos de la Lista son:" << endl;
-	p = Lista.primera();
-	for (int i = 0; i < Lista.numElem(); i++)
-	{
-		cout << Lista.recuperar(p) << endl;
-		p = Lista.siguiente(p);
-	}
-	cout << "Modificamos el segundo elemento de la Lista(12) por un 13" << endl;
-	Lista.modificarElemento(13, Lista.siguiente(Lista.primera()));
-	cout << "Los elementos de la Lista son:" << endl;
-	p = Lista.primera();
-	for (int i = 0; i < Lista.numElem(); i++)
-	{
-		cout << Lista.recuperar(p) << endl;
-		p = Lista.siguiente(p);
-	}
-	cout << "Intercambiamos el primer elemento(10) con el ultimno de la Lista(16)" << endl;
-	Lista.intercambiar(Lista.primera(), Lista.ultima());
-	cout << "Los elementos de la Lista son:" << endl;
-	p = Lista.primera();
-	for (int i = 0; i < Lista.numElem(); i++)
-	{
-		cout << Lista.recuperar(p) << endl;
-		p = Lista.siguiente(p);
-	}
-	cout << "Eliminamos la posicion anterior a la ultima de la Lista(14)" << endl;
-	Lista.borrar((Lista.anterior(Lista.ultima())));
-	cout << "Los elementos de la Lista son:" << endl;
-	p = Lista.primera();
-	for (int i = 0; i < Lista.numElem(); i++)
-	{
-		cout << Lista.recuperar(p) << endl;
-		p = Lista.siguiente(p);
-	}
-	cout << "Verificamos si la la lista no esta vacia" << endl;
-	int elementos = Lista.numElem();
-	if (Lista.vacia())
-	{
-		cout << "La lista se encuentra vacia" << endl;
-	}
-	else
-	{
-		cout << "La Lista no esta vacia, en realidad contiene: " << elementos << " elementos" << endl;
-	}
-	cout << "Ahora si vaciaremos la lista" << endl;
-	Lista.vaciar();
-	elementos = Lista.numElem();
-	if (Lista.vacia())
-	{
-		cout << "Ahora la Lista si esta vacia, es decir contiene: " << elementos << " elementos" << endl;
-	}
-	else
-	{
-		cout << "La Lista no esta vacia" << endl;
-	}
-	cout << "Procederemos a destruir la Lista, gracias por probarla" << endl;
-	Lista.destruir();
-	cout << "Lista destruida" << endl;
-	cout << endl;
+	Lista->destruir();
 	//LO QUE SIGUE ES PROBANDO QUE EL PROGRAMA SE CAE CUANDO SE LE AGREGA UN ELEMENTO DESPUES DE DESTRUIDA LA LISTA
 	/*cout << "Los elementos de la Lista son:" << endl;
 	p = Lista.primera();
@@ -797,63 +568,153 @@ void listaPosicionadaArreglo()
 	cout << Lista.recuperar(p) << endl;
 	p = Lista.siguiente(p);
 	}*/
+	cout << "Creamos una Lista L para probar mas algoritmos" << endl;
+	ListaPosicionada* L = new ListaPosicionada();
+	L->agregarAlFinal(7);
+	L->agregarAlFinal(1);
+	L->agregarAlFinal(5);
+	L->agregarAlFinal(0);
+	L->listar();
+	cout << "Ahora usaremos el metodo simetrica en L(lo cual no es cierto)" << endl;
+	if (L->simetrica()) {
+		cout << "La lista L es simetrica" << endl;
+	}
+	else {
+		cout << "La lista L no es simetrica" << endl;
+	}
+	cout << "Invertimos L" << endl;
+	L->invertir();
+	L->listar();
+	cout << "Buscamos el elemento 10(el cual no esta en la lista L)" << endl;
+	if (L->buscar(10)) {
+		cout << "El elemento 10 si esta en la lista L" << endl;
+	}
+	else {
+		cout << "El elemento 10 no esta en la lista L" << endl;
+	}
+	cout << "De la misma manera buscamos el elemento 7 que si se encuentra en L" << endl;
+	if (L->buscar(7)) {
+		cout << "El elemento 7 si esta en la lista L" << endl;
+	}
+	else {
+		cout << "El elemento 7 no esta en la lista L" << endl;
+	}
+	cout << "Agregamos otra vez el elemento 1" << endl;
+	L->agregarAlFinal(1);
+	L->listar();
+	cout << "borramos los elementos repetidos" << endl;
+	L->elimElemRep();
+	L->listar();
+	int otros;
+	otros = L->numElem();
+	cout << "Creamos una lista L2 con los elementos 1 y 7" << endl;
+	otros = L->numElem();
+	ListaPosicionada* L2 = new ListaPosicionada();
+	otros = L->numElem();
+	otros = L->numElem();
+	L2->agregarAlFinal(1);
+	otros = L->numElem();
+	L2->agregarAlFinal(7);
+	otros = L->numElem();
+	cout << "Los elementos de L2 son: " << endl;
+	L2->listar();
+	otros = L->numElem();
+	cout << "Vemos si L2 es subLista de L, lo cual es cierto" << endl;
+	if (L->subLista(L2)) {
+		cout << "L2 es subLista de L" << endl;
+	}
+	else {
+		cout << "L2 no es subLista de L" << endl;
+	}
+	cout << "Invertimos L2" << endl;
+	L2->invertir();
+	cout << "Los elementos de L2 son: " << endl;
+	L2->listar();
+	cout << "Volvemos a preguntar si L2 es subLista de L, lo cual ahora no sera cierto" << endl;
+	bool subLista = L->subLista(L2);
+	if (subLista) {
+		cout << "L2 es subLista de L" << endl;
+	}
+	else {
+		cout << "L2 no es subLista de L" << endl;
+	}
+	cout << "Preguntamos si L y L2 son iguales, lo cual es falso" << endl;
+	if (L->iguales(L2)) {
+		cout << "L2 es igual a L" << endl;
+	}
+	else {
+		cout << "L2 no es igual a L" << endl;
+	}
+	cout << "Ahora agregamos 5 y 0 a L2 para que contenga los mismos elementos de L" << endl;
+	L2->agregarAlFinal(5);
+	L2->agregarAlFinal(0);
+	cout << "Listamos L2" << endl;
+	L2->listar();
+	cout << "Ordemamos L con Burbuja Original" << endl;
+	L->burbujaOriginal();
+	L->listar();
+	cout << "Ordenamos L2 con Burbuja Bidireccional" << endl;
+	L2->burbujaBiDir();
+	L2->listar();
+	cout << "Volvemos a preguntar si L es igual  L2" << endl;
+	if (L->iguales(L2)) {
+		cout << "L2 es igual a L" << endl;
+	}
+	else {
+		cout << "L2 no es igual a L" << endl;
+	}
+	cout << "Invertimos ambas Listas" << endl;
+	L->invertir();
+	L2->invertir();
+	cout << "Listamos L" << endl;
+	L->listar();
+	cout << "Listamos L2" << endl;
+	L2->listar();
+	cout << "Ordenamos L con seleccion iterativo y L2 con seleccion recursivo" << endl;
+	L->selectIter();
+	L2->selectRec();
+	cout << "Listamos L" << endl;
+	L->listar();
+	cout << "Listamos L2" << endl;
+	L2->listar();
+	cout << "Creamos una Lista L3 con los elementos 10,2,4" << endl;
+	ListaPosicionada* L3 = new ListaPosicionada();
+	L3->agregarAlFinal(10);
+	L3->agregarAlFinal(2);
+	L3->agregarAlFinal(4);
+	L3->listar();
+	cout << "Ordenamos L3 con mergeSort" << endl;
+	L3 = L3->mergeSort();
+	L3->listar();
+	cout << "Destruimos L y unimos L2 con L3" << endl;
+	L->destruir();
+	L2->Union(L3);
+	//Podriamos Destruir L3
+	L2->listar();
+	cout << "Ahora vemos cual es la interseccion entre L2 y L3, seria L3(2,4,10), y la listamos" << endl;
+	L2->interseccion(L3)->listar();
+	cout << "Ordenamos L2 con insercion y preguntamos cual es la interseccion ordenada con L3,deberia ser igual a la interseccion(desordenada)" << endl;
+	L2->insercion();
+	L2->listar();
+	cout << "La interseccion ordenada es la siguiente" << endl;
+	L2->interseccionOrd(L3)->listar();
+	cout << "Ahora con el metodo eliminarInterseccionOrdenada eliminamos la interseccion entre L2 y L3 y dejamos el resultado en L2" << endl;
+	L2->eliminarIntrOrd(L3);
+	L2->listar();
+	cout << "Unimos L2 con L3 nuevamente, ordenamos la lista y la invertimos" << endl;
+	L2->Union(L3);
+	L2->selectRec();
+	L2->invertir();
+	L2->listar();
+	cout << "Ahora eliminamos la interseccion(desordenada) de L2 y L3" << endl;
+	L2->eliminarIntr(L3);
+	L2->listar();
+	cout << "Por ultimo destruimos L2 y L3" << endl;
+	L2->destruir();
+	L3->destruir();
 }
 
 /**
-
-Prueba de la Estructura de Datos Pila implementada por Lista Simplemente Enlazada
-*/
-void pila()
-{
-	cout << "---Pila implementada por Lista Simplemente Enlazada---" << endl;
-	cout << endl;
-	Pila Pila;
-	Pila.iniciar();
-	cout << "Se ponen los elementos: 10,12,14,16 a la Pila" << endl;
-	Pila.poner(16);
-	Pila.poner(14);
-	Pila.poner(12);
-	Pila.poner(10);
-	int cantElem = Pila.numElem();
-	cout << "Los elementos de la pila son:" << endl;
-	for (int i = 0; i < cantElem; i++)
-	{
-		cout << Pila.quitar() << endl;
-	}
-	cout << "Como utilizamos el metodo quitar para mostra los elementos de la Pila entonces la Pila se vacio" << endl;
-	cout << "El numero de elementos de la pila es: " << Pila.numElem() << " elementos" << endl;
-	cout << "Procedemos a poner los elementos anteriores en la Pila" << endl;
-	Pila.poner(16);
-	Pila.poner(14);
-	Pila.poner(12);
-	Pila.poner(10);
-	cout << "Verificamos que la Pila no esta vacia" << endl;
-	if (Pila.vacia())
-	{
-		cout << "La Pila esta vacia" << endl;
-	}
-	else
-	{
-		cout << "La Pila efectivamente no esta vacia, " << "contiene: " << Pila.numElem() << " elementos" << endl;
-	}
-	cout << "Preguntamos que elemento es el Tope de la Pila, el cual deberia ser 10" << endl;
-	cout << "El Tope de la Pila es: " << Pila.tope() << endl;
-	cout << "Procedemos a vaciar la Pila que contiene: " << Pila.numElem() << " elementos" << endl;
-	Pila.vaciar();
-	if (Pila.vacia())
-	{
-		cout << "Ahora la Pila si se encuentra vacia" << endl;
-	}
-	else
-	{
-		cout << "La Pila no se encuentra vacia" << endl;
-	}
-	cout << "Por ultimo destruiremos la Pila, gracias por probarla" << endl;
-	Pila.destruir();
-	cout << "Pila destruida" << endl;
-	cout << endl;
-}
-
 
 /**
 Nombre: Iguales
