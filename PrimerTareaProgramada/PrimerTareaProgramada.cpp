@@ -52,7 +52,7 @@ void QuickSort();
 int main()
 {
 	//menu();	
-	L1->Iniciar();
+	/*L1->Iniciar();
 	L1->Agregar(1);
 	L1->Agregar(3);
 	L1->Agregar(5);
@@ -60,7 +60,16 @@ int main()
 	L1->Listar();
 	L2->Iniciar();
 	copiar(L1, L2);
-	iguales(L1, L2);	
+	iguales(L1, L2);	*/
+
+	LI->Iniciar();
+
+	for (int i = 0; i < 50; i++)
+	{
+		int e = rand() % 100 + 1;
+		LI->Insertar(e, i);
+	}
+
 	return 0;
 }
 
