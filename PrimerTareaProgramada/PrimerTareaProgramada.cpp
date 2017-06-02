@@ -14,6 +14,8 @@
 
 //typedef ListaOrdenadaArreglo ListaOrdenada;
 typedef ListaOrdenadaLSE ListaOrdenada;
+typedef ListaIndexadaArreglo ListaIndexada;
+//typedef ListaOrdenadaLSE ListaOrdenada;
 using namespace std;
 
 void menu();
@@ -29,6 +31,8 @@ void pila();
 ListaOrdenada *L1 = new ListaOrdenada;
 ListaOrdenada *L2 = new ListaOrdenada;
 ListaOrdenada *L3 = new ListaOrdenada;
+ListaIndexada *LI = new ListaIndexada;
+
 
 bool iguales(ListaOrdenada *L1, ListaOrdenada *L2);
 void copiar(ListaOrdenada *L1, ListaOrdenada *L2);
@@ -39,6 +43,14 @@ void union1(ListaOrdenada *L1, ListaOrdenada *L2);
 void union2(ListaOrdenada *L1, ListaOrdenada *L2, ListaOrdenada *L3);
 ListaOrdenada interseccion1(ListaOrdenada *L1, ListaOrdenada *L2);
 ListaOrdenada interseccion2(ListaOrdenada *L1, ListaOrdenada *L2);
+
+//Joab
+int EncuentraPivote(int i, int j);
+int Particion(int i, int j, int pivote);
+void QuickSortAho();
+void QuickSortAho(int i, int j);
+void QuickSort(int i, int j);
+void QuickSort();
 
 int main()
 {
@@ -1327,3 +1339,87 @@ ListaOrdenada interseccion2(ListaOrdenada *L1, ListaOrdenada *L2)
 	return *L3;
 }
 
+int EncuentraPivote(int i, int j)
+{
+	int primeraClave = LI->Recuperar(i);
+	int k;
+	for (k = i + 1; i <= j; ++k)
+	{
+		if (LI->Recuperar(k) > primeraClave)
+		{
+			return k;
+		}
+		else if (LI->Recuperar(i) < primeraClave)
+		{
+			return i;
+		}
+	}
+	return 0;
+}
+
+int Particion(int i, int j, int pivote)
+{
+	int z = i, d = j;
+	do
+	{
+		LI->Intercambiar(z, d);
+		while (LI->Recuperar(z) < pivote)
+		{
+			++z;
+		}
+		while (LI->Recuperar(d) >= pivote)
+		{
+			--d;
+		}
+	} while (z > d);
+	return z;
+}
+
+void QuickSortAho()
+{
+	QuickSortAho(0, LI->NumElem() - 1);
+}
+
+void QuickSortAho(int i, int j)
+{
+	int pivote;
+	int indicePivote;
+	int k;
+
+	indicePivote = EncuentraPivote(i, j);
+	if (indicePivote != 0)
+	{
+		pivote = LI->Recuperar(indicePivote);
+		k = Particion(i, j, pivote);
+		QuickSortAho(i, k - 1);
+		QuickSortAho(k, j);
+	}
+}
+
+void QuickSort(int i, int j)
+{
+	if (j - i <= 50)
+	{
+		//TODO: Llamar al metodo insercion
+	}
+	else
+	{
+		int pivote;
+		int indicePivote;
+		int k;
+
+		indicePivote = EncuentraPivote(i, j);
+		if (indicePivote != 0)
+		{
+			pivote = LI->Recuperar(indicePivote);
+			k = Particion(i, j, pivote);
+			QuickSort(i, k - 1);
+			QuickSort(k, j);
+		}
+	}
+}
+
+void QuickSort()
+{
+	QuickSort(0, LI->NumElem() - 1);
+}
