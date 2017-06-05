@@ -21,7 +21,7 @@ public:
 	int NumElem();
 
 protected:
-	static const int M = 17;
+	static const int M = 100;
 	int numElem;
 	int lista[M];
 private:
@@ -169,5 +169,5 @@ Modifica:
 */
 int ListaIndexadaArreglo::NumElem()
 {
-	return numElem;
+	return this->numElem;
 }
