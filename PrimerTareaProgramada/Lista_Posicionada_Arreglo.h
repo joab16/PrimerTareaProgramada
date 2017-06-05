@@ -153,18 +153,8 @@ class Lista_Posicionada_Arreglo
 		//EFE: Ordena L con Insercion
 		//REQ: L inicializada
 		//MOD: L
-		void insercion();
-
-		//EFE: Ordena L con Quick Sort de Aho
-		//REQ: L incializada
-		//MOD: L
-		void quickSortAho();
-
-		//EFE: Ordena L con Quick Sort
-		//REQ: L inicializada
-		//MOD: L
-		void quickSort();
-
+		void insercion(posA actual, posA ultima);
+		
 		//EFE: Ordena L con Merge Sort, devuelve la Lista ordenada
 		//REQ: L incializada y el numero de elementos de L sea mayor a 1
 		//MOD: L
@@ -195,7 +185,7 @@ class Lista_Posicionada_Arreglo
 		//MOD: L
 		void eliminarIntr(Lista_Posicionada_Arreglo* L1);
 
-		pos EncuentraPivote(pos i, pos j);
+		posA EncuentraPivote(posA i, posA j);
 
 		/*
 		Nombre: Particion
@@ -205,7 +195,7 @@ class Lista_Posicionada_Arreglo
 		Modifica:
 
 		*/
-		pos Particion(pos i, pos j, elemento pivote);
+		posA Particion(posA i, posA j, elemento pivote);
 
 		/*
 		Nombre: QuickSortAho
@@ -224,7 +214,7 @@ class Lista_Posicionada_Arreglo
 		Modifica: Lista global
 
 		*/
-		void QuickSortAho(pos i, pos j);
+		void QuickSortAho(posA i, posA j);
 		/**
 		Nombre: QuickSort
 		Parámetros:
@@ -242,9 +232,9 @@ class Lista_Posicionada_Arreglo
 		Modifica:
 
 		*/
-		void QuickSort(pos i, pos j);
+		void QuickSort(posA i, posA j);
 
-		void SeleccionRecursivoPila(pos primera);
+		void SeleccionRecursivoPila(posA primera);
 
 protected:
 

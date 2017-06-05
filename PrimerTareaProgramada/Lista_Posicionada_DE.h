@@ -150,12 +150,12 @@ public:
 	//EFE: Ordena L con Seleccion de forma recursiva pero con una Pila
 	//REQ: L inicializada
 	//MOD: L
-	void selecRecPila();
+	void SeleccionRecursivoPila(pos primera);
 
 	//EFE: Ordena L con Insercion
 	//REQ: L inicializada
 	//MOD: L
-	void insercion();
+	void insercion(pos actual, pos ultima);
 
 	//EFE: Ordena L con Quick Sort de Aho
 	//REQ: L incializada
@@ -916,7 +916,7 @@ Requiere: Lista L inicializada
 Modifica: L
 
 */
-void Lista_Posicionada_DE::SeleccionRecursivoPila(pos primera) {
+/*void Lista_Posicionada_DE::SeleccionRecursivoPila(pos primera) {
 	if (primera != 0) {
 		Pila *pilaAux = new Pila();
 		pilaAux->iniciar();
@@ -936,4 +936,4 @@ void Lista_Posicionada_DE::SeleccionRecursivoPila(pos primera) {
 			}
 		}
 	}
-}
+}*/
