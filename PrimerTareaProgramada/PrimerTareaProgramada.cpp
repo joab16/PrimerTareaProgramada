@@ -1,21 +1,19 @@
 #include <iostream>
 #include <stdlib.h>
 #include "stdafx.h"
-//#include "Lista_Posicionada_Arreglo.h"
+#include "Lista_Posicionada_Arreglo.h"
 #include "Lista_Posicionada_DE.h"
-//#include "Lista_Posicionada_SE.h"
+#include "Lista_Posicionada_SE.h"
 #include "ListaIndexadaArreglo.h"
 #include "ListaIndexadaSE.h"
-#include "ListaOrdenadaArreglo.h"
-//#include "ListaOrdenadaLSE.h"
+//#include "ListaOrdenadaArreglo.h"
+#include "ListaOrdenadaLSE.h"
 #include "Posicion.h"
+#include "Pila.h"
 
 
-typedef ListaOrdenadaArreglo ListaOrdenada;
-//typedef ListaOrdenadaLSE ListaOrdenada;
-typedef Lista_Posicionada_DE ListaPosicionada;
-//typedef Lista_Posicionada_Arreglo ListaPosicionada;
-//typedef Lista_Posicionada_SE ListaPosicionada;
+//typedef ListaOrdenadaArreglo ListaOrdenada;
+typedef ListaOrdenadaLSE ListaOrdenada;
 using namespace std;
 
 void menu();
@@ -23,40 +21,63 @@ void listaOrdenadaArreglo();
 void listaOrdenadaLSE();
 void listaIndexadaArreglo();
 void listaIndexadaSE();
-void listaPosicionada();
+void listaPosicionadaSE();
+void listaPosicionadaDE();
+void listaPosicionadaArreglo();
+void pila();
 
 ListaOrdenada *L1 = new ListaOrdenada;
 ListaOrdenada *L2 = new ListaOrdenada;
+ListaOrdenada *L3 = new ListaOrdenada;
 
 bool iguales(ListaOrdenada *L1, ListaOrdenada *L2);
 void copiar(ListaOrdenada *L1, ListaOrdenada *L2);
 bool contenida(ListaOrdenada *L1, ListaOrdenada *L2);
-bool pertenece(elemento elem);
+bool pertenece(ListaOrdenada *L1, elemento elem);
 void eliminar(ListaOrdenada *L1, ListaOrdenada *L2);
 void union1(ListaOrdenada *L1, ListaOrdenada *L2);
-void union2(ListaOrdenada *L1, ListaOrdenada *L2);
-void interseccion1(ListaOrdenada *L1, ListaOrdenada *L2);
-void interseccion2(ListaOrdenada *L1, ListaOrdenada *L2);
+void union2(ListaOrdenada *L1, ListaOrdenada *L2, ListaOrdenada *L3);
+ListaOrdenada interseccion1(ListaOrdenada *L1, ListaOrdenada *L2);
+ListaOrdenada interseccion2(ListaOrdenada *L1, ListaOrdenada *L2);
 
 int main()
 {
-	//menu();	
-	L1->Iniciar();
-	L1->Agregar(1);
-	L1->Agregar(3);
-	L1->Agregar(5);
-	L1->NumElem();
-	L1->Listar();
-	L2->Iniciar();
-	copiar(L1, L2);
-	iguales(L1, L2);	
+	menu();	
+	//L1->Iniciar();
+	//L1->Agregar(0);
+	//L1->Agregar(4);
+	//L1->Agregar(7);
+	//L1->Agregar(15);
+	//L1->Listar();
+	//L2->Iniciar();
+	//L2->Agregar(0);
+	//L2->Agregar(4);
+	//L2->Agregar(15);
+	////L2->Agregar(1);
+	//L2->Agregar(7);
+	////L2->Agregar(21);
+	//L2->Listar();
+	//L3->Iniciar();
+
+	//copiar(L1, L2);
+	//iguales(L1, L2);
+	//eliminar(L1, L2);
+	//contenida(L1, L2);
+	//pertenece(L1, 15);
+	//union1(L1, L2);
+	//union2(L1, L2, L3);
+	//L3->Listar();
+	//interseccion1(L1, L2);
+	//interseccion2(L1, L2);
+	
+	system("pause");
 	return 0;
 }
 
 void menu()
 {
 
-	listaOrdenadaArreglo();
+	//listaOrdenadaArreglo();
 	//listaOrdenadaLSE();
 	//listaPosicionadaDE();
 	//listaPosicionadaSE();
@@ -68,213 +89,255 @@ void menu()
 
 
 
-	/*int salida = 0;
+	int salida = 0;
 	posicion p1;
-	posicion p2;
 	elemento e1;
-	elemento e2;
+	int opcion = 0;
+	//ListaOrdenada *lista = new ListaOrdenada;
 	int modelo = 0;
-	while(salida != -1)
-	{   //Solo probar la opcion 3 del menu principal
 	cout << "                Que herramienta desea utilizar?" << endl;
-	cout << "Las herramientas son: 1-Lista Posicionada, 2-Lista Indexada, 3-Lista Ordenada 4-Pila"<<endl;
-	cin>> modelo;
-	switch(modelo)
+	cout << "Las herramientas son: 1-Lista Posicionada, 2-Lista Indexada, 3-Lista Ordenada" << endl;
+	cin >> modelo;
+	L1->Iniciar();
+	L2->Iniciar();
+	L3->Iniciar();
+	if (modelo == 3)
 	{
-	case 1:
-	cout << "Las funciones que puede realizar son: 1 = Insertar, 3 = Borrar,\n 4 = ModificarElemento, 5 = Intercambiar, 6 = Primera,\n 7 = Ultima, 8 = Siguiente, 9 = Anterior,\n 10 = Recuperar," << endl;
-	cin >> salida;
-	switch(salida)
-	{
-	case 1:
-	cout << "Cual elemento desea insertar?" << endl;
-	cin >> e1;
-	lista.Agregar(e1);
-	break;
-	case 3:
-	cout << "A cual nodo le quiere agregar el hijo? (etiqueta)" << endl;
-	cin >> e1;
-	cout << "Cual es la etiqueta del nodo que quiere agregar=" << endl;
-	cin >> e2;
-	//traductor
-	nodoA= buscar(etiq1,arbol);
-	arbol.AgregarUltimoHijo(nodoA,etiq2);
-	break;
-	case 4:
-	cout << "Cual hoja quiere borrar? (etiqueta)" << endl;
-	cin >> etiq1;
-	nodoA= buscar(etiq1,arbol);
-	arbol.BorrarHoja(nodoA);
-	break;
-	case 5:
-	cout << "A cual nodo le quiere modificar la etiqueta? (etiqueta)" << endl;
-	cin >> etiq1;
-	cout << "Cual es la etiqueta del nodo que quiere agregar=" << endl;
-	cin >> etiq2;
-	//traductor
-	nodoA= buscar(etiq1,arbol);
-	arbol.ModificaEtiqueta(nodoA,etiq2);
-	break;
-	case 6:
-	cout <<  "La raiz es: " << arbol.Etiqueta(arbol.Raiz()) << endl;
-	break;
-	case 7:
-	cout << "A cual nodo le quiere encontrar el padre? (etiqueta)" << endl;
-	cin >> etiq1;
-	nodoA= buscar(etiq1,arbol);
-	cout << "El padre de " << etiq1 << " es " << arbol.Etiqueta(arbol.Padre(nodoA)) << endl;
-	break;
-	case 8:
-	cout << "A cual nodo le quiere encontrar el hijo mas izquierdo? (etiqueta)" << endl;
-	cin >> etiq1;
-	nodoA= buscar(etiq1,arbol);
-	cout << "El hijo mas izquierdo de " <<  etiq1 << " es: " << arbol.Etiqueta(arbol.HijoMasIzquierdo(nodoA)) << endl;
-	break;
-	case 9:
-	cout << "A cual nodo le quiere encontrar el hermano derecho? (etiqueta)" << endl;
-	cin >> etiq1;
-	nodoA= buscar(etiq1,arbol);
-	cout << "El hermano derecho de " << etiq1 << " es " << arbol.Etiqueta(arbol.HermanoDerecho(nodoA)) << endl;
-	break;
-	case 10:
-	cout << "A cual nodo le quiere encontrar la etiqueta? (etiqueta)" << endl;
-	cin >> etiq1;
-	nodoA= buscar(etiq1,arbol);
-	cout << "La etiqueta es: " << arbol.Etiqueta(nodoA) << endl;
-	break;
-	case 11:
-	cout << "A cual nodo desea encontrarle su hermano izquierdo?" << endl;
-	cin >> etiq1;
-	nodoA= buscar(etiq1,arbol);
-	cout << "El hermano izquierdo de " << etiq1 << " es: " << hermanoIzq(nodoA) << endl;
-	break;
-	case 12:
-	EtiquetaRepetida(arbol);
-	break;
-	default:
-	cout << "Digito una opcion invalida" << endl;
-	break;
+		cout << "Las funciones que puede realizar son: -1 = Salir, 1 = Agregar, 2 = Borrar, 3 = Primero, 4 = Siguiente, 5 = Ultimo, \n 6 = Anterior, 7 = Listar, 8 = Iguales, 9 = Copiar, 10 = Contenida, 11 = Pertenece, 12 = EliminarIntersec, \n 13 = Union1, 14 = Union2, 15 = Interseccion1, 16 = Interseccion2" << endl;
 	}
+	while(salida != -1)
+	{   
+	switch (modelo)
+	{
+	case 1:
+		cout << "Las funciones que puede realizar son: -1 = Salir, 1 = Insertar, 3 = Borrar,\n 4 = ModificarElemento, 5 = Intercambiar, 6 = Primera, 7 = Ultima, 8 = Siguiente, 9 = Anterior, 10 = Recuperar," << endl;
+		cin >> salida;
+		switch (salida)
+		{
+		case 1:
+			cout << "Cual elemento desea insertar?" << endl;
+			cin >> e1;
+			L1->Agregar(e1);
+			break;
+		default:
+			cout << "Digito una opcion invalida" << endl;
+			break;
+		}
 	case 2:
-	cout << "Las funciones que puede realizar son: 1 = Insertar, 2 = AgregarAlFinal, 3 = Borrar,\n 4 = ModificarElemento, 5 = Intercambiar, 6 = Primera,\n 7 = Ultima, 8 = Siguiente, 9 = Anterior,\n 10 = Recuperar," << endl;
+		cout << "Las funciones que puede realizar son: 1 = Insertar, 2 = AgregarAlFinal, 3 = Borrar,\n 4 = ModificarElemento, 5 = Intercambiar, 6 = Primera,\n 7 = Ultima, 8 = Siguiente, 9 = Anterior,\n 10 = Recuperar," << endl;
+		cin >> salida;
+		switch (salida)
+		{
+		case 1:
+			cout << "Cual elemento desea insertar?" << endl;
+			cin >> e1;
+			L1->Agregar(e1);
+			break;
+		default:
+			cout << "Digito una opcion invalida" << endl;
+			break;
+		}
+	case 3:
+		//cout << "Las funciones que puede realizar son: -1 = Salir, 1 = Agregar, 2 = Borrar, 3 = Primero, 4 = Siguiente, 5 = Ultimo, \n 6 = Anterior, 7 = Listar, 8 = Iguales, 9 = Copiar, 10 = Contenida, 11 = Pertenece, 12 = EliminarIntersec, \n 13 = Union1, 14 = Union2, 15 = Interseccion1, 16 = Interseccion2" << endl;
+		cout << "Escriba el numero con la funcion que desea realizar ahora?" << endl;
+		//cout <<"Que desea hacer ahora?"
+		cin >> salida;
+		switch (salida)
+		{
+		case 1:
+			cout << "En cual lista desea agregar elementos? 1 = L1, 2 = L2" << endl;
+			cin >> opcion;
+			if (opcion == 1)
+			{
+				cout << "Cual elemento desea insertar?" << endl;
+				cin >> e1;
+				L1->Agregar(e1);
+			}
+			else if(opcion == 2)
+			{ 
+				cout << "Cual elemento desea insertar?" << endl;
+				cin >> e1;
+				L2->Agregar(e1);
+			}
+			break;
+		case 2:
+			cout << "En cual lista desea borrar elementos? 1 = L1, 2 = L2" << endl;
+			cin >> opcion;
+			if (opcion == 1)
+			{
+				cout << "Cual elemento desea borrar?" << endl;
+				cin >> e1;
+				L1->Borrar(e1);
+			}
+			else if (opcion == 2)
+			{
+				cout << "Cual elemento desea borrar?" << endl;
+				cin >> e1;
+				L2->Borrar(e1);
+			}
+			break;
+		case 3:
+			cout << "De cual lista desea conocer el primer elemento? 1 = L1, 2 = L2" << endl;
+			cin >> opcion;
+			if (opcion == 1)
+			{
+				L1->Primero();
+			}
+			else if (e1 == 2)
+			{
+				L2->Primero();
+			}
+			break;
+		case 4:
+			cout << "De cual lista desea conocer el siguiente elemento? 1 = L1, 2 = L2" << endl;
+			cin >> opcion;
+			if (opcion == 1)
+			{
+				cout << "Ingrese el elemento para el que desea saber el siguiente" << endl;
+				cin >> e1;
+				cout << "El siguiente elemento es: " << L1->Siguiente(e1) << endl;
+			}
+			else if (opcion == 2)
+			{
+				cout << "Ingrese el elemento para el que desea saber el siguiente" << endl;
+				cin >> e1;
+				cout << "El siguiente elemento es: " << L2->Siguiente(e1) << endl;
+			}
+			break;
+		case 5:
+			cout << "De cual lista desea conocer el ultimo elemento? 1 = L1, 2 = L2" << endl;
+			cin >> opcion;
+			if (opcion == 1)
+			{
+				L1->Ultimo();
+			}
+			else if (opcion == 2)
+			{
+				L2->Ultimo();
+			}
+			break;
+		case 6:
+			cout << "De cual lista desea conocer el anterior elemento? 1 = L1, 2 = L2" << endl;
+			cin >> opcion;
+			if (opcion == 1)
+			{
+				cout << "Ingrese el elemento para el que desea saber el anterior" << endl;
+				cin >> e1;
+				cout << "El elemento anterior es: " << L1->Anterior(e1) << endl;
+			}
+			else if (opcion == 2)
+			{
+				cout << "Ingrese el elemento para el que desea saber el anterior" << endl;
+				cin >> e1;
+				cout << "El elemento anterior es: " << L2->Anterior(e1) << endl;
+			}
+			break;
+		case 7:
+			cout << "Cual lista desea imprimir? 1 = L1, 2 = L2" << endl;
+			cin >> opcion;
+			if (opcion == 1)
+			{
+				L1->Listar();
+				cout << endl;
+			}
+			else if (opcion == 2)
+			{
+				L2->Listar();
+				cout << endl;
+			}
+			break;
+		case 8:
+			if (iguales(L1, L2) == true)
+			{
+				cout << "La lista L1 es igual a la lista L2" << endl;
+			}
+			else if (!iguales(L1, L2))
+			{
+				cout << "La lista L1 es diferente a la lista L2" << endl;
+			}
+			break;
+		case 9:
+			copiar(L1, L2);
+			L2->Listar();
+			cout << endl;
+			break;
+		case 10:
+			if (contenida(L1, L2) == true)
+			{
+				cout << "La lista L1 si esta contenida en L2" << endl;
+			}
+			else if (contenida(L1, L2) == false)
+			{
+				cout << "La lista L1 no esta contenida en L2" << endl;
+			}
+			break;
+		case 11:
+			cout << "En cual lista desea saber si el elemento pertenece? 1 = L1, 2 = L2" << endl;
+			cin >> opcion;
+			if (opcion == 1)
+			{
+				cout << "Ingrese el elemento para saber si pertenece a la lista" << endl;
+				cin >> e1;
+				if (pertenece(L1, e1)== true)
+				{
+					cout << "El elemento si pertenece a la lista" << endl;
+				}
+				else if (!pertenece(L1, e1))
+				{
+					cout << "El elemento no pertenece a la lista" << endl;
+
+				}
+			}
+			else if (opcion == 2)
+			{
+				cout << "Ingrese el elemento para saber si pertenece a la lista" << endl;
+				cin >> e1;
+				if(pertenece(L2, e1) == true)
+				{ 
+					cout << "El elemento si pertenece a la lista" << endl;
+				}
+				else if (!pertenece(L2, e1))
+				{
+					cout << "El elemento no pertenece a la lista" << endl;
+
+				}
+			}
+			break;
+		case 12:
+			eliminar(L1, L2);
+			cout << "Despues de eliminar la interseccion los elementos en la lista L1" << endl;
+			L1->Listar();
+			cout << endl;
+			break;
+		case 13:
+			cout << "1 forma: Despues de unir los elementos de L1 y L2 en la lista L1" << endl;
+			union1(L1, L2);
+			L1->Listar();
+			break;
+		case 14:
+			cout << "2 forma: Despues de unir los elementos de L1 y L2 en la lista L3" << endl;
+			union2(L1, L2, L3);
+			L3->Listar();
+			break;
+		case 15:
+			cout << "1 forma: Despues de ingresar en L3 los elementos que estan tanto en L1 como L2" << endl;
+			interseccion1(L1, L2);
+			break;
+		case 16:
+			cout << "2 forma: Despues de ingresar en L3 los elementos que estan tanto en L1 como L2" << endl;
+			interseccion2(L1, L2);
+			break;
+		default:
+			cout << "Digito una opcion invalida" << endl;
+			break;
+
+		}
+	}
+	//break;
+
+	}
+	cout << "Desea seguir utilizando el programa?\n" << "1 = si, -1 = no" << endl;
 	cin >> salida;
-	switch(salida)
-	{
-	case 1:
-	cout << "Cual elemento desea insertar?" << endl;
-	cin >> e1;
-	lista.Agregar(e);
-	break;
-	case 2:
-	cout << "A cual nodo le quiere agregar el hijo? (etiqueta)" << endl;
-	cin >> etiq1;
-	cout << "Cual es la etiqueta del nodo que quiere agregar=" << endl;
-	cin >> etiq2;
-	//traductor
-	nodoA= buscar(etiq1,arbol);
-	arbol.AgregarHijo(nodoA,etiq2);
-
-	break;
-	case 3:
-	cout << "A cual nodo le quiere agregar el hijo? (etiqueta)" << endl;
-	cin >> etiq1;
-	cout << "Cual es la etiqueta del nodo que quiere agregar=" << endl;
-	cin >> etiq2;
-	//traductor
-	nodoA= buscar(etiq1,arbol);
-	arbol.AgregarUltimoHijo(nodoA,etiq2);
-	break;
-	case 4:
-	cout << "Cual hoja quiere borrar? (etiqueta)" << endl;
-	cin >> etiq1;
-	nodoA= buscar(etiq1,arbol);
-	arbol.BorrarHoja(nodoA);
-	break;
-	case 5:
-	cout << "A cual nodo le quiere modificar la etiqueta? (etiqueta)" << endl;
-	cin >> etiq1;
-	cout << "Cual es la etiqueta del nodo que quiere agregar=" << endl;
-	cin >> etiq2;
-	//traductor
-	nodoA= buscar(etiq1,arbol);
-	arbol.ModificaEtiqueta(nodoA,etiq2);
-	break;
-	case 6:
-	cout <<  "La raiz es: " << arbol.Etiqueta(arbol.Raiz()) << endl;
-	break;
-	case 7:
-	cout << "A cual nodo le quiere encontrar el padre? (etiqueta)" << endl;
-	cin >> etiq1;
-	nodoA= buscar(etiq1,arbol);
-	cout << "El padre de " << etiq1 << " es " << arbol.Etiqueta(arbol.Padre(nodoA)) << endl;
-	break;
-	case 8:
-	cout << "A cual nodo le quiere encontrar el hijo mas izquierdo? (etiqueta)" << endl;
-	cin >> etiq1;
-	nodoA= buscar(etiq1,arbol);
-	cout << "El hijo mas izquierdo de " <<  etiq1 << " es: " << arbol.Etiqueta(arbol.HijoMasIzquierdo(nodoA)) << endl;
-	break;
-	case 9:
-	cout << "A cual nodo le quiere encontrar el hermano derecho? (etiqueta)" << endl;
-	cin >> etiq1;
-	nodoA= buscar(etiq1,arbol);
-	cout << "El hermano derecho de " << etiq1 << " es " << arbol.Etiqueta(arbol.HermanoDerecho(nodoA)) << endl;
-	break;
-	case 10:
-	cout << "A cual nodo le quiere encontrar la etiqueta? (etiqueta)" << endl;
-	cin >> etiq1;
-	nodoA= buscar(etiq1,arbol);
-	cout << "La etiqueta es: " << arbol.Etiqueta(nodoA) << endl;
-	break;
-	default:
-	cout << "Digito una opcion invalida" << endl;
-	break;
-	}
-	case 3:
-	cout << "Las funciones que puede realizar son: 1 = Agregar, 2 = Borrar, 3 = Primero,\n 4 = Siguiente, 5 = Ultimo, 6 = Anterior," << endl;
-	cin >> salida;
-	switch(salida)
-	{
-	case 1:
-
-	cout << "Cual elemento desea insertar?" << endl;
-	cin >> e1;
-	lista.Agregar(e1);
-	break;
-	case 2:
-	cout << "Cual elemento desea borrar?" << endl;
-	cin >> e1;
-	lista.Borrar(e);
-	break;
-	case 3:
-	cout << "El primer elemento de la lista es: " << lista.Primero()<<endl;
-	break;
-	case 4:
-	cout << "Ingrese el elemento para el que desea saber el siguiente" <<endl;
-	cin >> e;
-	cout << "El elemento siguiente a la posicion es: " << lista.Siguiente(e)<<endl;
-	break;
-	case 5:
-	cout << "El ultimo elemento de la lista es: " << lista.Ultimo()<<endl;
-	break;
-	case 6:
-	cout << "Ingrese el elemento para el que desea saber el anterior" <<endl;
-	cin >> e;
-	cout << "El elemento anterior a la posicion es: " << lista.Anterior(e)<<endl;
-	break;
-	default:
-	cout << "Digito una opcion invalida" << endl;
-	break;
-	}
-	break;
-	}
-
-
-
-
-	}
-	cout << "Desea seguir utilizando el arbol?\n" << "1 = si, -1 = no" << endl;
-	cin >> salida;*/
 }
 
 /**
@@ -402,19 +465,19 @@ Prueba de la Estructura de Datos Lista Ordenada implementada por Arreglo
 */
 void listaOrdenadaArreglo()
 {
-	ListaOrdenada lista;
-	lista.Iniciar();
+	ListaOrdenada *lista = new ListaOrdenada;
+	lista->Iniciar();
 	cout << "---Lista Ordenada implementada por Arreglo---" << endl;
 	cout << endl;
 	cout << "Se agregan los elementos 3, 1, 2, 4, 8, 5 en este orden" << endl;
-	lista.Agregar(3);
-	lista.Agregar(1);
-	lista.Agregar(2);
-	lista.Agregar(4);
-	lista.Agregar(8);
-	lista.Agregar(0);
-	lista.Listar();
-	if (lista.Vacia() == true)
+	lista->Agregar(3);
+	lista->Agregar(1);
+	lista->Agregar(2);
+	lista->Agregar(4);
+	lista->Agregar(8);
+	lista->Agregar(5);
+	lista->Listar();
+	if (lista->Vacia() == true)
 	{
 		cout << "Lista vacia" << endl;
 	}
@@ -423,32 +486,33 @@ void listaOrdenadaArreglo()
 		cout << "La lista no esta vacia" << endl;
 	}
 
-	cout << "Cantidad de elementos en la lista: " << lista.NumElem() << endl;
+	cout << "Cantidad de elementos en la lista: " << lista->NumElem() << endl;
 
 	cout << "Si eliminamos el primer elemento de la lista " << endl;
-	lista.Borrar(1);
-	lista.Listar();
+	lista->Borrar(1);
+	lista->Listar();
 
 	cout << "Si eliminamos el ultimo elemento de la lista " << endl;
-	lista.Borrar(8);
-	lista.Listar();
+	lista->Borrar(8);
+	lista->Listar();
 
 	cout << "Si eliminamos un elemento en medio de la lista " << endl;
-	lista.Borrar(3);
-	lista.Listar();
+	lista->Borrar(3);
+	lista->Listar();
 
-	cout << "Cantidad de elementos en la lista despues de borrar: " << lista.NumElem() << endl;
+	cout << "Cantidad de elementos en la lista despues de borrar: " << lista->NumElem() << endl;
 
-	cout << "Primer elemento en la lista: " << lista.Primero() << endl;
-	cout << "El elemento siguiente al 4 es: " << lista.Siguiente(4) << endl;
-	cout << "Ultimo elemento en la lista: " << lista.Ultimo() << endl;
-	cout << "Elemento en la posicion anterior al 5: " << lista.Anterior(5) << endl;
+	cout << "Primer elemento en la lista: " << lista->Primero() << endl;
+	cout << "El elemento siguiente al 4 es: " << lista->Siguiente(4) << endl;
+	cout << "Ultimo elemento en la lista: " << lista->Ultimo() << endl;
+	cout << "Elemento en la posicion anterior al 5: " << lista->Anterior(5) << endl;
 
 	cout << "Al vaciar la lista" << endl;
-	lista.Vaciar();
-	cout << "Cantidad de elementos en la lista: " << lista.NumElem() << endl;
+	lista->Vaciar();
+	cout << "Cantidad de elementos en la lista: " << lista->NumElem() << endl;
 
-	lista.Destruir();
+	lista->Destruir();
+	cout << "Lista destruida" << endl;
 	cout << endl;
 
 }
@@ -517,49 +581,277 @@ void listaOrdenadaLSE()
 Prueba de la Estructura de Datos Lista Posicionada implementada por una Lista Simplemente Enlazada
 
 */
-
-void listaPosicionada()
+void listaPosicionadaSE()
 {
-	cout << "---Lista Posicionada implementada por una Lista Doblemente Enlazada---" << endl;
-	ListaPosicionada* Lista = new ListaPosicionada();
+	cout << "---Lista Posicionada implementada por una Lista Simplemente Enlazada---" << endl;
+	cout << endl;
+	Lista_Posicionada_SE Lista;
+	Lista.iniciar();
 	cout << "Se agregan los elementos 10,14,16,12,8 usanndo los métodos: insertar y agregarAlFinal" << endl;
-	Lista->agregarAlFinal(10);
-	Lista->agregarAlFinal(14);
-	Lista->agregarAlFinal(16);
-	Lista->insertar(12, Lista->siguiente(Lista->primera()));
-	Lista->insertar(8, Lista->primera());
-	Lista->listar();
+	Lista.agregarAlFinal(10);
+	Lista.agregarAlFinal(14);
+	Lista.agregarAlFinal(16);
+	Lista.insertar(12, Lista.siguiente(Lista.primera()));
+	Lista.insertar(8, Lista.primera());
+	posS p = Lista.primera();
+	cout << "Los elementos de la Lista son:" << endl;
+	for (int i = 0; i < Lista.numElem(); i++)
+	{
+		cout << Lista.recuperar(p) << endl;
+		p = Lista.siguiente(p);
+	}
 	cout << "Borramos el primer elemento de la Lista(8)" << endl;
-	Lista->borrar(Lista->primera());
-	Lista->listar();
+	Lista.borrar(Lista.primera());
+	cout << "Los elementos de la Lista son:" << endl;
+	p = Lista.primera();
+	for (int i = 0; i < Lista.numElem(); i++)
+	{
+		cout << Lista.recuperar(p) << endl;
+		p = Lista.siguiente(p);
+	}
 	cout << "Modificamos el segundo elemento de la Lista(12) por un 13" << endl;
-	Lista->modificarElemento(13, Lista->siguiente(Lista->primera()));
-	Lista->listar();
+	Lista.modificarElemento(13, Lista.siguiente(Lista.primera()));
+	cout << "Los elementos de la Lista son:" << endl;
+	p = Lista.primera();
+	for (int i = 0; i < Lista.numElem(); i++)
+	{
+		cout << Lista.recuperar(p) << endl;
+		p = Lista.siguiente(p);
+	}
 	cout << "Intercambiamos el primer elemento(10) con el ultimno de la Lista(16)" << endl;
-	Lista->intercambiar(Lista->primera(), Lista->ultima());
-	Lista->listar();
+	Lista.intercambiar(Lista.primera(), Lista.ultima());
+	cout << "Los elementos de la Lista son:" << endl;
+	p = Lista.primera();
+	for (int i = 0; i < Lista.numElem(); i++)
+	{
+		cout << Lista.recuperar(p) << endl;
+		p = Lista.siguiente(p);
+	}
 	cout << "Eliminamos la posicion anterior a la ultima de la Lista(14)" << endl;
-	Lista->borrar((Lista->anterior(Lista->ultima())));
-	Lista->listar();
+	Lista.borrar((Lista.anterior(Lista.ultima())));
+	cout << "Los elementos de la Lista son:" << endl;
+	p = Lista.primera();
+	for (int i = 0; i < Lista.numElem(); i++)
+	{
+		cout << Lista.recuperar(p) << endl;
+		p = Lista.siguiente(p);
+	}
 	cout << "Verificamos si la la lista no esta vacia" << endl;
-	int elementos = Lista->numElem();
-	if (Lista->vacia()) {
+	int elementos = Lista.numElem();
+	if (Lista.vacia())
+	{
 		cout << "La lista se encuentra vacia" << endl;
 	}
-	else {
-		cout << "La Lista no está vacia, en realidad contiene: " << elementos << " elementos" << endl;
+	else
+	{
+		cout << "La Lista no esta vacia, en realidad contiene: " << elementos << " elementos" << endl;
 	}
-	cout << "Ahora sí vaciaremos la lista" << endl;
-	Lista->vaciar();
-	elementos = Lista->numElem();
-	if (Lista->vacia()) {
-		cout << "Ahora la Lista sí está vacia, es decir contiene: " << elementos << " elementos" << endl;
+	cout << "Ahora si vaciaremos la lista" << endl;
+	Lista.vaciar();
+	elementos = Lista.numElem();
+	if (Lista.vacia())
+	{
+		cout << "Ahora la Lista si esta vacia, es decir contiene: " << elementos << " elementos" << endl;
 	}
-	else {
-		cout << "La Lista no está vacia" << endl;
+	else
+	{
+		cout << "La Lista no esta vacia" << endl;
 	}
 	cout << "Procederemos a destruir la Lista, gracias por probarla" << endl;
-	Lista->destruir();
+	Lista.destruir();
+	cout << "Lista destruida" << endl;
+	cout << endl;
+	//LO QUE SIGUE ES PROBANDO QUE EL PROGRAMA SE CAE CUANDO SE LE AGREGA UN ELEMENTO DESPUES DE DESTRUIDA LA LISTA
+	//    cout << "Los elementos de la Lista son:" << endl;
+	//    p = Lista.primera();
+	//    Lista.agregarAlFinal(12);
+	//    for (int i = 0; i < Lista.numElem(); i++) {
+	//        cout << Lista.recuperar(p) << endl;
+	//        p = Lista.siguiente(p);
+	//    }
+}
+/**
+
+Prueba de la Estructura de Datos Lista Posicionada implementada por una Lista Doblemente Enlazada
+
+*/
+
+void listaPosicionadaDE()
+{
+	cout << "---Lista Posicionada implementada por una Lista Doblemente Enlazada---" << endl;
+	cout << endl;
+	Lista_Posicionada_DE Lista;
+	Lista.iniciar();
+	cout << "Se agregan los elementos 10,14,16,12,8 usanndo los métodos: insertar y agregarAlFinal" << endl;
+	Lista.agregarAlFinal(10);
+	Lista.agregarAlFinal(14);
+	Lista.agregarAlFinal(16);
+	Lista.insertar(12, Lista.siguiente(Lista.primera()));
+	Lista.insertar(8, Lista.primera());
+	pos p = Lista.primera();
+	cout << "Los elementos de la Lista son:" << endl;
+	for (int i = 0; i < Lista.numElem(); i++)
+	{
+		cout << Lista.recuperar(p) << endl;
+		p = Lista.siguiente(p);
+	}
+	cout << "Borramos el primer elemento de la Lista(8)" << endl;
+	Lista.borrar(Lista.primera());
+	cout << "Los elementos de la Lista son:" << endl;
+	p = Lista.primera();
+	for (int i = 0; i < Lista.numElem(); i++)
+	{
+		cout << Lista.recuperar(p) << endl;
+		p = Lista.siguiente(p);
+	}
+	cout << "Modificamos el segundo elemento de la Lista(12) por un 13" << endl;
+	Lista.modificarElemento(13, Lista.siguiente(Lista.primera()));
+	cout << "Los elementos de la Lista son:" << endl;
+	p = Lista.primera();
+	for (int i = 0; i < Lista.numElem(); i++)
+	{
+		cout << Lista.recuperar(p) << endl;
+		p = Lista.siguiente(p);
+	}
+	cout << "Intercambiamos el primer elemento(10) con el ultimno de la Lista(16)" << endl;
+	Lista.intercambiar(Lista.primera(), Lista.ultima());
+	cout << "Los elementos de la Lista son:" << endl;
+	p = Lista.primera();
+	for (int i = 0; i < Lista.numElem(); i++)
+	{
+		cout << Lista.recuperar(p) << endl;
+		p = Lista.siguiente(p);
+	}
+	cout << "Eliminamos la posicion anterior a la ultima de la Lista(14)" << endl;
+	Lista.borrar((Lista.anterior(Lista.ultima())));
+	cout << "Los elementos de la Lista son:" << endl;
+	p = Lista.primera();
+	for (int i = 0; i < Lista.numElem(); i++)
+	{
+		cout << Lista.recuperar(p) << endl;
+		p = Lista.siguiente(p);
+	}
+	cout << "Verificamos si la la lista no esta vacia" << endl;
+	int elementos = Lista.numElem();
+	if (Lista.vacia())
+	{
+		cout << "La lista se encuentra vacia" << endl;
+	}
+	else
+	{
+		cout << "La Lista no esta vacia, en realidad contiene: " << elementos << " elementos" << endl;
+	}
+	cout << "Ahora si vaciaremos la lista" << endl;
+	Lista.vaciar();
+	elementos = Lista.numElem();
+	if (Lista.vacia())
+	{
+		cout << "Ahora la Lista si esta vacia, es decir contiene: " << elementos << " elementos" << endl;
+	}
+	else
+	{
+		cout << "La Lista no esta vacia" << endl;
+	}
+	cout << "Procederemos a destruir la Lista, gracias por probarla" << endl;
+	Lista.destruir();
+	cout << "Lista destruida" << endl;
+	cout << endl;
+	//LO QUE SIGUE ES PROBANDO QUE EL PROGRAMA SE CAE CUANDO SE LE AGREGA UN ELEMENTO DESPUES DE DESTRUIDA LA LISTA
+	/*cout << "Los elementos de la Lista son:" << endl;
+	p = Lista.primera();
+	Lista.agregarAlFinal(12);
+	for (int i = 0; i < Lista.numElem(); i++) {
+	cout << Lista.recuperar(p) << endl;
+	p = Lista.siguiente(p);
+	}
+	*/
+}
+
+/**
+
+Prueba de la Estructura de Datos Lista Posicionada implementada por un Arreglo
+
+*/
+void listaPosicionadaArreglo()
+{
+	cout << "---Lista Posicionada implementada por un Arreglo---" << endl;
+	cout << endl;
+	Lista_Posicionada_Arreglo Lista;
+	Lista.iniciar();
+	cout << "Se agregan los elementos 10,14,16,12,8 usanndo los métodos: insertar y agregarAlFinal" << endl;
+	Lista.agregarAlFinal(10);
+	Lista.agregarAlFinal(14);
+	Lista.agregarAlFinal(16);
+	Lista.insertar(12, Lista.siguiente(Lista.primera()));
+	Lista.insertar(8, Lista.primera());
+	posA p = Lista.primera();
+	cout << "Los elementos de la Lista son:" << endl;
+	for (int i = 0; i < Lista.numElem(); i++)
+	{
+		cout << Lista.recuperar(p) << endl;
+		p = Lista.siguiente(p);
+	}
+	cout << "Borramos el primer elemento de la Lista(8)" << endl;
+	Lista.borrar(Lista.primera());
+	cout << "Los elementos de la Lista son:" << endl;
+	p = Lista.primera();
+	for (int i = 0; i < Lista.numElem(); i++)
+	{
+		cout << Lista.recuperar(p) << endl;
+		p = Lista.siguiente(p);
+	}
+	cout << "Modificamos el segundo elemento de la Lista(12) por un 13" << endl;
+	Lista.modificarElemento(13, Lista.siguiente(Lista.primera()));
+	cout << "Los elementos de la Lista son:" << endl;
+	p = Lista.primera();
+	for (int i = 0; i < Lista.numElem(); i++)
+	{
+		cout << Lista.recuperar(p) << endl;
+		p = Lista.siguiente(p);
+	}
+	cout << "Intercambiamos el primer elemento(10) con el ultimno de la Lista(16)" << endl;
+	Lista.intercambiar(Lista.primera(), Lista.ultima());
+	cout << "Los elementos de la Lista son:" << endl;
+	p = Lista.primera();
+	for (int i = 0; i < Lista.numElem(); i++)
+	{
+		cout << Lista.recuperar(p) << endl;
+		p = Lista.siguiente(p);
+	}
+	cout << "Eliminamos la posicion anterior a la ultima de la Lista(14)" << endl;
+	Lista.borrar((Lista.anterior(Lista.ultima())));
+	cout << "Los elementos de la Lista son:" << endl;
+	p = Lista.primera();
+	for (int i = 0; i < Lista.numElem(); i++)
+	{
+		cout << Lista.recuperar(p) << endl;
+		p = Lista.siguiente(p);
+	}
+	cout << "Verificamos si la la lista no esta vacia" << endl;
+	int elementos = Lista.numElem();
+	if (Lista.vacia())
+	{
+		cout << "La lista se encuentra vacia" << endl;
+	}
+	else
+	{
+		cout << "La Lista no esta vacia, en realidad contiene: " << elementos << " elementos" << endl;
+	}
+	cout << "Ahora si vaciaremos la lista" << endl;
+	Lista.vaciar();
+	elementos = Lista.numElem();
+	if (Lista.vacia())
+	{
+		cout << "Ahora la Lista si esta vacia, es decir contiene: " << elementos << " elementos" << endl;
+	}
+	else
+	{
+		cout << "La Lista no esta vacia" << endl;
+	}
+	cout << "Procederemos a destruir la Lista, gracias por probarla" << endl;
+	Lista.destruir();
+	cout << "Lista destruida" << endl;
+	cout << endl;
 	//LO QUE SIGUE ES PROBANDO QUE EL PROGRAMA SE CAE CUANDO SE LE AGREGA UN ELEMENTO DESPUES DE DESTRUIDA LA LISTA
 	/*cout << "Los elementos de la Lista son:" << endl;
 	p = Lista.primera();
@@ -568,157 +860,67 @@ void listaPosicionada()
 	cout << Lista.recuperar(p) << endl;
 	p = Lista.siguiente(p);
 	}*/
-	cout << "Creamos una Lista L para probar mas algoritmos" << endl;
-	ListaPosicionada* L = new ListaPosicionada();
-	L->agregarAlFinal(7);
-	L->agregarAlFinal(1);
-	L->agregarAlFinal(5);
-	L->agregarAlFinal(0);
-	L->listar();
-	cout << "Ahora usaremos el metodo simetrica en L(lo cual no es cierto)" << endl;
-	if (L->simetrica()) {
-		cout << "La lista L es simetrica" << endl;
-	}
-	else {
-		cout << "La lista L no es simetrica" << endl;
-	}
-	cout << "Invertimos L" << endl;
-	L->invertir();
-	L->listar();
-	cout << "Buscamos el elemento 10(el cual no esta en la lista L)" << endl;
-	if (L->buscar(10)) {
-		cout << "El elemento 10 si esta en la lista L" << endl;
-	}
-	else {
-		cout << "El elemento 10 no esta en la lista L" << endl;
-	}
-	cout << "De la misma manera buscamos el elemento 7 que si se encuentra en L" << endl;
-	if (L->buscar(7)) {
-		cout << "El elemento 7 si esta en la lista L" << endl;
-	}
-	else {
-		cout << "El elemento 7 no esta en la lista L" << endl;
-	}
-	cout << "Agregamos otra vez el elemento 1" << endl;
-	L->agregarAlFinal(1);
-	L->listar();
-	cout << "borramos los elementos repetidos" << endl;
-	L->elimElemRep();
-	L->listar();
-	int otros;
-	otros = L->numElem();
-	cout << "Creamos una lista L2 con los elementos 1 y 7" << endl;
-	otros = L->numElem();
-	ListaPosicionada* L2 = new ListaPosicionada();
-	otros = L->numElem();
-	otros = L->numElem();
-	L2->agregarAlFinal(1);
-	otros = L->numElem();
-	L2->agregarAlFinal(7);
-	otros = L->numElem();
-	cout << "Los elementos de L2 son: " << endl;
-	L2->listar();
-	otros = L->numElem();
-	cout << "Vemos si L2 es subLista de L, lo cual es cierto" << endl;
-	if (L->subLista(L2)) {
-		cout << "L2 es subLista de L" << endl;
-	}
-	else {
-		cout << "L2 no es subLista de L" << endl;
-	}
-	cout << "Invertimos L2" << endl;
-	L2->invertir();
-	cout << "Los elementos de L2 son: " << endl;
-	L2->listar();
-	cout << "Volvemos a preguntar si L2 es subLista de L, lo cual ahora no sera cierto" << endl;
-	bool subLista = L->subLista(L2);
-	if (subLista) {
-		cout << "L2 es subLista de L" << endl;
-	}
-	else {
-		cout << "L2 no es subLista de L" << endl;
-	}
-	cout << "Preguntamos si L y L2 son iguales, lo cual es falso" << endl;
-	if (L->iguales(L2)) {
-		cout << "L2 es igual a L" << endl;
-	}
-	else {
-		cout << "L2 no es igual a L" << endl;
-	}
-	cout << "Ahora agregamos 5 y 0 a L2 para que contenga los mismos elementos de L" << endl;
-	L2->agregarAlFinal(5);
-	L2->agregarAlFinal(0);
-	cout << "Listamos L2" << endl;
-	L2->listar();
-	cout << "Ordemamos L con Burbuja Original" << endl;
-	L->burbujaOriginal();
-	L->listar();
-	cout << "Ordenamos L2 con Burbuja Bidireccional" << endl;
-	L2->burbujaBiDir();
-	L2->listar();
-	cout << "Volvemos a preguntar si L es igual  L2" << endl;
-	if (L->iguales(L2)) {
-		cout << "L2 es igual a L" << endl;
-	}
-	else {
-		cout << "L2 no es igual a L" << endl;
-	}
-	cout << "Invertimos ambas Listas" << endl;
-	L->invertir();
-	L2->invertir();
-	cout << "Listamos L" << endl;
-	L->listar();
-	cout << "Listamos L2" << endl;
-	L2->listar();
-	cout << "Ordenamos L con seleccion iterativo y L2 con seleccion recursivo" << endl;
-	L->selectIter();
-	L2->selectRec();
-	cout << "Listamos L" << endl;
-	L->listar();
-	cout << "Listamos L2" << endl;
-	L2->listar();
-	cout << "Creamos una Lista L3 con los elementos 10,2,4" << endl;
-	ListaPosicionada* L3 = new ListaPosicionada();
-	L3->agregarAlFinal(10);
-	L3->agregarAlFinal(2);
-	L3->agregarAlFinal(4);
-	L3->listar();
-	cout << "Ordenamos L3 con mergeSort" << endl;
-	L3 = L3->mergeSort();
-	L3->listar();
-	cout << "Destruimos L y unimos L2 con L3" << endl;
-	L->destruir();
-	L2->Union(L3);
-	//Podriamos Destruir L3
-	L2->listar();
-	cout << "Ahora vemos cual es la interseccion entre L2 y L3, seria L3(2,4,10), y la listamos" << endl;
-	L2->interseccion(L3)->listar();
-	cout << "Ordenamos L2 con insercion y preguntamos cual es la interseccion ordenada con L3,deberia ser igual a la interseccion(desordenada)" << endl;
-	L2->insercion();
-	L2->listar();
-	cout << "La interseccion ordenada es la siguiente" << endl;
-	L2->interseccionOrd(L3)->listar();
-	cout << "Ahora con el metodo eliminarInterseccionOrdenada eliminamos la interseccion entre L2 y L3 y dejamos el resultado en L2" << endl;
-	L2->eliminarIntrOrd(L3);
-	L2->listar();
-	cout << "Unimos L2 con L3 nuevamente, ordenamos la lista y la invertimos" << endl;
-	L2->Union(L3);
-	L2->selectRec();
-	L2->invertir();
-	L2->listar();
-	cout << "Ahora eliminamos la interseccion(desordenada) de L2 y L3" << endl;
-	L2->eliminarIntr(L3);
-	L2->listar();
-	cout << "Por ultimo destruimos L2 y L3" << endl;
-	L2->destruir();
-	L3->destruir();
 }
 
 /**
 
+Prueba de la Estructura de Datos Pila implementada por Lista Simplemente Enlazada
+*/
+void pila()
+{
+	cout << "---Pila implementada por Lista Simplemente Enlazada---" << endl;
+	cout << endl;
+	Pila Pila;
+	Pila.iniciar();
+	cout << "Se ponen los elementos: 10,12,14,16 a la Pila" << endl;
+	Pila.poner(16);
+	Pila.poner(14);
+	Pila.poner(12);
+	Pila.poner(10);
+	int cantElem = Pila.numElem();
+	cout << "Los elementos de la pila son:" << endl;
+	for (int i = 0; i < cantElem; i++)
+	{
+		cout << Pila.quitar() << endl;
+	}
+	cout << "Como utilizamos el metodo quitar para mostra los elementos de la Pila entonces la Pila se vacio" << endl;
+	cout << "El numero de elementos de la pila es: " << Pila.numElem() << " elementos" << endl;
+	cout << "Procedemos a poner los elementos anteriores en la Pila" << endl;
+	Pila.poner(16);
+	Pila.poner(14);
+	Pila.poner(12);
+	Pila.poner(10);
+	cout << "Verificamos que la Pila no esta vacia" << endl;
+	if (Pila.vacia())
+	{
+		cout << "La Pila esta vacia" << endl;
+	}
+	else
+	{
+		cout << "La Pila efectivamente no esta vacia, " << "contiene: " << Pila.numElem() << " elementos" << endl;
+	}
+	cout << "Preguntamos que elemento es el Tope de la Pila, el cual deberia ser 10" << endl;
+	cout << "El Tope de la Pila es: " << Pila.tope() << endl;
+	cout << "Procedemos a vaciar la Pila que contiene: " << Pila.numElem() << " elementos" << endl;
+	Pila.vaciar();
+	if (Pila.vacia())
+	{
+		cout << "Ahora la Pila si se encuentra vacia" << endl;
+	}
+	else
+	{
+		cout << "La Pila no se encuentra vacia" << endl;
+	}
+	cout << "Por ultimo destruiremos la Pila, gracias por probarla" << endl;
+	Pila.destruir();
+	cout << "Pila destruida" << endl;
+	cout << endl;
+}
+
+
 /**
-Nombre: Iguales
-Parámetros: L1, L2
+Nombre: iguales
+Parámetros: ListaOrdenada L1, ListaOrdenada L2
 Efecto: Averigua si L1 es igual a L2
 Requiere: Listas inicializadas
 Modifica:
@@ -732,7 +934,7 @@ bool iguales(ListaOrdenada *L1, ListaOrdenada *L2)
 	elemento elem2 = L2->Primero();
 	if (L1->NumElem() != L2->NumElem())
 	{
-		cout << "No son iguales" << endl;
+		//cout << "No son iguales" << endl;
 		return false;
 	}
 	else
@@ -745,12 +947,12 @@ bool iguales(ListaOrdenada *L1, ListaOrdenada *L2)
 		}
 		if (L1->Ultimo() == L2->Ultimo())
 		{
-			cout << "Son iguales" << endl;
+			//cout << "Son iguales" << endl;
 			return true;
 		}
 		else
 		{
-			cout << "No son iguales" << endl;
+			//cout << "No son iguales" << endl;
 			return false;
 		}
 	}
@@ -758,8 +960,8 @@ bool iguales(ListaOrdenada *L1, ListaOrdenada *L2)
 
 
 /**
-Nombre: Copiar
-Parámetros: L1, L2
+Nombre: copiar
+Parámetros:  ListaOrdenada L1, ListaOrdenada L2
 Efecto: Hace la lista L2 igual a la lista L1
 Requiere: Listas inicializadas
 Modifica: L2
@@ -767,7 +969,7 @@ Modifica: L2
 */
 void copiar(ListaOrdenada *L1, ListaOrdenada *L2)
 {
-	
+
 	int i = 0;
 	elemento e1 = L1->Primero();
 	L2->Vaciar();
@@ -780,13 +982,13 @@ void copiar(ListaOrdenada *L1, ListaOrdenada *L2)
 			e1 = L1->Siguiente(e1);
 		}
 	}
-	L2->Listar();
+	//L2->Listar();
 }
 
 
 /**
-Nombre: Contenida
-Parámetros: L1, L2
+Nombre: contenida
+Parámetros: ListaOrdenada L1, ListaOrdenada L2
 Efecto: Averigua si todos los elementos de L1 están en L2
 Requiere: Listas inicializadas
 Modifica:
@@ -795,119 +997,333 @@ Modifica:
 bool contenida(ListaOrdenada *L1, ListaOrdenada *L2)
 {
 	elemento e1 = L1->Primero();
-	return true;
+	elemento e2 = L2->Primero();
+    bool contenida = false;
+	if (iguales(L1, L2))  //si ambas listas son iguales esta contenida 
+	{
+		//cout << "La lista esta contenida" << endl;
+		return true;
+	}
+	else
+	{
+		if (L1->NumElem() > L2->NumElem()) //si el numero de elementos de L1 es mayor, que el de L2 no puede estar contenida en L2
+		{
+			//cout << "La lista no esta contenida" << endl;
+			return false;
+		}
+		while (!contenida)
+		{
+			if (e1 == e2)
+			{
+				if (e1 == L1->Ultimo())
+				{
+					contenida = true;
+					//cout << "La lista esta contenida" << endl;
+					return contenida;
+				}
+				else if (e2 == L2->Ultimo())
+				{
+					contenida = true;
+					//cout << "La lista esta contenida" << endl;
+					return contenida;
+				}
+				else if(e1 != L1->Ultimo() && e2 != L2->Ultimo())
+				{
+					e1 = L1->Siguiente(e1);
+					e2 = L2->Siguiente(e2);
+					contenida = false;
+				}
+			}
+			else if(e1 != e2)
+			{
+				if(e1 < e2)
+				{
+					contenida = false;
+					//cout << "La lista no esta contenida" << endl;
+					return false;
+				}
+				else if (e1 > e2 && e2 != L2->Ultimo())
+				{
+					e2 = L2->Siguiente(e2);
+					contenida = false;
+				}
+				else if (e1 == L1->Ultimo())
+				{
+					contenida = false;
+					//cout << "La lista no esta contenida" << endl;
+					return contenida;
+				}
+				else if (e2 == L2->Ultimo())
+				{
+					contenida = false;
+					//cout << "La lista no esta contenida" << endl;
+					return contenida;
+				}
+			}
+		}		
+	}
 }
 
 
 /**
-Nombre: Pertenece
-Parámetros: L, elemento e
+Nombre: pertenece
+Parámetros: ListaOrdenada L1, elemento e
 Efecto: Averigua si un elemento está en L
 Requiere: Lista inicializada
 Modifica:
 
 */
-bool pertenece(elemento e)
+bool pertenece(ListaOrdenada *L1, elemento e)
 {
-	return true;
+	elemento e1 = L1->Primero();
+	while (e1 != e && e1 != L1->Ultimo())
+	{
+		e1 = L1->Siguiente(e1);
+		if (e1 > e)
+		{
+			//cout << "EL elemento no pertenece a lista" << endl;
+			return false;
+		}
+	}
+	if (e1 == e)
+	{
+		//cout << "EL elemento pertenece a lista" << endl;
+		return true;
+	}
+	else if (e1 == L1->Ultimo() && e1 != e)
+	{
+		//cout << "EL elemento no pertenece a lista" << endl;
+		return false;
+	}
 }
 
 
 /**
-Nombre: Eliminar
-Parámetros: L1, L2
+Nombre: eliminar
+Parámetros: ListaOrdenada L1, ListaOrdenada L2
 Efecto: Elimina de L1 los elementos que están en L2
 Requiere: Listas inicializadas
-Modifica:
+Modifica: L1, L1 NumElem
 
 */
 void eliminar(ListaOrdenada *L1, ListaOrdenada *L2)
 {
 	elemento e1 = L1->Primero();
 	elemento e2 = L2->Primero();
-	int i = 0, i2 = 1;
-	while (i < L1->NumElem())
+	elemento aux;
+	if (iguales(L1, L2) == true)
 	{
-		while (i2<L2->NumElem())
+		L1->Vaciar();
+	}
+	else
+	{
+		while (e1 != L1->Ultimo())
+		{
+			if (e1 == e2)
+			{
+				aux = L1->Siguiente(e1);
+				L1->Borrar(e1);
+				e1 = aux;
+				if (e2 != L2->Ultimo())
+				{
+					e2 = L2->Siguiente(e2);
+					//i++;
+				}
+			}
+			else if(e1 > e2)
+			{
+				if(e2 != L2->Ultimo())
+				{
+					e2 = L2->Siguiente(e2);
+				}
+				if(e2 == L2->Ultimo())
+				{
+					e1 = L1->Ultimo();
+				}	
+			}
+			else if (e1 < e2 && e1 != L1->Ultimo())
+			{
+				e1 = L1->Siguiente(e1);
+			}
+		}
+		if (e1 == L1->Ultimo())
 		{
 			if (e1 == e2)
 			{
 				L1->Borrar(e1);
-				e2 = L2->Siguiente(e2);
 			}
-			i2++;
+			else if (e1 > e2)
+			{
+				while (e1 < e2 && e2 != L2->Ultimo())
+				{
+					e2 = L2->Siguiente(e2);
+				}
+				if (e1 == e2)
+				{
+					L1->Borrar(e1);
+				}
+			}
 		}
-		i++;
-		e1 = L1->Siguiente(e1);
-		//i++;
 	}
-	//    for (e1 = L1.Primero(); e1 == L1.Ultimo(); e1 = L1.Siguiente(e1))
-	//    {
-	//        for (e2 = L2.Primero(); e2 == L2.Ultimo(); e2= L2.Siguiente(e2))
-	//        {
-	//            if( e1 == e2)
-	//            {
-	//                L1.Borrar(e1);
-	//            }
-	//        }
-	//    }
+	
 }
 
 
 /**
-Nombre: Union1
-Parámetros: L1, L2
+Nombre: union1
+Parámetros: ListaOrdenada *L1, ListaOrdenada *L2
 Efecto: Le agrega a L1 los elementos que están en  L2
 Requiere: Listas inicializadas
-Modifica:
+Modifica: L1, NumElem de L1
 
 */
 void union1(ListaOrdenada *L1, ListaOrdenada *L2)
 {
-
+	elemento e2 = L2->Primero();
+	int i = 0;
+	while (i != L2->NumElem())
+	{
+		if (pertenece(L1, e2) == true)
+		{
+			e2 = L2->Siguiente(e2);
+			i++;
+		}
+		else
+		{
+			L1->Agregar(e2);
+			e2 = L2->Siguiente(e2);
+			i++;
+		}
+	}
 }
 
 
 /**
-Nombre: Union2
-Parámetros: L1, L2
+Nombre: union2
+Parámetros: ListaOrdenada *L1, ListaOrdenada *L2, ListaOrdenada *L3
 Efecto: Deja en L3 el resultado de la unión de L1 y L2
 Requiere: Listas inicializadas
-Modifica:
+Modifica: L3, NumElem L3
 
 */
-void union2(ListaOrdenada *L1, ListaOrdenada *L2)
+void union2(ListaOrdenada *L1, ListaOrdenada *L2, ListaOrdenada *L3)
 {
-
+	copiar(L1, L3);
+	elemento e2 = L2->Primero();
+	int i = 0;
+	while (i != L2->NumElem())
+	{
+		if (pertenece(L1, e2) == true)
+		{
+			e2 = L2->Siguiente(e2);
+			i++;
+		}
+		else
+		{
+			L3->Agregar(e2);
+			e2 = L2->Siguiente(e2);
+			i++;
+		}
+	}
 }
 
 
 /**
-Nombre: Interseccion1
-Parámetros: L1, L2
-Efecto: Crea la lista L3, de manera que L3 tendrá los elementos que están tanto en L1 como en L2.
-Se usa el algoritmo auxiliar de búsqueda Pertenece
+Nombre: interseccion1
+Parámetros: ListaOrdenada *L1, ListaOrdenada *L2
+Efecto: Crea la lista L3, de manera que L3 tendrá los elementos que están tanto en L1 como en L2 y la devuelve. Se usa el algoritmo auxiliar de búsqueda Pertenece
 Requiere: Listas inicializadas
-Modifica:
+Modifica:  L3, NumElem de L3
 
 */
-void interseccion1(ListaOrdenada *L1, ListaOrdenada *L2)
+ListaOrdenada interseccion1(ListaOrdenada *L1, ListaOrdenada *L2)
 {
-
+	ListaOrdenada *L3 = new ListaOrdenada;
+	L3->Iniciar();
+	elemento e1 = L1->Primero();
+	int i = 0;
+	while (i != L1->NumElem())
+	{
+		if (pertenece(L2, e1) == true)
+		{
+			L3->Agregar(e1);
+			e1 = L1->Siguiente(e1);
+			i++;
+		}
+		else
+		{
+			e1 = L1->Siguiente(e1);
+			i++;
+		}
+	}
+	L3->Listar();
+	return *L3;
 }
 
 
 /**
 Nombre: interseccion2
-Parámetros: L1, L2
+Parámetros: ListaOrdenada L1, ListaOrdenada L2
 Efecto: Crea la lista L3, de manera que L3 tendrá los elementos que están tanto en L1 como en L2.
 El algoritmo se mueve simultáneamente en ambas listas.
 Requiere: Listas inicializadas
-Modifica:
+Modifica: 
 
 */
-void interseccion2(ListaOrdenada *L1, ListaOrdenada *L2)
+ListaOrdenada interseccion2(ListaOrdenada *L1, ListaOrdenada *L2)
 {
-
+	ListaOrdenada *L3 = new ListaOrdenada;
+	L3->Iniciar();
+	elemento e1 = L1->Primero();
+	elemento e2 = L2->Primero();
+	elemento aux;
+	while (e1 != L1->Ultimo())
+	{
+		if (e1 == e2)
+		{
+			aux = L1->Siguiente(e1);
+			L3->Agregar(e1);
+			e1 = aux;
+			if (e2 != L2->Ultimo())
+			{
+				e2 = L2->Siguiente(e2);
+			}
+		}
+		else if (e1 > e2)
+		{
+			if (e2 != L2->Ultimo())
+			{
+				e2 = L2->Siguiente(e2);
+			}
+			if (e2 == L2->Ultimo())
+			{
+				e1 = L1->Ultimo();
+			}
+		}
+		else if (e1 < e2 && e1 != L1->Ultimo())
+		{
+			e1 = L1->Siguiente(e1);
+		}
+	}
+	if (e1 == L1->Ultimo())
+	{
+		if (e1 == e2)
+		{
+			L3->Agregar(e1);
+		}
+		else if (e1 > e2)
+		{
+			while (e1 < e2 && e2 != L2->Ultimo())
+			{
+				e2 = L2->Siguiente(e2);
+			}
+			if (e1 == e2)
+			{
+				L3->Agregar(e1);
+			}
+		}
+	}
+	L3->Listar();
+	return *L3;
 }
 

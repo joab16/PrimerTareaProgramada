@@ -7,7 +7,7 @@
 
 using namespace std;
 
-//typedef Posicion* posicion;
+typedef Posicion* posicion;
 class ListaOrdenadaLSE
 {
 public:
@@ -130,6 +130,7 @@ Modifica: Lista, NumElem
 void ListaOrdenadaLSE::Agregar(elemento e)
 {
     Posicion *nueva = new Posicion;
+	Posicion *p1 = primera;
     if(vacia == true)
     {
         numElem = 1;
@@ -140,7 +141,6 @@ void ListaOrdenadaLSE::Agregar(elemento e)
     }
     else
     {
-        Posicion *p1 = primera;
         if(p1->siguiente == posNula && p1->elem <e)
         {
             nueva->elem = e;
@@ -252,11 +252,11 @@ Modifica:
 elemento ListaOrdenadaLSE::Siguiente(elemento e)
 {
     Posicion *p = primera;
-    while(p->elem!= e)
+    while(p->elem!= e && p->siguiente != posNula)
     {
         p = p->siguiente;
     }
-    if(p->elem == e)
+    if(p->elem == e && p->siguiente != posNula)
     {
         return p->siguiente->elem;
     }

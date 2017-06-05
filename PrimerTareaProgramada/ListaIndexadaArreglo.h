@@ -4,11 +4,11 @@
 #include <sstream>
 #include <iostream>
 
-class ListaArreglo
+class ListaIndexadaArreglo
 {
 public:
-	ListaArreglo();
-	~ListaArreglo();
+	ListaIndexadaArreglo();
+	~ListaIndexadaArreglo();
 	void Iniciar();
 	void Destruir();
 	void Vaciar();
@@ -30,11 +30,11 @@ private:
 
 #endif // LISTARREGLO
 
-ListaArreglo::ListaArreglo()
+ListaIndexadaArreglo::ListaIndexadaArreglo()
 {
 }
 
-ListaArreglo::~ListaArreglo()
+ListaIndexadaArreglo::~ListaIndexadaArreglo()
 {
 }
 
@@ -45,7 +45,7 @@ Efecto: Inicializa una lista dada
 Requiere: Lista no inicializada
 Modifica:
 */
-void ListaArreglo::Iniciar()
+void ListaIndexadaArreglo::Iniciar()
 {
 	numElem = 0;
 }
@@ -57,7 +57,7 @@ Efecto: Destruye una lista dada
 Requiere: Lista inicializada
 Modifica:
 */
-void ListaArreglo::Destruir()
+void ListaIndexadaArreglo::Destruir()
 {
 
 }
@@ -69,7 +69,7 @@ Efecto: Vacía una lista
 Requiere: Lista inicializada
 Modifica: L, numElem
 */
-void ListaArreglo::Vaciar()
+void ListaIndexadaArreglo::Vaciar()
 {
 	numElem = 0;
 }
@@ -82,7 +82,7 @@ Efecto: Devuelve un booleano indicando si la lista está vacía o no
 Requiere: Lista inicializada
 Modifica:
 */
-bool ListaArreglo::Vacia()
+bool ListaIndexadaArreglo::Vacia()
 {
 	if (numElem == 0)
 		return true;
@@ -96,7 +96,7 @@ Efecto: Inserta el elemento e en la lista, e debe ser un elemento válido.
 Requiere: Lista inicializada
 Modifica: L (lista), numElem
 */
-void ListaArreglo::Insertar(int e, int i)
+void ListaIndexadaArreglo::Insertar(int e, int i)
 {
 	for (int j = numElem; j > i; j--)
 	{
@@ -113,7 +113,7 @@ Efecto: Borra el elemento e de la lista
 Requiere: Lista inicializada
 Modifica: L (lista) , numElem
 */
-void ListaArreglo::Borrar(int i)
+void ListaIndexadaArreglo::Borrar(int i)
 {
 	for (int j = i; j < numElem - 1; j++)
 	{
@@ -129,7 +129,7 @@ Efecto: Devuelve el elemento ubicado en el índice i
 Requiere: Lista inicializada, i debe ser un índice válido en la Lista
 Modifica:
 */
-int ListaArreglo::Recuperar(int i)
+int ListaIndexadaArreglo::Recuperar(int i)
 {
 	return lista[i];
 }
@@ -141,7 +141,7 @@ Efecto: Modifica en la lista L, el elemento del índice i, por el elemento e
 Requiere: Lista inicializada y que i sea un índice válido
 Modifica: L(Lista)
 */
-void ListaArreglo::ModificarElemento(int e, int i)
+void ListaIndexadaArreglo::ModificarElemento(int e, int i)
 {
 	lista[i] = e;
 }
@@ -153,7 +153,7 @@ Efecto: Intercambia el elemento en del índice i1, con el elemento en del índice 
 Requiere: Lista inicializada. i1 y i2 deben ser índices válidos de la Lista
 Modifica: L(Lista)
 */
-void ListaArreglo::Intercambiar(int i1, int i2)
+void ListaIndexadaArreglo::Intercambiar(int i1, int i2)
 {
 	int aux = lista[i1];
 	lista[i1] = lista[i2];
@@ -167,7 +167,7 @@ Efecto: Devuelve el número de elementos de la lista
 Requiere: Lista inicializada
 Modifica:
 */
-int ListaArreglo::NumElem()
+int ListaIndexadaArreglo::NumElem()
 {
 	return numElem;
 }
