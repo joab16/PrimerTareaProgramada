@@ -193,21 +193,52 @@ void ListaIndexadaSE::Borrar(int i)
         {
             borrado = true;
         }
-        else if (temp->indice == i)
+		else if (temp->sgt != NodoNulo && temp->sgt->indice == i)
+		{
+			NodoI* aux = temp->sgt;
+			if (aux->sgt != NodoNulo)
+			{
+				temp->sgt = aux->sgt;
+				aux->sgt = NodoNulo;
+				delete aux;
+				--numElem;
+				temp = temp->sgt;
+				while (temp != NodoNulo)
+				{
+					temp->indice = temp->indice - 1;
+					temp = temp->sgt;
+				}
+			}
+			else
+			{
+				temp->sgt = NodoNulo;
+				--numElem;
+				delete aux;
+			}
+		}
+			/*if (temp->indice == i)
+
         {
             NodoI* aux = temp->sgt;
-			temp->sgt = aux->sgt;
-			aux->sgt = NodoNulo;
-			delete aux;
-			--numElem;
-			temp = temp->sgt;
-			while (temp != NodoNulo)
+			if (aux != NodoNulo)
 			{
-				temp->indice = --aux->indice;
+				temp->sgt = aux->sgt;
+				aux->sgt = NodoNulo;
+				delete aux;
+				--numElem;
 				temp = temp->sgt;
+				while (temp != NodoNulo)
+				{
+					temp->indice = --aux->indice;
+					temp = temp->sgt;
+				}
+			}
+			else
+			{
+				delete temp;
 			}
 			borrado = true;
-        }
+        }*/
         else
         {
             temp = temp->sgt;
