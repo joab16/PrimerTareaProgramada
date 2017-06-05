@@ -126,7 +126,7 @@ public:
 	//EFE: Devuelve true si L y L1 son iguales, de lo contrario devuelve falso
 	//REQ: L y L1 inicializadas
 	//MOD:
-	bool iguales(Lista_Posicionada_SE L1);
+	bool iguales(Lista_Posicionada_SE* L1);
 
 	//EFE: Ordena L con Burbuja Original
 	//REQ: L inicializadas
@@ -156,7 +156,7 @@ public:
 	//EFE: Ordena L con Insercion
 	//REQ: L inicializada
 	//MOD: L
-	void insercion(pos actual, pos ultima);
+	void insercion(posS actual, posS ultima);
 
 	//EFE: Ordena L con Quick Sort de Aho
 	//REQ: L incializada
@@ -171,35 +171,35 @@ public:
 	//EFE: Ordena L con Merge Sort, devuelve la Lista ordenada
 	//REQ: L incializada y el numero de elementos de L sea mayor a 1
 	//MOD: L
-	Lista_Posicionada_SE mergeSort();
+	Lista_Posicionada_SE* mergeSort();
 
 	//EFE: Une la Lista L con L1
 	//REQ: L y L1 inicializada
 	//MOD: L
-	void Union(Lista_Posicionada_SE L1);
+	void Union(Lista_Posicionada_SE* L1);
 
 	//EFE: Devueleve una Lista con la interseccion de L1 y L
 	//REQ: L y L1 inicializadas, ordenadas y sin elementos repetidos
 	//MOD:
-	Lista_Posicionada_SE interseccionOrd(Lista_Posicionada_SE L1);
+	Lista_Posicionada_SE* interseccionOrd(Lista_Posicionada_SE* L1);
 
 	//EFE: Devuelve una Lista con la interseccion de L1 y L
 	//REQ: L1 y L inicializadas y sin elementos repetidos
 	//MOD:
-	Lista_Posicionada_SE interseccion(Lista_Posicionada_SE L1);
+	Lista_Posicionada_SE* interseccion(Lista_Posicionada_SE* L1);
 
 	//EFE: Elimina de la Lista L la interseccion con L1
 	//REQ: L y L1 inicializadas y ordenadas
 	//MOD: L
-	void eliminarIntrOrd(Lista_Posicionada_SE L1);
+	void eliminarIntrOrd(Lista_Posicionada_SE* L1);
 
 	//EFE: Elimina de la Lista L la interseccion con L1
 	//REQ: L y L1 inicializadas
 	//MOD: L
-	void eliminarIntr(Lista_Posicionada_SE L1);
+	void eliminarIntr(Lista_Posicionada_SE* L1);
 
 
-	pos EncuentraPivote(pos i, pos j);
+	posS EncuentraPivote(posS i, posS j);
 
 	/*
 	Nombre: Particion
@@ -209,7 +209,7 @@ public:
 	Modifica:
 
 	*/
-	pos Particion(pos i, pos j, elemento pivote);
+	posS Particion(posS i, posS j, elemento pivote);
 
 	/*
 	Nombre: QuickSortAho
@@ -228,7 +228,7 @@ public:
 	Modifica: Lista global
 
 	*/
-	void QuickSortAho(pos i, pos j);
+	void QuickSortAho(posS i, posS j);
 	/**
 	Nombre: QuickSort
 	Parámetros:
@@ -246,7 +246,7 @@ public:
 	Modifica:
 
 	*/
-	void QuickSort(pos i, pos j);
+	void QuickSort(posS i, posS j);
 
 	void SeleccionRecursivoPila(pos primera);
 
@@ -254,7 +254,7 @@ protected:
 	//EFE: Metodo Privado, complementario al metodo mergeSort de la Lista
 	//REQ:
 	//MOD:
-	Lista_Posicionada_SE merge(Lista_Posicionada_SE L1, Lista_Posicionada_SE L2);
+	Lista_Posicionada_SE* merge(Lista_Posicionada_SE* L1, Lista_Posicionada_SE* L2);
 
 	//EFE: Metodo Privado, complementario al metodo selectRec de la Lista
 	//REQ:
