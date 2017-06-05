@@ -1,6 +1,7 @@
 #ifndef LISTA_POSICIONADA_SE_H
 #define LISTA_POSICIONADA_SE_H
 using namespace std;
+#include"Pila.h";
 
 typedef int elemento;
 
@@ -155,7 +156,7 @@ public:
 	//EFE: Ordena L con Insercion
 	//REQ: L inicializada
 	//MOD: L
-	void insercion();
+	void insercion(pos actual, pos ultima);
 
 	//EFE: Ordena L con Quick Sort de Aho
 	//REQ: L incializada
@@ -265,16 +266,13 @@ protected:
 };
 
 #endif // LISTA_POSICIONADA_SE_H
-Lista_Posicionada_DE::Lista_Posicionada_DE() {
+Lista_Posicionada_SE::Lista_Posicionada_SE() {
 	inicio = 0;
 }
 
-Lista_Posicionada_DE::~Lista_Posicionada_DE() {
-}
-
-void Lista_Posicionada_DE::destruir() {
-	Nodo* p = inicio;
-	Nodo* q = 0;
+void Lista_Posicionada_SE::destruir() {
+	NodoS* p = inicio;
+	NodoS* q = 0;
 	while (p != 0) {
 		q = p->sgt;
 		delete p;
@@ -282,9 +280,9 @@ void Lista_Posicionada_DE::destruir() {
 	}
 }
 
-void Lista_Posicionada_DE::vaciar() {
-	Nodo* p = inicio;
-	Nodo* q = 0;
+void Lista_Posicionada_SE::vaciar() {
+	NodoS* p = inicio;
+	NodoS* q = 0;
 	while (p != 0) {
 		q = p->sgt;
 		delete p;
@@ -293,7 +291,7 @@ void Lista_Posicionada_DE::vaciar() {
 	inicio = 0;
 }
 
-bool Lista_Posicionada_DE::vacia() {
+bool Lista_Posicionada_SE::vacia() {
 	bool vacia = false;
 	if (inicio == 0) {
 		vacia = true;
@@ -301,40 +299,38 @@ bool Lista_Posicionada_DE::vacia() {
 	return vacia;
 }
 
-void Lista_Posicionada_DE::insertar(elemento e, pos p) {
-	Nodo* agregado = new Nodo(e);
-	pos q = inicio;
+void Lista_Posicionada_SE::insertar(elemento e, pos p) {
+	posS q = inicio;
+	NodoS* agregado = new Nodo(e);
 	if (p == q) {
-		q->ant = agregado;
 		agregado->sgt = q;
 		inicio = agregado;
 	}
 	else {
-		q = q->sgt;
 		bool insertado = false;
 		while (!insertado) {
-			if (p == q) {
-				agregado->sgt = q;
-				agregado->ant = q->ant;
-				(q->ant)->sgt = agregado;
-				q->ant = agregado;
+			if (p == q->sgt) {
+				agregado->sgt = q->sgt;
+				q->sgt = agregado;
 				insertado = true;
+			}
+			else {
+				q = q->sgt;
 			}
 		}
 	}
 }
 
-void Lista_Posicionada_DE::agregarAlFinal(elemento e) {
+void Lista_Posicionada_SE::agregarAlFinal(elemento e) {
 	if (inicio == 0) {
 		inicio = new Nodo(e);
 	}
 	else {
 		bool agregado = false;
-		pos p = inicio;
+		posS p = inicio;
 		while (!agregado) {
 			if (p->sgt == 0) {
 				p->sgt = new Nodo(e);
-				(p->sgt)->ant = p;
 				agregado = true;
 			}
 			else {
@@ -344,45 +340,48 @@ void Lista_Posicionada_DE::agregarAlFinal(elemento e) {
 	}
 }
 
-void Lista_Posicionada_DE::borrar(pos p) {
-	pos q;
-	if (inicio == p) {
-		q = p->sgt;
-		inicio = q;
-		delete p;
-		q->ant = 0;
+void Lista_Posicionada_SE::borrar(posS p) {
+	posS q = inicio;
+	if (q == p) {
+		inicio = q->sgt;
+		delete q;
 	}
 	else {
-		q = this->anterior(p);
-		q->sgt = p->sgt;
-		q = p->sgt;
-		if (q != 0) {
-			q->ant = p->ant;
+		bool borrado = false;
+		while (!borrado) {
+			if (q->sgt == p) {
+				pos aux = q->sgt;
+				q->sgt = p->sgt;
+				delete aux;
+				borrado = true;
+			}
+			else {
+				q = q->sgt;
+			}
 		}
-		delete p;
 	}
 }
 
-elemento Lista_Posicionada_DE::recuperar(pos p) {
+elemento Lista_Posicionada_SE::recuperar(posS p) {
 	elemento recuperado = p->dato;
 	return recuperado;
 }
 
-void Lista_Posicionada_DE::modificarElemento(elemento e, pos p) {
+void Lista_Posicionada_SE::modificarElemento(elemento e, posS p) {
 	p->dato = e;
 }
 
-void Lista_Posicionada_DE::intercambiar(pos p1, pos p2) {
+void Lista_Posicionada_SE::intercambiar(posS p1, posS p2) {
 	elemento aux = p1->dato;
 	p1->dato = p2->dato;
 	p2->dato = aux;
 }
 
-pos Lista_Posicionada_DE::primera() {
+pos Lista_Posicionada_SE::primera() {
 	return inicio;
 }
 
-pos Lista_Posicionada_DE::ultima() {
+pos Lista_Posicionada_SE::ultima() {
 	pos posicion = inicio;
 	while (!(posicion->sgt == 0)) {
 		posicion = posicion->sgt;
@@ -390,16 +389,26 @@ pos Lista_Posicionada_DE::ultima() {
 	return posicion;
 }
 
-pos Lista_Posicionada_DE::siguiente(pos p) {
+pos Lista_Posicionada_SE::siguiente(posS p) {
 	return p->sgt;
 }
 
-pos Lista_Posicionada_DE::anterior(pos p) {
-	return p->ant;
+pos Lista_Posicionada_SE::anterior(posS p) {
+	bool encontrado = false;
+	pos anterior = inicio;
+	while (!encontrado) {
+		if (anterior->sgt == p) {
+			encontrado = true;
+		}
+		else {
+			anterior = anterior->sgt;
+		}
+	}
+	return anterior;
 }
 
-int Lista_Posicionada_DE::numElem() {
-	pos p = inicio;
+int Lista_Posicionada_SE::numElem() {
+	posS p = inicio;
 	int numElementos = 0;
 	while (p != 0) {
 		numElementos++;
@@ -408,8 +417,8 @@ int Lista_Posicionada_DE::numElem() {
 	return numElementos;
 }
 
-void Lista_Posicionada_DE::listar() {//YA!
-	pos p = this->primera();
+void Lista_Posicionada_SE::listar() {//YA!
+	posS p = this->primera();
 	cout << "Los elementos de la Lista son:" << endl;
 	for (int i = 0; i < this->numElem(); i++) {
 		cout << this->recuperar(p) << endl;
@@ -417,9 +426,9 @@ void Lista_Posicionada_DE::listar() {//YA!
 	}
 }
 
-bool Lista_Posicionada_DE::simetrica() {//YA!
-	pos p = this->primera();
-	pos q = this->ultima();
+bool Lista_Posicionada_SE::simetrica() {//YA!
+	posS p = this->primera();
+	posS q = this->ultima();
 	int repeticion = 0;
 	bool simetrica = true;
 	while ((repeticion < ceil(numElem() / 2)) && simetrica) {
@@ -435,9 +444,9 @@ bool Lista_Posicionada_DE::simetrica() {//YA!
 	return simetrica;
 }
 
-void Lista_Posicionada_DE::invertir() {//YA!
-	pos p = this->primera();
-	pos q = this->ultima();
+void Lista_Posicionada_SE::invertir() {//YA!
+	posS p = this->primera();
+	posS q = this->ultima();
 	int repeticion = 0;
 	while (repeticion < ceil(numElem() / 2)) {
 		this->intercambiar(p, q);
@@ -447,8 +456,8 @@ void Lista_Posicionada_DE::invertir() {//YA!
 	}
 }
 
-bool Lista_Posicionada_DE::buscar(elemento e) {//YA!
-	pos p = this->primera();
+bool Lista_Posicionada_SE::buscar(elemento e) {//YA!
+	posS p = this->primera();
 	bool encontrado = false;
 	while ((p != 0) && !encontrado) {
 		if (this->recuperar(p) == e) {
@@ -461,9 +470,9 @@ bool Lista_Posicionada_DE::buscar(elemento e) {//YA!
 	return encontrado;
 }
 
-void Lista_Posicionada_DE::elimElemRep() {//YA!
-	pos p = this->primera();
-	pos q;
+void Lista_Posicionada_SE::elimElemRep() {//YA!
+	posS p = this->primera();
+	posS q;
 	while (!(p == 0)) {
 		q = this->siguiente(p);
 		while (!(q == 0)) {
@@ -477,11 +486,11 @@ void Lista_Posicionada_DE::elimElemRep() {//YA!
 	}
 }
 
-bool Lista_Posicionada_DE::subLista(Lista_Posicionada_DE* L2) {//YA!
+bool Lista_Posicionada_SE::subLista(Lista_Posicionada_SE* L2) {//YA!
 	bool sub_lista = false;
 	bool iguales;
-	pos p = this->primera();
-	pos q = L2->primera();
+	posS p = this->primera();
+	posS q = L2->primera();
 	while (p != 0 && (q != 0) && (!sub_lista)) {
 		iguales = true;
 		while (p != 0 && (iguales)) {
@@ -504,14 +513,14 @@ bool Lista_Posicionada_DE::subLista(Lista_Posicionada_DE* L2) {//YA!
 	return sub_lista;
 }
 
-bool Lista_Posicionada_DE::iguales(Lista_Posicionada_DE* L1) {//YA!
+bool Lista_Posicionada_SE::iguales(Lista_Posicionada_SE* L1) {//YA!
 	bool iguales = true;
 	if (this->numElem() != L1->numElem()) {
 		iguales = false;
 	}
 	else {
-		pos p = this->primera();
-		pos q = L1->primera();
+		posS p = this->primera();
+		posS q = L1->primera();
 		while (iguales && (p != 0)) {
 			if (this->recuperar(p) != this->recuperar(q)) {
 				iguales = false;
@@ -525,9 +534,9 @@ bool Lista_Posicionada_DE::iguales(Lista_Posicionada_DE* L1) {//YA!
 	return iguales;
 }
 
-void Lista_Posicionada_DE::burbujaOriginal() {//YA!
-	pos p;
-	pos q;
+void Lista_Posicionada_SE::burbujaOriginal() {//YA!
+	posS p;
+	posS q;
 	for (int i = (this->numElem() - 1); i > 0; i--) {
 		p = this->primera();
 		q = this->siguiente(p);
@@ -541,9 +550,9 @@ void Lista_Posicionada_DE::burbujaOriginal() {//YA!
 	}
 }
 
-void Lista_Posicionada_DE::burbujaBiDir() {//YA!
-	pos p = this->primera();
-	pos q;
+void Lista_Posicionada_SE::burbujaBiDir() {//YA!
+	posS p = this->primera();
+	posS q;
 	bool derecha = true;
 	for (int i = (this->numElem() - 1); i > 0; i--) {
 		if (derecha) {
@@ -574,10 +583,10 @@ void Lista_Posicionada_DE::burbujaBiDir() {//YA!
 	}
 }
 
-void Lista_Posicionada_DE::selectIter() {//YA!
-	pos actual = this->primera();
-	pos menor;
-	pos recorrido;
+void Lista_Posicionada_SE::selectIter() {//YA!
+	posS actual = this->primera();
+	posS menor;
+	posS recorrido;
 	for (int i = 0; i < (this->numElem() - 1); i++) {
 		menor = actual;
 		recorrido = this->siguiente(menor);
@@ -592,16 +601,16 @@ void Lista_Posicionada_DE::selectIter() {//YA!
 	}
 }
 
-void Lista_Posicionada_DE::selectRec() {//YA!
+void Lista_Posicionada_SE::selectRec() {//YA!
 	this->selectRecursivo(this->primera());
 }
 
-void Lista_Posicionada_DE::selectRecursivo(pos primera) {//YA!
+void Lista_Posicionada_SE::selectRecursivo(posS primera) {//YA!
 	if (primera == this->ultima()) {
 		return;
 	}
-	pos menor = primera;
-	pos recorrido = this->siguiente(primera);
+	posS menor = primera;
+	posS recorrido = this->siguiente(primera);
 	while (recorrido != 0) {
 		if (this->recuperar(recorrido) < this->recuperar(menor)) {
 			menor = recorrido;
@@ -612,9 +621,9 @@ void Lista_Posicionada_DE::selectRecursivo(pos primera) {//YA!
 	this->selectRecursivo(this->siguiente(primera));
 }
 
-void Lista_Posicionada_DE::insercion(pos actual, pos ultima) {//YA!
-	pos p;
-	pos q;
+void Lista_Posicionada_SE::insercion(posS actual, posS ultima) {//YA!
+	posS p;
+	posS q;
 	bool ordenado;
 	int iP;
 	int jQ;
@@ -648,10 +657,10 @@ void Lista_Posicionada_DE::insercion(pos actual, pos ultima) {//YA!
 	}
 }
 
-/*void Lista_Posicionada_DE::insercion() {//YA!
-pos actual = this->primera();
-pos p;
-pos q;
+/*void Lista_Posicionada_SE::insercion() {//YA!
+posS actual = this->primera();
+posS p;
+posS q;
 bool ordenado;
 while (actual != 0) {
 ordenado = false;
@@ -670,11 +679,11 @@ actual = this->siguiente(actual);
 }
 }*/
 
-Lista_Posicionada_DE* Lista_Posicionada_DE::mergeSort() {//YA!
+Lista_Posicionada_SE* Lista_Posicionada_SE::mergeSort() {//YA!
 	if (this->numElem() > 1) {
-		Lista_Posicionada_DE* ListaDerecha = new Lista_Posicionada_DE();
-		Lista_Posicionada_DE* ListaIzquierda = new Lista_Posicionada_DE();
-		pos p = this->primera();
+		Lista_Posicionada_SE* ListaDerecha = new Lista_Posicionada_SE();
+		Lista_Posicionada_SE* ListaIzquierda = new Lista_Posicionada_SE();
+		posS p = this->primera();
 		for (int i = 0; i<this->numElem(); i++) {
 			if (i < (this->numElem() / 2)) {
 				ListaIzquierda->agregarAlFinal(this->recuperar(p));
@@ -687,7 +696,7 @@ Lista_Posicionada_DE* Lista_Posicionada_DE::mergeSort() {//YA!
 		}
 		ListaIzquierda = ListaIzquierda->mergeSort();
 		ListaDerecha = ListaDerecha->mergeSort();
-		Lista_Posicionada_DE* ordenada = new Lista_Posicionada_DE();
+		Lista_Posicionada_SE* ordenada = new Lista_Posicionada_SE();
 		ordenada = merge(ListaIzquierda, ListaDerecha);
 		ListaIzquierda->destruir();
 		ListaDerecha->destruir();
@@ -698,10 +707,10 @@ Lista_Posicionada_DE* Lista_Posicionada_DE::mergeSort() {//YA!
 	}
 }
 
-Lista_Posicionada_DE* Lista_Posicionada_DE::merge(Lista_Posicionada_DE* L1, Lista_Posicionada_DE* L2) {//YA!
-	Lista_Posicionada_DE* mezcla = new Lista_Posicionada_DE();
-	pos p = L1->primera();
-	pos q = L2->primera();
+Lista_Posicionada_SE* Lista_Posicionada_SE::merge(Lista_Posicionada_SE* L1, Lista_Posicionada_SE* L2) {//YA!
+	Lista_Posicionada_SE* mezcla = new Lista_Posicionada_SE();
+	posS p = L1->primera();
+	posS q = L2->primera();
 	while ((p != 0) && (q != 0)) {
 		if (this->recuperar(p) <= this->recuperar(q)) {
 			mezcla->agregarAlFinal(this->recuperar(p));
@@ -723,9 +732,9 @@ Lista_Posicionada_DE* Lista_Posicionada_DE::merge(Lista_Posicionada_DE* L1, List
 	return mezcla;
 }
 
-void Lista_Posicionada_DE::Union(Lista_Posicionada_DE* L1) {//YA
-	pos p = this->primera();
-	pos q = L1->primera();
+void Lista_Posicionada_SE::Union(Lista_Posicionada_SE* L1) {//YA
+	posS p = this->primera();
+	posS q = L1->primera();
 	bool encontrado;
 	while (q != 0) {
 		encontrado = false;
@@ -745,10 +754,10 @@ void Lista_Posicionada_DE::Union(Lista_Posicionada_DE* L1) {//YA
 	}
 }
 
-Lista_Posicionada_DE* Lista_Posicionada_DE::interseccionOrd(Lista_Posicionada_DE* L1) {//YA!
-	pos p = this->primera();
-	pos q = L1->primera();
-	Lista_Posicionada_DE* L3 = new Lista_Posicionada_DE();
+Lista_Posicionada_SE* Lista_Posicionada_SE::interseccionOrd(Lista_Posicionada_SE* L1) {//YA!
+	posS p = this->primera();
+	posS q = L1->primera();
+	Lista_Posicionada_SE* L3 = new Lista_Posicionada_SE();
 	while ((p != 0) && (q != 0)) {
 		if (this->recuperar(p) == L1->recuperar(q)) {
 			L3->agregarAlFinal(this->recuperar(p));
@@ -767,10 +776,10 @@ Lista_Posicionada_DE* Lista_Posicionada_DE::interseccionOrd(Lista_Posicionada_DE
 	return L3;
 }
 
-Lista_Posicionada_DE* Lista_Posicionada_DE::interseccion(Lista_Posicionada_DE* L1) {//YA!
-	Lista_Posicionada_DE* L3 = new Lista_Posicionada_DE();
-	pos p = L1->primera();
-	pos q;
+Lista_Posicionada_SE* Lista_Posicionada_SE::interseccion(Lista_Posicionada_SE* L1) {//YA!
+	Lista_Posicionada_SE* L3 = new Lista_Posicionada_SE();
+	posS p = L1->primera();
+	posS q;
 	bool encontrado;
 	while (p != 0) {
 		encontrado = false;
@@ -789,15 +798,15 @@ Lista_Posicionada_DE* Lista_Posicionada_DE::interseccion(Lista_Posicionada_DE* L
 	return L3;
 }
 
-void Lista_Posicionada_DE::eliminarIntrOrd(Lista_Posicionada_DE* L2) {//YA!
-	pos p = this->primera();
-	pos q = L2->primera();
-	int posicionP = 1;
+void Lista_Posicionada_SE::eliminarIntrOrd(Lista_Posicionada_SE* L2) {//YA!
+	posS p = this->primera();
+	posS q = L2->primera();
+	int posSicionP = 1;
 	while ((p != 0) && (q != 0)) {
 		if (this->recuperar(p) == L2->recuperar(q)) {
 			this->borrar(p);
 			p = this->primera();
-			for (int i = 1; i < posicionP; i++) {
+			for (int i = 1; i < posSicionP; i++) {
 				p = this->siguiente(p);
 			}
 			q = L2->siguiente(q);
@@ -808,15 +817,15 @@ void Lista_Posicionada_DE::eliminarIntrOrd(Lista_Posicionada_DE* L2) {//YA!
 			}
 			else {
 				p = this->siguiente(p);
-				posicionP++;
+				posSicionP++;
 			}
 		}
 	}
 }
 
-void Lista_Posicionada_DE::eliminarIntr(Lista_Posicionada_DE* L2) { //YA!
-	pos p;
-	pos q = L2->primera();
+void Lista_Posicionada_SE::eliminarIntr(Lista_Posicionada_SE* L2) { //YA!
+	posS p;
+	posS q = L2->primera();
 	bool encontrado;
 	while ((q != 0)) {
 		encontrado = false;
@@ -834,10 +843,10 @@ void Lista_Posicionada_DE::eliminarIntr(Lista_Posicionada_DE* L2) { //YA!
 	}
 }
 
-pos Lista_Posicionada_DE::EncuentraPivote(pos i, pos j) {
+posS Lista_Posicionada_SE::EncuentraPivote(posS i, posS j) {
 	elemento primeraClave = this->recuperar(i);
-	pos pivote;
-	pos k = this->siguiente(i);
+	posS pivote;
+	posS k = this->siguiente(i);
 	while (k != j) {
 		if (this->recuperar(k) > primeraClave) {
 			pivote = k;
@@ -850,8 +859,8 @@ pos Lista_Posicionada_DE::EncuentraPivote(pos i, pos j) {
 	return pivote;
 }
 
-pos Lista_Posicionada_DE::Particion(pos i, pos j, elemento pivote) {
-	pos z = i, d = j;
+posS Lista_Posicionada_SE::Particion(posS i, posS j, elemento pivote) {
+	posS z = i, d = j;
 	do {
 		this->intercambiar(z, d);
 		while (this->recuperar(z) != pivote) {
@@ -864,14 +873,14 @@ pos Lista_Posicionada_DE::Particion(pos i, pos j, elemento pivote) {
 	return z;
 }
 
-void Lista_Posicionada_DE::QuickSortAho() {
+void Lista_Posicionada_SE::QuickSortAho() {
 	QuickSortAho(this->primera(), this->ultima());
 }
 
-void Lista_Posicionada_DE::QuickSortAho(pos i, pos j) {
+void Lista_Posicionada_SE::QuickSortAho(posS i, posS j) {
 	elemento pivote;
-	pos indicePivote;
-	pos k;
+	posS indicePivote;
+	posS k;
 
 	indicePivote = this->EncuentraPivote(i, j);
 	pivote = this->recuperar(indicePivote);
@@ -880,12 +889,12 @@ void Lista_Posicionada_DE::QuickSortAho(pos i, pos j) {
 	this->QuickSortAho(k, j);
 }
 
-void Lista_Posicionada_DE::QuickSort() {
+void Lista_Posicionada_SE::QuickSort() {
 	QuickSort(this->primera(), this->ultima());
 }
 
-void Lista_Posicionada_DE::QuickSort(pos i, pos j) {
-	pos elemento = i;
+void Lista_Posicionada_SE::QuickSort(posS i, posS j) {
+	posS elemento = i;
 	int numElemento = 1;
 	while (i != j) {
 		numElemento++;
@@ -896,8 +905,8 @@ void Lista_Posicionada_DE::QuickSort(pos i, pos j) {
 	}
 	else {
 
-		pos indicePivote;
-		pos k;
+		posS indicePivote;
+		posS k;
 
 		indicePivote = this->EncuentraPivote(i, j);
 		if (indicePivote == this->primera()) {
@@ -916,21 +925,21 @@ Requiere: Lista L inicializada
 Modifica: L
 
 */
-void Lista_Posicionada_DE::SeleccionRecursivoPila(pos primera) {
+void Lista_Posicionada_SE::SeleccionRecursivoPila(posS primera) {
 	if (primera != 0) {
 		Pila *pilaAux = new Pila();
 		pilaAux->iniciar();
 		pilaAux->poner(primera);
 		while (!pilaAux->vacia()) {
-			pos posicionActual = pilaAux->quitar();
-			if (posicionActual != 0) {
-				pilaAux->poner(this->siguiente(posicionActual));
-				pos minimo = posicionActual;
-				pos posicion = posicionActual;
-				while (posicion != 0) {
-					if (this->recuperar(posicion) < this->recuperar(minimo))
-						minimo = posicion;
-					posicion = this->siguiente(posicion)
+			posS posSicionActual = pilaAux->quitar();
+			if (posSicionActual != 0) {
+				pilaAux->poner(this->siguiente(posSicionActual));
+				posS minimo = posSicionActual;
+				posS posSicion = posSicionActual;
+				while (posSicion != 0) {
+					if (this->recuperar(posSicion) < this->recuperar(minimo))
+						minimo = posSicion;
+					posSicion = this->siguiente(posSicion)
 				}
 				this->intercambiar(indiceActual, minimo);
 			}
