@@ -299,9 +299,9 @@ bool Lista_Posicionada_SE::vacia() {
 	return vacia;
 }
 
-void Lista_Posicionada_SE::insertar(elemento e, pos p) {
+void Lista_Posicionada_SE::insertar(elemento e, posS p) {
 	posS q = inicio;
-	NodoS* agregado = new Nodo(e);
+	NodoS* agregado = new NodoS(e);
 	if (p == q) {
 		agregado->sgt = q;
 		inicio = agregado;
@@ -323,14 +323,14 @@ void Lista_Posicionada_SE::insertar(elemento e, pos p) {
 
 void Lista_Posicionada_SE::agregarAlFinal(elemento e) {
 	if (inicio == 0) {
-		inicio = new Nodo(e);
+		inicio = new NodoS(e);
 	}
 	else {
 		bool agregado = false;
 		posS p = inicio;
 		while (!agregado) {
 			if (p->sgt == 0) {
-				p->sgt = new Nodo(e);
+				p->sgt = new NodoS(e);
 				agregado = true;
 			}
 			else {
@@ -350,7 +350,7 @@ void Lista_Posicionada_SE::borrar(posS p) {
 		bool borrado = false;
 		while (!borrado) {
 			if (q->sgt == p) {
-				pos aux = q->sgt;
+				posS aux = q->sgt;
 				q->sgt = p->sgt;
 				delete aux;
 				borrado = true;
@@ -377,25 +377,25 @@ void Lista_Posicionada_SE::intercambiar(posS p1, posS p2) {
 	p2->dato = aux;
 }
 
-pos Lista_Posicionada_SE::primera() {
+posS Lista_Posicionada_SE::primera() {
 	return inicio;
 }
 
-pos Lista_Posicionada_SE::ultima() {
-	pos posicion = inicio;
+posS Lista_Posicionada_SE::ultima() {
+	posS posicion = inicio;
 	while (!(posicion->sgt == 0)) {
 		posicion = posicion->sgt;
 	}
 	return posicion;
 }
 
-pos Lista_Posicionada_SE::siguiente(posS p) {
+posS Lista_Posicionada_SE::siguiente(posS p) {
 	return p->sgt;
 }
 
-pos Lista_Posicionada_SE::anterior(posS p) {
+posS Lista_Posicionada_SE::anterior(posS p) {
 	bool encontrado = false;
-	pos anterior = inicio;
+	posS anterior = inicio;
 	while (!encontrado) {
 		if (anterior->sgt == p) {
 			encontrado = true;
