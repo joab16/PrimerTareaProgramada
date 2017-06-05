@@ -121,7 +121,7 @@ public:
 	//EFE: Si L1 es sublista de L devuelve true, de lo contrario devuelve falso
 	//REQ: L y L1 inicializadas
 	//MOD:
-	bool subLista(Lista_Posicionada_SE L1);
+	bool subLista(Lista_Posicionada_SE* L1);
 
 	//EFE: Devuelve true si L y L1 son iguales, de lo contrario devuelve falso
 	//REQ: L y L1 inicializadas
