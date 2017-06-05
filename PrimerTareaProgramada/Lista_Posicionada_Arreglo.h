@@ -195,6 +195,57 @@ class Lista_Posicionada_Arreglo
 		//MOD: L
 		void eliminarIntr(Lista_Posicionada_Arreglo* L1);
 
+		pos EncuentraPivote(pos i, pos j);
+
+		/*
+		Nombre: Particion
+		Parámetros: int i, int j, int pivote
+		Efecto: Establece la particion a usar por el quick sort
+		Requiere: Lista global inicializada
+		Modifica:
+
+		*/
+		pos Particion(pos i, pos j, elemento pivote);
+
+		/*
+		Nombre: QuickSortAho
+		Parámetros:
+		Efecto: Llama al metodo de ordenamiento recursivo QuickSortAho
+		Requiere: Lista global inicializada
+		Modifica:
+
+		*/
+		void QuickSortAho();
+		/**
+		Nombre: QuickSortAho
+		Parámetros:
+		Efecto: Ordena una lista indexada usando el algoritmo Quick Sort version Aho
+		Requiere: Lista global inicializada
+		Modifica: Lista global
+
+		*/
+		void QuickSortAho(pos i, pos j);
+		/**
+		Nombre: QuickSort
+		Parámetros:
+		Efecto: Llama al metodo de ordenamiento recursivo QuickSort
+		Requiere: Lista global inicializada
+		Modifica:
+
+		*/
+		void QuickSort();
+		/**
+		Nombre: QuickSort
+		Parámetros: ListaIndexada L, int i, int j
+		Efecto: Ordena una lista, si la lista es de 50 elementos o menos usa insercion
+		Requiere: Lista global inicializada
+		Modifica:
+
+		*/
+		void QuickSort(pos i, pos j);
+
+		void SeleccionRecursivoPila(pos primera);
+
 protected:
 
 	//EFE: Metodo Privado, complementario al metodo mergeSort de la Lista
@@ -351,16 +402,15 @@ bool Lista_Posicionada_Arreglo::buscar(elemento e) {//YA!
 void Lista_Posicionada_Arreglo::elimElemRep() {//YA!
 	posA p = this->primera();
 	posA q;
-	bool borrado;
 	while (p < this->numElem()) { //Cambiar para TODOS
 		q = this->siguiente(p);
-		borrado = false;
-		while (q < this->numElem() && !(borrado)) {
+		while (q < this->numElem()) {
 			if (this->recuperar(q) == this->recuperar(p)) {
 				this->borrar(q);
-				borrado = true;
 			}
-			q = this->siguiente(q);
+			else {
+				q = this->siguiente(q);
+			}
 		}
 		p = this->siguiente(p);
 	}
@@ -501,34 +551,74 @@ void Lista_Posicionada_Arreglo::selectRecursivo(posA primera) {//YA!
 
 }
 
-void Lista_Posicionada_Arreglo::insercion() {//YA!
-	posA actual = this->primera();
+/* void Lista_Posicionada_Arreglo::insercion(posA actual, posA ultima){
+posA p;
+posA q;
+int iP;
+int jQ;
+int kActual = 0;
+bool ordenado;
+int numElem = 0;
+q = actual;
+while(q != ultima){
+numElem++;
+q = this->siguiente(q);
+}
+while (kActual < numElem) {
+ordenado = false;
+p = actual;
+iP = kActual;
+q = this->anterior(p);
+jQ = (p - 1);
+while (jQ < numElem && !ordenado) {
+if (this->recuperar(q) > this->recuperar(p)) {
+this->intercambiar(p, q);
+q = this->anterior(q);
+jQ--;
+p = this->anterior(p);
+iP--;
+} else {
+ordenado = true;
+}
+}
+actual = this->siguiente(actual);
+kActual++;
+}
+}*/
+
+void Lista_Posicionada_Arreglo::insercion(posA actual, posA ultima) {//YA!
 	posA p;
 	posA q;
-	int i;
-	int j;
-	int k = 0;
 	bool ordenado;
-	while (k < this->numElem()) {
+	int iP;
+	int jQ;
+	int kActual = 0;
+	int numElem = 0;
+	q = actual;
+	while (q != ultima) {
+		numElem++;
+		q = this->siguiente(q);
+	}
+	while (kActual < numElem) {
 		ordenado = false;
 		p = actual;
-		i = k;
+		iP = kActual;
 		q = this->anterior(p);
-		j = (p - 1);
-		while (j < this->numElem() && !ordenado) {
+		jQ = (iP - 1);
+		while ((jQ < numElem && jQ > 0) && !ordenado) {
 			if (this->recuperar(q) > this->recuperar(p)) {
 				this->intercambiar(p, q);
+				jQ--;
 				q = this->anterior(q);
-				j--;
 				p = this->anterior(p);
-				i--;
+				iP--;
 			}
 			else {
 				ordenado = true;
 			}
 		}
 		actual = this->siguiente(actual);
-		k++;
+		kActual++;
 	}
 }
 
@@ -718,5 +808,79 @@ void Lista_Posicionada_Arreglo::eliminarIntr(Lista_Posicionada_Arreglo* L2) { //
 		}
 		q = L2->siguiente(q);
 		j++;
+	}
+}
+
+posA Lista_Posicionada_Arreglo::EncuentraPivote(posA i, posA j) {
+	elemento primeraClave = this->recuperar(i);
+	posA pivote;
+	posA k = this->siguiente(i);
+	while (k != j) {
+		if (this->recuperar(k) > primeraClave) {
+			pivote = k;
+		}
+		else if (this->recuperar(k) < primeraClave) {
+			pivote = i;
+		}
+		k = this->siguiente(k);
+	}
+	return pivote;
+}
+
+posA Lista_Posicionada_Arreglo::Particion(posA i, posA j, elemento pivote) {
+	posA z = i, d = j;
+	do {
+		this->intercambiar(z, d);
+		while (this->recuperar(z) != pivote) {
+			z = this->siguiente(z);
+		}
+		while (this->recuperar(d) != pivote) {
+			d = this->anterior(d);
+		}
+	} while (z != d);
+	return z;
+}
+
+void Lista_Posicionada_Arreglo::QuickSortAho() {
+	QuickSortAho(this->primera(), this->ultima());
+}
+
+void Lista_Posicionada_Arreglo::QuickSortAho(posA i, posA j) {
+	elemento pivote;
+	posA indicePivote;
+	posA k;
+
+	indicePivote = this->EncuentraPivote(i, j);
+	pivote = this->recuperar(indicePivote);
+	k = this->Particion(i, j, pivote);
+	this->QuickSortAho(i, this->anterior(k));
+	this->QuickSortAho(k, j);
+}
+
+void Lista_Posicionada_Arreglo::QuickSort() {
+	QuickSort(this->primera(), this->ultima());
+}
+
+void Lista_Posicionada_Arreglo::QuickSort(posA i, posA j) {
+	posA elemento = i;
+	int numElemento = 1;
+	while (i != j) {
+		numElemento++;
+		this->siguiente(elemento);
+	}
+	if (numElemento <= 50) {
+		//TODO: Llamar al metodo insercion
+	}
+	else {
+
+		posA indicePivote;
+		posA k;
+
+		indicePivote = this->EncuentraPivote(i, j);
+		if (indicePivote == this->primera()) {
+			k = this->Particion(i, j, this->recuperar(indicePivote));
+			this->QuickSort(i, this->anterior(k));
+			this->QuickSort(k, j);
+		}
 	}
 }
