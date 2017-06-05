@@ -197,6 +197,56 @@ public:
 	//MOD: L
 	void eliminarIntr(Lista_Posicionada_DE* L1);
 
+	pos EncuentraPivote(pos i, pos j);
+
+	/*
+	Nombre: Particion
+	Parámetros: int i, int j, int pivote
+	Efecto: Establece la particion a usar por el quick sort
+	Requiere: Lista global inicializada
+	Modifica:
+
+	*/
+	pos Particion(pos i, pos j, elemento pivote);
+
+	/*
+	Nombre: QuickSortAho
+	Parámetros:
+	Efecto: Llama al metodo de ordenamiento recursivo QuickSortAho
+	Requiere: Lista global inicializada
+	Modifica:
+
+	*/
+	void QuickSortAho();
+	/**
+	Nombre: QuickSortAho
+	Parámetros:
+	Efecto: Ordena una lista indexada usando el algoritmo Quick Sort version Aho
+	Requiere: Lista global inicializada
+	Modifica: Lista global
+
+	*/
+	void QuickSortAho(pos i, pos j);
+	/**
+	Nombre: QuickSort
+	Parámetros:
+	Efecto: Llama al metodo de ordenamiento recursivo QuickSort
+	Requiere: Lista global inicializada
+	Modifica:
+
+	*/
+	void QuickSort();
+	/**
+	Nombre: QuickSort
+	Parámetros: ListaIndexada L, int i, int j
+	Efecto: Ordena una lista, si la lista es de 50 elementos o menos usa insercion
+	Requiere: Lista global inicializada
+	Modifica:
+
+	*/
+	void QuickSort(pos i, pos j);
+
+	void SeleccionRecursivoPila(pos primera);
 protected:
 
 	//EFE: Metodo Privado, complementario al metodo mergeSort de la Lista
@@ -414,14 +464,12 @@ bool Lista_Posicionada_DE::buscar(elemento e) {//YA!
 void Lista_Posicionada_DE::elimElemRep() {//YA!
 	pos p = this->primera();
 	pos q;
-	bool borrado;
 	while (!(p == 0)) {
 		q = this->siguiente(p);
-		borrado = false;
-		while (!(q == 0) && !(borrado)) {
+		while (!(q == 0)) {
 			if (this->recuperar(q) == this->recuperar(p)) {
 				this->borrar(q);
-				borrado = true;
+				q = this->siguiente(p);
 			}
 			q = this->siguiente(q);
 		}
@@ -564,28 +612,63 @@ void Lista_Posicionada_DE::selectRecursivo(pos primera) {//YA!
 	this->selectRecursivo(this->siguiente(primera));
 }
 
-void Lista_Posicionada_DE::insercion() {//YA!
-	pos actual = this->primera();
+void Lista_Posicionada_DE::insercion(pos actual, pos ultima) {//YA!
 	pos p;
 	pos q;
 	bool ordenado;
-	while (actual != 0) {
+	int iP;
+	int jQ;
+	int kActual = 0;
+	int numElem = 0;
+	q = actual;
+	while (q != ultima) {
+		numElem++;
+		q = this->siguiente(q);
+	}
+	while (kActual < numElem) {
 		ordenado = false;
 		p = actual;
+		iP = kActual;
 		q = this->anterior(p);
-		while (q != 0 && !ordenado) {
+		jQ = (iP - 1);
+		while ((jQ < numElem && jQ > 0) && !ordenado) {
 			if (this->recuperar(q) > this->recuperar(p)) {
 				this->intercambiar(p, q);
+				jQ--;
 				q = this->anterior(q);
 				p = this->anterior(p);
+				iP--;
 			}
 			else {
 				ordenado = true;
 			}
 		}
 		actual = this->siguiente(actual);
+		kActual++;
 	}
 }
+
+/*void Lista_Posicionada_DE::insercion() {//YA!
+pos actual = this->primera();
+pos p;
+pos q;
+bool ordenado;
+while (actual != 0) {
+ordenado = false;
+p = actual;
+q = this->anterior(p);
+while (q != 0 && !ordenado) {
+if (this->recuperar(q) > this->recuperar(p)) {
+this->intercambiar(p, q);
+q = this->anterior(q);
+p = this->anterior(p);
+} else {
+ordenado = true;
+}
+}
+actual = this->siguiente(actual);
+}
+}*/
 
 Lista_Posicionada_DE* Lista_Posicionada_DE::mergeSort() {//YA!
 	if (this->numElem() > 1) {
@@ -609,6 +692,9 @@ Lista_Posicionada_DE* Lista_Posicionada_DE::mergeSort() {//YA!
 		ListaIzquierda->destruir();
 		ListaDerecha->destruir();
 		return ordenada;
+	}
+	else {
+		return this;
 	}
 }
 
@@ -745,5 +831,109 @@ void Lista_Posicionada_DE::eliminarIntr(Lista_Posicionada_DE* L2) { //YA!
 			}
 		}
 		q = L2->siguiente(q);
+	}
+}
+
+pos Lista_Posicionada_DE::EncuentraPivote(pos i, pos j) {
+	elemento primeraClave = this->recuperar(i);
+	pos pivote;
+	pos k = this->siguiente(i);
+	while (k != j) {
+		if (this->recuperar(k) > primeraClave) {
+			pivote = k;
+		}
+		else if (this->recuperar(k) < primeraClave) {
+			pivote = i;
+		}
+		k = this->siguiente(k);
+	}
+	return pivote;
+}
+
+pos Lista_Posicionada_DE::Particion(pos i, pos j, elemento pivote) {
+	pos z = i, d = j;
+	do {
+		this->intercambiar(z, d);
+		while (this->recuperar(z) != pivote) {
+			z = this->siguiente(z);
+		}
+		while (this->recuperar(d) != pivote) {
+			d = this->anterior(d);
+		}
+	} while (z != d);
+	return z;
+}
+
+void Lista_Posicionada_DE::QuickSortAho() {
+	QuickSortAho(this->primera(), this->ultima());
+}
+
+void Lista_Posicionada_DE::QuickSortAho(pos i, pos j) {
+	elemento pivote;
+	pos indicePivote;
+	pos k;
+
+	indicePivote = this->EncuentraPivote(i, j);
+	pivote = this->recuperar(indicePivote);
+	k = this->Particion(i, j, pivote);
+	this->QuickSortAho(i, this->anterior(k));
+	this->QuickSortAho(k, j);
+}
+
+void Lista_Posicionada_DE::QuickSort() {
+	QuickSort(this->primera(), this->ultima());
+}
+
+void Lista_Posicionada_DE::QuickSort(pos i, pos j) {
+	pos elemento = i;
+	int numElemento = 1;
+	while (i != j) {
+		numElemento++;
+		this->siguiente(elemento);
+	}
+	if (numElemento <= 50) {
+		//TODO: Llamar al metodo insercion
+	}
+	else {
+
+		pos indicePivote;
+		pos k;
+
+		indicePivote = this->EncuentraPivote(i, j);
+		if (indicePivote == this->primera()) {
+			k = this->Particion(i, j, this->recuperar(indicePivote));
+			this->QuickSort(i, this->anterior(k));
+			this->QuickSort(k, j);
+		}
+	}
+}
+
+/**
+Nombre: SeleccionRecursivoPila
+Parámetros: ListaIndexada L
+Efecto: Ordena los elementos de la lista usando el algoritmo Selección Recursivo pero sin usar la pila del compilador
+Requiere: Lista L inicializada
+Modifica: L
+
+*/
+void Lista_Posicionada_DE::SeleccionRecursivoPila(pos primera) {
+	if (primera != 0) {
+		Pila *pilaAux = new Pila();
+		pilaAux->iniciar();
+		pilaAux->poner(primera);
+		while (!pilaAux->vacia()) {
+			pos posicionActual = pilaAux->quitar();
+			if (posicionActual != 0) {
+				pilaAux->poner(this->siguiente(posicionActual));
+				pos minimo = posicionActual;
+				pos posicion = posicionActual;
+				while (posicion != 0) {
+					if (this->recuperar(posicion) < this->recuperar(minimo))
+						minimo = posicion;
+					posicion = this->siguiente(posicion)
+				}
+				this->intercambiar(indiceActual, minimo);
+			}
+		}
 	}
 }
