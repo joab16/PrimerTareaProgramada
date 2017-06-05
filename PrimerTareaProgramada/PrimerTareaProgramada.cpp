@@ -14,7 +14,8 @@
 
 //typedef ListaOrdenadaArreglo ListaOrdenada;
 typedef ListaOrdenadaLSE ListaOrdenada;
-typedef ListaIndexadaArreglo ListaIndexada;
+//typedef ListaIndexadaArreglo ListaIndexada;
+typedef ListaIndexadaSE ListaIndexada;
 //typedef ListaOrdenadaLSE ListaOrdenada;
 using namespace std;
 
@@ -175,7 +176,6 @@ void menu()
 				else
 					cout << "La lista no es simétrica." << endl;
 				Laux->Destruir();
-				Laux->~ListaIndexadaArreglo();
 				break;
 			case 3:
 				cout << "Lista antes de invertir" << endl;
