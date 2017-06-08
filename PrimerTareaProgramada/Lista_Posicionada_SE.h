@@ -1,7 +1,7 @@
 #ifndef LISTA_POSICIONADA_SE_H
 #define LISTA_POSICIONADA_SE_H
 using namespace std;
-#include"Pila.h";
+//#include"Pila.h";
 
 typedef int elemento;
 
@@ -126,80 +126,80 @@ public:
 	//EFE: Devuelve true si L y L1 son iguales, de lo contrario devuelve falso
 	//REQ: L y L1 inicializadas
 	//MOD:
-	bool iguales(Lista_Posicionada_SE L1);
+	//bool iguales(Lista_Posicionada_SE L1);
 
 	//EFE: Ordena L con Burbuja Original
 	//REQ: L inicializadas
 	//MOD: L
-	void burbujaOriginal();
+	//void burbujaOriginal();
 
 	//EFE: Ordena L con Burbuja Bidireccional
 	//REQ: L inicializada
 	//MOD: L
-	void burbujaBiDir();
+	//void burbujaBiDir();
 
 	//EFE: Ordena L con Seleccion de forma iterativa
 	//REQ: L
 	//MOD: L
-	void selectIter();
+	//void selectIter();
 
 	//EFE: Ordena L con Seleccion de forma recursiva
 	//REQ: L inicializada
 	//MOD: L
-	void selectRec();
+	//void selectRec();
 
 	//EFE: Ordena L con Seleccion de forma recursiva pero con una Pila
 	//REQ: L inicializada
 	//MOD: L
-	void selecRecPila();
+	//void selecRecPila();
 
 	//EFE: Ordena L con Insercion
 	//REQ: L inicializada
 	//MOD: L
-	void insercion(pos actual, pos ultima);
+	//void insercion(pos actual, pos ultima);
 
 	//EFE: Ordena L con Quick Sort de Aho
 	//REQ: L incializada
 	//MOD: L
-	void quickSortAho();
+	//void quickSortAho();
 
 	//EFE: Ordena L con Quick Sort
 	//REQ: L inicializada
 	//MOD: L
-	void quickSort();
+	//void quickSort();
 
 	//EFE: Ordena L con Merge Sort, devuelve la Lista ordenada
 	//REQ: L incializada y el numero de elementos de L sea mayor a 1
 	//MOD: L
-	Lista_Posicionada_SE mergeSort();
+	//Lista_Posicionada_SE mergeSort();
 
 	//EFE: Une la Lista L con L1
 	//REQ: L y L1 inicializada
 	//MOD: L
-	void Union(Lista_Posicionada_SE L1);
+	//void Union(Lista_Posicionada_SE L1);
 
 	//EFE: Devueleve una Lista con la interseccion de L1 y L
 	//REQ: L y L1 inicializadas, ordenadas y sin elementos repetidos
 	//MOD:
-	Lista_Posicionada_SE interseccionOrd(Lista_Posicionada_SE L1);
+	//Lista_Posicionada_SE interseccionOrd(Lista_Posicionada_SE L1);
 
 	//EFE: Devuelve una Lista con la interseccion de L1 y L
 	//REQ: L1 y L inicializadas y sin elementos repetidos
 	//MOD:
-	Lista_Posicionada_SE interseccion(Lista_Posicionada_SE L1);
+	//Lista_Posicionada_SE interseccion(Lista_Posicionada_SE L1);
 
 	//EFE: Elimina de la Lista L la interseccion con L1
 	//REQ: L y L1 inicializadas y ordenadas
 	//MOD: L
-	void eliminarIntrOrd(Lista_Posicionada_SE L1);
+	//void eliminarIntrOrd(Lista_Posicionada_SE L1);
 
 	//EFE: Elimina de la Lista L la interseccion con L1
 	//REQ: L y L1 inicializadas
 	//MOD: L
-	void eliminarIntr(Lista_Posicionada_SE L1);
+	//void eliminarIntr(Lista_Posicionada_SE L1);
 
 
-	pos EncuentraPivote(pos i, pos j);
+	//pos EncuentraPivote(pos i, pos j);
 
 	/*
 	Nombre: Particion
@@ -209,7 +209,7 @@ public:
 	Modifica:
 
 	*/
-	pos Particion(pos i, pos j, elemento pivote);
+	//pos Particion(pos i, pos j, elemento pivote);
 
 	/*
 	Nombre: QuickSortAho
@@ -219,7 +219,7 @@ public:
 	Modifica:
 
 	*/
-	void QuickSortAho();
+	//void QuickSortAho();
 	/**
 	Nombre: QuickSortAho
 	Parámetros:
@@ -228,7 +228,7 @@ public:
 	Modifica: Lista global
 
 	*/
-	void QuickSortAho(pos i, pos j);
+	//void QuickSortAho(pos i, pos j);
 	/**
 	Nombre: QuickSort
 	Parámetros:
@@ -237,7 +237,7 @@ public:
 	Modifica:
 
 	*/
-	void QuickSort();
+	//void QuickSort();
 	/**
 	Nombre: QuickSort
 	Parámetros: ListaIndexada L, int i, int j
@@ -246,29 +246,29 @@ public:
 	Modifica:
 
 	*/
-	void QuickSort(pos i, pos j);
+	//void QuickSort(pos i, pos j);
 
-	void SeleccionRecursivoPila(pos primera);
+	//void SeleccionRecursivoPila(pos primera);
 
 protected:
 	//EFE: Metodo Privado, complementario al metodo mergeSort de la Lista
 	//REQ:
 	//MOD:
-	Lista_Posicionada_SE merge(Lista_Posicionada_SE L1, Lista_Posicionada_SE L2);
+	//Lista_Posicionada_SE merge(Lista_Posicionada_SE L1, Lista_Posicionada_SE L2);
 
 	//EFE: Metodo Privado, complementario al metodo selectRec de la Lista
 	//REQ:
 	//MOD:
-	void selectRecursivo(posS primera);
+	//void selectRecursivo(posS primera);
 
     private:
         NodoS* inicio;
 };
 
 #endif // LISTA_POSICIONADA_SE_H
-Lista_Posicionada_SE::Lista_Posicionada_SE() {
-	inicio = 0;
-}
+//Lista_Posicionada_SE::Lista_Posicionada_SE() {
+//	inicio = 0;
+//}
 
 void Lista_Posicionada_SE::destruir() {
 	NodoS* p = inicio;
@@ -512,437 +512,437 @@ bool Lista_Posicionada_SE::subLista(Lista_Posicionada_SE* L2) {//YA!
 	}
 	return sub_lista;
 }
-
-bool Lista_Posicionada_SE::iguales(Lista_Posicionada_SE* L1) {//YA!
-	bool iguales = true;
-	if (this->numElem() != L1->numElem()) {
-		iguales = false;
-	}
-	else {
-		posS p = this->primera();
-		posS q = L1->primera();
-		while (iguales && (p != 0)) {
-			if (this->recuperar(p) != this->recuperar(q)) {
-				iguales = false;
-			}
-			else {
-				p = this->siguiente(p);
-				q = L1->siguiente(q);
-			}
-		}
-	}
-	return iguales;
-}
-
-void Lista_Posicionada_SE::burbujaOriginal() {//YA!
-	posS p;
-	posS q;
-	for (int i = (this->numElem() - 1); i > 0; i--) {
-		p = this->primera();
-		q = this->siguiente(p);
-		for (int j = i; j > 0; j--) {
-			if (this->recuperar(p) > this->recuperar(q)) {
-				this->intercambiar(p, q);
-			}
-			p = this->siguiente(p);
-			q = this->siguiente(q);
-		}
-	}
-}
-
-void Lista_Posicionada_SE::burbujaBiDir() {//YA!
-	posS p = this->primera();
-	posS q;
-	bool derecha = true;
-	for (int i = (this->numElem() - 1); i > 0; i--) {
-		if (derecha) {
-			q = this->siguiente(p);
-			for (int j = i; j > 0; j--) {
-				if (this->recuperar(p) > this->recuperar(q)) {
-					this->intercambiar(p, q);
-				}
-				if (j > 1) {
-					p = this->siguiente(p);
-					q = this->siguiente(q);
-				}
-			}
-		}
-		else {
-			q = this->anterior(p);
-			for (int k = i; k > 0; k--) {
-				if (this->recuperar(p) < this->recuperar(q)) {
-					this->intercambiar(p, q);
-				}
-				if (k > 1) {
-					p = this->anterior(p);
-					q = this->anterior(q);
-				}
-			}
-		}
-		derecha = !derecha;
-	}
-}
-
-void Lista_Posicionada_SE::selectIter() {//YA!
-	posS actual = this->primera();
-	posS menor;
-	posS recorrido;
-	for (int i = 0; i < (this->numElem() - 1); i++) {
-		menor = actual;
-		recorrido = this->siguiente(menor);
-		for (int j = i + 1; j < this->numElem(); j++) {
-			if (this->recuperar(menor) > this->recuperar(recorrido)) {
-				menor = recorrido;
-			}
-			recorrido = this->siguiente(recorrido);
-		}
-		this->intercambiar(actual, menor);
-		actual = this->siguiente(actual);
-	}
-}
-
-void Lista_Posicionada_SE::selectRec() {//YA!
-	this->selectRecursivo(this->primera());
-}
-
-void Lista_Posicionada_SE::selectRecursivo(posS primera) {//YA!
-	if (primera == this->ultima()) {
-		return;
-	}
-	posS menor = primera;
-	posS recorrido = this->siguiente(primera);
-	while (recorrido != 0) {
-		if (this->recuperar(recorrido) < this->recuperar(menor)) {
-			menor = recorrido;
-		}
-		recorrido = this->siguiente(recorrido);
-	}
-	this->intercambiar(primera, menor);
-	this->selectRecursivo(this->siguiente(primera));
-}
-
-void Lista_Posicionada_SE::insercion(posS actual, posS ultima) {//YA!
-	posS p;
-	posS q;
-	bool ordenado;
-	int iP;
-	int jQ;
-	int kActual = 0;
-	int numElem = 0;
-	q = actual;
-	while (q != ultima) {
-		numElem++;
-		q = this->siguiente(q);
-	}
-	while (kActual < numElem) {
-		ordenado = false;
-		p = actual;
-		iP = kActual;
-		q = this->anterior(p);
-		jQ = (iP - 1);
-		while ((jQ < numElem && jQ > 0) && !ordenado) {
-			if (this->recuperar(q) > this->recuperar(p)) {
-				this->intercambiar(p, q);
-				jQ--;
-				q = this->anterior(q);
-				p = this->anterior(p);
-				iP--;
-			}
-			else {
-				ordenado = true;
-			}
-		}
-		actual = this->siguiente(actual);
-		kActual++;
-	}
-}
-
-/*void Lista_Posicionada_SE::insercion() {//YA!
-posS actual = this->primera();
-posS p;
-posS q;
-bool ordenado;
-while (actual != 0) {
-ordenado = false;
-p = actual;
-q = this->anterior(p);
-while (q != 0 && !ordenado) {
-if (this->recuperar(q) > this->recuperar(p)) {
-this->intercambiar(p, q);
-q = this->anterior(q);
-p = this->anterior(p);
-} else {
-ordenado = true;
-}
-}
-actual = this->siguiente(actual);
-}
-}*/
-
-Lista_Posicionada_SE* Lista_Posicionada_SE::mergeSort() {//YA!
-	if (this->numElem() > 1) {
-		Lista_Posicionada_SE* ListaDerecha = new Lista_Posicionada_SE();
-		Lista_Posicionada_SE* ListaIzquierda = new Lista_Posicionada_SE();
-		posS p = this->primera();
-		for (int i = 0; i<this->numElem(); i++) {
-			if (i < (this->numElem() / 2)) {
-				ListaIzquierda->agregarAlFinal(this->recuperar(p));
-			}
-			else {
-				ListaDerecha->agregarAlFinal(this->recuperar(p));
-			}
-			p = this->siguiente(p);
-
-		}
-		ListaIzquierda = ListaIzquierda->mergeSort();
-		ListaDerecha = ListaDerecha->mergeSort();
-		Lista_Posicionada_SE* ordenada = new Lista_Posicionada_SE();
-		ordenada = merge(ListaIzquierda, ListaDerecha);
-		ListaIzquierda->destruir();
-		ListaDerecha->destruir();
-		return ordenada;
-	}
-	else {
-		return this;
-	}
-}
-
-Lista_Posicionada_SE* Lista_Posicionada_SE::merge(Lista_Posicionada_SE* L1, Lista_Posicionada_SE* L2) {//YA!
-	Lista_Posicionada_SE* mezcla = new Lista_Posicionada_SE();
-	posS p = L1->primera();
-	posS q = L2->primera();
-	while ((p != 0) && (q != 0)) {
-		if (this->recuperar(p) <= this->recuperar(q)) {
-			mezcla->agregarAlFinal(this->recuperar(p));
-			p = L1->siguiente(p);
-		}
-		else {
-			mezcla->agregarAlFinal(this->recuperar(q));
-			q = L2->siguiente(q);
-		}
-	}
-	while (p != 0) {
-		mezcla->agregarAlFinal(this->recuperar(p));
-		p = L1->siguiente(p);
-	}
-	while (q != 0) {
-		mezcla->agregarAlFinal(this->recuperar(q));
-		q = L2->siguiente(q);
-	}
-	return mezcla;
-}
-
-void Lista_Posicionada_SE::Union(Lista_Posicionada_SE* L1) {//YA
-	posS p = this->primera();
-	posS q = L1->primera();
-	bool encontrado;
-	while (q != 0) {
-		encontrado = false;
-		while ((p != 0) && !encontrado) {
-			if (this->recuperar(q) != this->recuperar(p)) {
-				p = this->siguiente(p);
-			}
-			else {
-				encontrado = true;
-			}
-		}
-		if (!encontrado) {
-			this->agregarAlFinal(this->recuperar(q));
-		}
-		q = L1->siguiente(q);
-		p = this->primera();
-	}
-}
-
-Lista_Posicionada_SE* Lista_Posicionada_SE::interseccionOrd(Lista_Posicionada_SE* L1) {//YA!
-	posS p = this->primera();
-	posS q = L1->primera();
-	Lista_Posicionada_SE* L3 = new Lista_Posicionada_SE();
-	while ((p != 0) && (q != 0)) {
-		if (this->recuperar(p) == L1->recuperar(q)) {
-			L3->agregarAlFinal(this->recuperar(p));
-			p = this->siguiente(p);
-			q = L1->siguiente(q);
-		}
-		else {
-			if (this->recuperar(p) > L1->recuperar(q)) {
-				q = L1->siguiente(q);
-			}
-			else {
-				p = this->siguiente(p);
-			}
-		}
-	}
-	return L3;
-}
-
-Lista_Posicionada_SE* Lista_Posicionada_SE::interseccion(Lista_Posicionada_SE* L1) {//YA!
-	Lista_Posicionada_SE* L3 = new Lista_Posicionada_SE();
-	posS p = L1->primera();
-	posS q;
-	bool encontrado;
-	while (p != 0) {
-		encontrado = false;
-		q = this->primera();
-		while (!encontrado && (q != 0)) {
-			if (this->recuperar(p) == this->recuperar(q)) {
-				L3->agregarAlFinal(this->recuperar(p));
-				encontrado = true;
-			}
-			else {
-				q = this->siguiente(q);
-			}
-		}
-		p = L1->siguiente(p);
-	}
-	return L3;
-}
-
-void Lista_Posicionada_SE::eliminarIntrOrd(Lista_Posicionada_SE* L2) {//YA!
-	posS p = this->primera();
-	posS q = L2->primera();
-	int posSicionP = 1;
-	while ((p != 0) && (q != 0)) {
-		if (this->recuperar(p) == L2->recuperar(q)) {
-			this->borrar(p);
-			p = this->primera();
-			for (int i = 1; i < posSicionP; i++) {
-				p = this->siguiente(p);
-			}
-			q = L2->siguiente(q);
-		}
-		else {
-			if (this->recuperar(p) > L2->recuperar(q)) {
-				q = L2->siguiente(q);
-			}
-			else {
-				p = this->siguiente(p);
-				posSicionP++;
-			}
-		}
-	}
-}
-
-void Lista_Posicionada_SE::eliminarIntr(Lista_Posicionada_SE* L2) { //YA!
-	posS p;
-	posS q = L2->primera();
-	bool encontrado;
-	while ((q != 0)) {
-		encontrado = false;
-		p = this->primera();
-		while (p != 0 && !encontrado) {
-			if (this->recuperar(p) == L2->recuperar(q)) {
-				this->borrar(p);
-				encontrado = true;
-			}
-			else {
-				p = this->siguiente(p);
-			}
-		}
-		q = L2->siguiente(q);
-	}
-}
-
-posS Lista_Posicionada_SE::EncuentraPivote(posS i, posS j) {
-	elemento primeraClave = this->recuperar(i);
-	posS pivote;
-	posS k = this->siguiente(i);
-	while (k != j) {
-		if (this->recuperar(k) > primeraClave) {
-			pivote = k;
-		}
-		else if (this->recuperar(k) < primeraClave) {
-			pivote = i;
-		}
-		k = this->siguiente(k);
-	}
-	return pivote;
-}
-
-posS Lista_Posicionada_SE::Particion(posS i, posS j, elemento pivote) {
-	posS z = i, d = j;
-	do {
-		this->intercambiar(z, d);
-		while (this->recuperar(z) != pivote) {
-			z = this->siguiente(z);
-		}
-		while (this->recuperar(d) != pivote) {
-			d = this->anterior(d);
-		}
-	} while (z != d);
-	return z;
-}
-
-void Lista_Posicionada_SE::QuickSortAho() {
-	QuickSortAho(this->primera(), this->ultima());
-}
-
-void Lista_Posicionada_SE::QuickSortAho(posS i, posS j) {
-	elemento pivote;
-	posS indicePivote;
-	posS k;
-
-	indicePivote = this->EncuentraPivote(i, j);
-	pivote = this->recuperar(indicePivote);
-	k = this->Particion(i, j, pivote);
-	this->QuickSortAho(i, this->anterior(k));
-	this->QuickSortAho(k, j);
-}
-
-void Lista_Posicionada_SE::QuickSort() {
-	QuickSort(this->primera(), this->ultima());
-}
-
-void Lista_Posicionada_SE::QuickSort(posS i, posS j) {
-	posS elemento = i;
-	int numElemento = 1;
-	while (i != j) {
-		numElemento++;
-		this->siguiente(elemento);
-	}
-	if (numElemento <= 50) {
-		//TODO: Llamar al metodo insercion
-	}
-	else {
-
-		posS indicePivote;
-		posS k;
-
-		indicePivote = this->EncuentraPivote(i, j);
-		if (indicePivote == this->primera()) {
-			k = this->Particion(i, j, this->recuperar(indicePivote));
-			this->QuickSort(i, this->anterior(k));
-			this->QuickSort(k, j);
-		}
-	}
-}
-
-/**
-Nombre: SeleccionRecursivoPila
-Parámetros: ListaIndexada L
-Efecto: Ordena los elementos de la lista usando el algoritmo Selección Recursivo pero sin usar la pila del compilador
-Requiere: Lista L inicializada
-Modifica: L
-
-*/
-void Lista_Posicionada_SE::SeleccionRecursivoPila(posS primera) {
-	if (primera != 0) {
-		Pila *pilaAux = new Pila();
-		pilaAux->iniciar();
-		pilaAux->poner(primera);
-		while (!pilaAux->vacia()) {
-			posS posSicionActual = pilaAux->quitar();
-			if (posSicionActual != 0) {
-				pilaAux->poner(this->siguiente(posSicionActual));
-				posS minimo = posSicionActual;
-				posS posSicion = posSicionActual;
-				while (posSicion != 0) {
-					if (this->recuperar(posSicion) < this->recuperar(minimo))
-						minimo = posSicion;
-					posSicion = this->siguiente(posSicion)
-				}
-				this->intercambiar(indiceActual, minimo);
-			}
-		}
-	}
-}
+///*
+//bool Lista_Posicionada_SE::iguales(Lista_Posicionada_SE* L1) {//YA!
+//	bool iguales = true;
+//	if (this->numElem() != L1->numElem()) {
+//		iguales = false;
+//	}
+//	else {
+//		posS p = this->primera();
+//		posS q = L1->primera();
+//		while (iguales && (p != 0)) {
+//			if (this->recuperar(p) != this->recuperar(q)) {
+//				iguales = false;
+//			}
+//			else {
+//				p = this->siguiente(p);
+//				q = L1->siguiente(q);
+//			}
+//		}
+//	}
+//	return iguales;
+//}
+//
+//void Lista_Posicionada_SE::burbujaOriginal() {//YA!
+//	posS p;
+//	posS q;
+//	for (int i = (this->numElem() - 1); i > 0; i--) {
+//		p = this->primera();
+//		q = this->siguiente(p);
+//		for (int j = i; j > 0; j--) {
+//			if (this->recuperar(p) > this->recuperar(q)) {
+//				this->intercambiar(p, q);
+//			}
+//			p = this->siguiente(p);
+//			q = this->siguiente(q);
+//		}
+//	}
+//}
+//
+//void Lista_Posicionada_SE::burbujaBiDir() {//YA!
+//	posS p = this->primera();
+//	posS q;
+//	bool derecha = true;
+//	for (int i = (this->numElem() - 1); i > 0; i--) {
+//		if (derecha) {
+//			q = this->siguiente(p);
+//			for (int j = i; j > 0; j--) {
+//				if (this->recuperar(p) > this->recuperar(q)) {
+//					this->intercambiar(p, q);
+//				}
+//				if (j > 1) {
+//					p = this->siguiente(p);
+//					q = this->siguiente(q);
+//				}
+//			}
+//		}
+//		else {
+//			q = this->anterior(p);
+//			for (int k = i; k > 0; k--) {
+//				if (this->recuperar(p) < this->recuperar(q)) {
+//					this->intercambiar(p, q);
+//				}
+//				if (k > 1) {
+//					p = this->anterior(p);
+//					q = this->anterior(q);
+//				}
+//			}
+//		}
+//		derecha = !derecha;
+//	}
+//}
+//
+//void Lista_Posicionada_SE::selectIter() {//YA!
+//	posS actual = this->primera();
+//	posS menor;
+//	posS recorrido;
+//	for (int i = 0; i < (this->numElem() - 1); i++) {
+//		menor = actual;
+//		recorrido = this->siguiente(menor);
+//		for (int j = i + 1; j < this->numElem(); j++) {
+//			if (this->recuperar(menor) > this->recuperar(recorrido)) {
+//				menor = recorrido;
+//			}
+//			recorrido = this->siguiente(recorrido);
+//		}
+//		this->intercambiar(actual, menor);
+//		actual = this->siguiente(actual);
+//	}
+//}
+//
+//void Lista_Posicionada_SE::selectRec() {//YA!
+//	this->selectRecursivo(this->primera());
+//}
+//
+//void Lista_Posicionada_SE::selectRecursivo(posS primera) {//YA!
+//	if (primera == this->ultima()) {
+//		return;
+//	}
+//	posS menor = primera;
+//	posS recorrido = this->siguiente(primera);
+//	while (recorrido != 0) {
+//		if (this->recuperar(recorrido) < this->recuperar(menor)) {
+//			menor = recorrido;
+//		}
+//		recorrido = this->siguiente(recorrido);
+//	}
+//	this->intercambiar(primera, menor);
+//	this->selectRecursivo(this->siguiente(primera));
+//}
+//
+//void Lista_Posicionada_SE::insercion(posS actual, posS ultima) {//YA!
+//	posS p;
+//	posS q;
+//	bool ordenado;
+//	int iP;
+//	int jQ;
+//	int kActual = 0;
+//	int numElem = 0;
+//	q = actual;
+//	while (q != ultima) {
+//		numElem++;
+//		q = this->siguiente(q);
+//	}
+//	while (kActual < numElem) {
+//		ordenado = false;
+//		p = actual;
+//		iP = kActual;
+//		q = this->anterior(p);
+//		jQ = (iP - 1);
+//		while ((jQ < numElem && jQ > 0) && !ordenado) {
+//			if (this->recuperar(q) > this->recuperar(p)) {
+//				this->intercambiar(p, q);
+//				jQ--;
+//				q = this->anterior(q);
+//				p = this->anterior(p);
+//				iP--;
+//			}
+//			else {
+//				ordenado = true;
+//			}
+//		}
+//		actual = this->siguiente(actual);
+//		kActual++;
+//	}
+//}
+//
+///*void Lista_Posicionada_SE::insercion() {//YA!
+//posS actual = this->primera();
+//posS p;
+//posS q;
+//bool ordenado;
+//while (actual != 0) {
+//ordenado = false;
+//p = actual;
+//q = this->anterior(p);
+//while (q != 0 && !ordenado) {
+//if (this->recuperar(q) > this->recuperar(p)) {
+//this->intercambiar(p, q);
+//q = this->anterior(q);
+//p = this->anterior(p);
+//} else {
+//ordenado = true;
+//}
+//}
+//actual = this->siguiente(actual);
+//}
+//}*/
+//
+//Lista_Posicionada_SE* Lista_Posicionada_SE::mergeSort() {//YA!
+//	if (this->numElem() > 1) {
+//		Lista_Posicionada_SE* ListaDerecha = new Lista_Posicionada_SE();
+//		Lista_Posicionada_SE* ListaIzquierda = new Lista_Posicionada_SE();
+//		posS p = this->primera();
+//		for (int i = 0; i<this->numElem(); i++) {
+//			if (i < (this->numElem() / 2)) {
+//				ListaIzquierda->agregarAlFinal(this->recuperar(p));
+//			}
+//			else {
+//				ListaDerecha->agregarAlFinal(this->recuperar(p));
+//			}
+//			p = this->siguiente(p);
+//
+//		}
+//		ListaIzquierda = ListaIzquierda->mergeSort();
+//		ListaDerecha = ListaDerecha->mergeSort();
+//		Lista_Posicionada_SE* ordenada = new Lista_Posicionada_SE();
+//		ordenada = merge(ListaIzquierda, ListaDerecha);
+//		ListaIzquierda->destruir();
+//		ListaDerecha->destruir();
+//		return ordenada;
+//	}
+//	else {
+//		return this;
+//	}
+//}
+//
+//Lista_Posicionada_SE* Lista_Posicionada_SE::merge(Lista_Posicionada_SE* L1, Lista_Posicionada_SE* L2) {//YA!
+//	Lista_Posicionada_SE* mezcla = new Lista_Posicionada_SE();
+//	posS p = L1->primera();
+//	posS q = L2->primera();
+//	while ((p != 0) && (q != 0)) {
+//		if (this->recuperar(p) <= this->recuperar(q)) {
+//			mezcla->agregarAlFinal(this->recuperar(p));
+//			p = L1->siguiente(p);
+//		}
+//		else {
+//			mezcla->agregarAlFinal(this->recuperar(q));
+//			q = L2->siguiente(q);
+//		}
+//	}
+//	while (p != 0) {
+//		mezcla->agregarAlFinal(this->recuperar(p));
+//		p = L1->siguiente(p);
+//	}
+//	while (q != 0) {
+//		mezcla->agregarAlFinal(this->recuperar(q));
+//		q = L2->siguiente(q);
+//	}
+//	return mezcla;
+//}
+//
+//void Lista_Posicionada_SE::Union(Lista_Posicionada_SE* L1) {//YA
+//	posS p = this->primera();
+//	posS q = L1->primera();
+//	bool encontrado;
+//	while (q != 0) {
+//		encontrado = false;
+//		while ((p != 0) && !encontrado) {
+//			if (this->recuperar(q) != this->recuperar(p)) {
+//				p = this->siguiente(p);
+//			}
+//			else {
+//				encontrado = true;
+//			}
+//		}
+//		if (!encontrado) {
+//			this->agregarAlFinal(this->recuperar(q));
+//		}
+//		q = L1->siguiente(q);
+//		p = this->primera();
+//	}
+//}
+//
+//Lista_Posicionada_SE* Lista_Posicionada_SE::interseccionOrd(Lista_Posicionada_SE* L1) {//YA!
+//	posS p = this->primera();
+//	posS q = L1->primera();
+//	Lista_Posicionada_SE* L3 = new Lista_Posicionada_SE();
+//	while ((p != 0) && (q != 0)) {
+//		if (this->recuperar(p) == L1->recuperar(q)) {
+//			L3->agregarAlFinal(this->recuperar(p));
+//			p = this->siguiente(p);
+//			q = L1->siguiente(q);
+//		}
+//		else {
+//			if (this->recuperar(p) > L1->recuperar(q)) {
+//				q = L1->siguiente(q);
+//			}
+//			else {
+//				p = this->siguiente(p);
+//			}
+//		}
+//	}
+//	return L3;
+//}
+//
+//Lista_Posicionada_SE* Lista_Posicionada_SE::interseccion(Lista_Posicionada_SE* L1) {//YA!
+//	Lista_Posicionada_SE* L3 = new Lista_Posicionada_SE();
+//	posS p = L1->primera();
+//	posS q;
+//	bool encontrado;
+//	while (p != 0) {
+//		encontrado = false;
+//		q = this->primera();
+//		while (!encontrado && (q != 0)) {
+//			if (this->recuperar(p) == this->recuperar(q)) {
+//				L3->agregarAlFinal(this->recuperar(p));
+//				encontrado = true;
+//			}
+//			else {
+//				q = this->siguiente(q);
+//			}
+//		}
+//		p = L1->siguiente(p);
+//	}
+//	return L3;
+//}
+//
+//void Lista_Posicionada_SE::eliminarIntrOrd(Lista_Posicionada_SE* L2) {//YA!
+//	posS p = this->primera();
+//	posS q = L2->primera();
+//	int posSicionP = 1;
+//	while ((p != 0) && (q != 0)) {
+//		if (this->recuperar(p) == L2->recuperar(q)) {
+//			this->borrar(p);
+//			p = this->primera();
+//			for (int i = 1; i < posSicionP; i++) {
+//				p = this->siguiente(p);
+//			}
+//			q = L2->siguiente(q);
+//		}
+//		else {
+//			if (this->recuperar(p) > L2->recuperar(q)) {
+//				q = L2->siguiente(q);
+//			}
+//			else {
+//				p = this->siguiente(p);
+//				posSicionP++;
+//			}
+//		}
+//	}
+//}
+//
+//void Lista_Posicionada_SE::eliminarIntr(Lista_Posicionada_SE* L2) { //YA!
+//	posS p;
+//	posS q = L2->primera();
+//	bool encontrado;
+//	while ((q != 0)) {
+//		encontrado = false;
+//		p = this->primera();
+//		while (p != 0 && !encontrado) {
+//			if (this->recuperar(p) == L2->recuperar(q)) {
+//				this->borrar(p);
+//				encontrado = true;
+//			}
+//			else {
+//				p = this->siguiente(p);
+//			}
+//		}
+//		q = L2->siguiente(q);
+//	}
+//}
+//
+//posS Lista_Posicionada_SE::EncuentraPivote(posS i, posS j) {
+//	elemento primeraClave = this->recuperar(i);
+//	posS pivote;
+//	posS k = this->siguiente(i);
+//	while (k != j) {
+//		if (this->recuperar(k) > primeraClave) {
+//			pivote = k;
+//		}
+//		else if (this->recuperar(k) < primeraClave) {
+//			pivote = i;
+//		}
+//		k = this->siguiente(k);
+//	}
+//	return pivote;
+//}
+//
+//posS Lista_Posicionada_SE::Particion(posS i, posS j, elemento pivote) {
+//	posS z = i, d = j;
+//	do {
+//		this->intercambiar(z, d);
+//		while (this->recuperar(z) != pivote) {
+//			z = this->siguiente(z);
+//		}
+//		while (this->recuperar(d) != pivote) {
+//			d = this->anterior(d);
+//		}
+//	} while (z != d);
+//	return z;
+//}
+//
+//void Lista_Posicionada_SE::QuickSortAho() {
+//	QuickSortAho(this->primera(), this->ultima());
+//}
+//
+//void Lista_Posicionada_SE::QuickSortAho(posS i, posS j) {
+//	elemento pivote;
+//	posS indicePivote;
+//	posS k;
+//
+//	indicePivote = this->EncuentraPivote(i, j);
+//	pivote = this->recuperar(indicePivote);
+//	k = this->Particion(i, j, pivote);
+//	this->QuickSortAho(i, this->anterior(k));
+//	this->QuickSortAho(k, j);
+//}
+//
+//void Lista_Posicionada_SE::QuickSort() {
+//	QuickSort(this->primera(), this->ultima());
+//}
+//
+//void Lista_Posicionada_SE::QuickSort(posS i, posS j) {
+//	posS elemento = i;
+//	int numElemento = 1;
+//	while (i != j) {
+//		numElemento++;
+//		this->siguiente(elemento);
+//	}
+//	if (numElemento <= 50) {
+//		//TODO: Llamar al metodo insercion
+//	}
+//	else {
+//
+//		posS indicePivote;
+//		posS k;
+//
+//		indicePivote = this->EncuentraPivote(i, j);
+//		if (indicePivote == this->primera()) {
+//			k = this->Particion(i, j, this->recuperar(indicePivote));
+//			this->QuickSort(i, this->anterior(k));
+//			this->QuickSort(k, j);
+//		}
+//	}
+//}
+//
+///**
+//Nombre: SeleccionRecursivoPila
+//Parámetros: ListaIndexada L
+//Efecto: Ordena los elementos de la lista usando el algoritmo Selección Recursivo pero sin usar la pila del compilador
+//Requiere: Lista L inicializada
+//Modifica: L
+//
+//*/
+//void Lista_Posicionada_SE::SeleccionRecursivoPila(posS primera) {
+//	if (primera != 0) {
+//		Pila *pilaAux = new Pila();
+//		pilaAux->iniciar();
+//		pilaAux->poner(primera);
+//		while (!pilaAux->vacia()) {
+//			posS posSicionActual = pilaAux->quitar();
+//			if (posSicionActual != 0) {
+//				pilaAux->poner(this->siguiente(posSicionActual));
+//				posS minimo = posSicionActual;
+//				posS posSicion = posSicionActual;
+//				while (posSicion != 0) {
+//					if (this->recuperar(posSicion) < this->recuperar(minimo))
+//						minimo = posSicion;
+//					posSicion = this->siguiente(posSicion)
+//				}
+//				this->intercambiar(indiceActual, minimo);
+//			}
+//		}
+//	}
+//}
