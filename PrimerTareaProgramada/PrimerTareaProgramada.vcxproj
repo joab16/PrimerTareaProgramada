@@ -138,6 +138,8 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Diccionario.h" />
+    <ClInclude Include="Grafo_Lista.h" />
     <ClInclude Include="ListaIndexadaArreglo.h" />
     <ClInclude Include="ListaIndexadaSE.h" />
     <ClInclude Include="ListaOrdenadaArreglo.h" />

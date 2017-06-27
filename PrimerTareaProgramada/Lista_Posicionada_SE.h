@@ -16,12 +16,11 @@ typedef NodoS* posS;
 
 class Lista_Posicionada_SE {
 public:
+	//EFE: Inicializa la Lista L
+	//REQ:
+	//MOD:
     Lista_Posicionada_SE() {}
     ~Lista_Posicionada_SE() {}
-    //EFE: Inicializa la Lista L
-    //REQ:
-    //MOD:
-    void iniciar();
 
     //EFE: Destruye la Lista L
     //REQ: L inicializada
@@ -34,7 +33,8 @@ public:
     //MOD: L
     void vaciar();
 
-    //EFE: Devuelve True cuando la Lista L esta vacia, de lo contrario devuelve falso
+
+	//EFE: Devuelve True cuando la Lista L esta vacia, de lo contrario devuelve falso
     //REQ: L inicializada
     //MOD:
     bool vacia();
@@ -148,25 +148,10 @@ public:
 	//MOD: L
 	void selectRec();
 
-	//EFE: Ordena L con Seleccion de forma recursiva pero con una Pila
-	//REQ: L inicializada
-	//MOD: L
-	void selecRecPila();
-
 	//EFE: Ordena L con Insercion
 	//REQ: L inicializada
 	//MOD: L
 	void insercion(posS actual, posS ultima);
-
-	//EFE: Ordena L con Quick Sort de Aho
-	//REQ: L incializada
-	//MOD: L
-	void quickSortAho();
-
-	//EFE: Ordena L con Quick Sort
-	//REQ: L inicializada
-	//MOD: L
-	void quickSort();
 
 	//EFE: Ordena L con Merge Sort, devuelve la Lista ordenada
 	//REQ: L incializada y el numero de elementos de L sea mayor a 1
@@ -248,7 +233,7 @@ public:
 	*/
 	void QuickSort(posS i, posS j);
 
-	void SeleccionRecursivoPila(pos primera);
+	void SeleccionRecursivoPila(posS primera);
 
 protected:
 	//EFE: Metodo Privado, complementario al metodo mergeSort de la Lista
@@ -933,15 +918,15 @@ void Lista_Posicionada_SE::SeleccionRecursivoPila(posS primera) {
 		while (!pilaAux->vacia()) {
 			posS posSicionActual = pilaAux->quitar();
 			if (posSicionActual != 0) {
-				pilaAux->poner(this->siguiente(posSicionActual));
+				pilaAux->poner((this->siguiente(posSicionActual)));
 				posS minimo = posSicionActual;
 				posS posSicion = posSicionActual;
 				while (posSicion != 0) {
 					if (this->recuperar(posSicion) < this->recuperar(minimo))
 						minimo = posSicion;
-					posSicion = this->siguiente(posSicion)
+					posSicion = this->siguiente(posSicion);
 				}
-				this->intercambiar(indiceActual, minimo);
+				this->intercambiar(posSicionActual, minimo);
 			}
 		}
 	}

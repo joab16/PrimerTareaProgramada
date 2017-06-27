@@ -147,25 +147,10 @@ public:
 	//MOD: L
 	void selectRec();
 
-	//EFE: Ordena L con Seleccion de forma recursiva pero con una Pila
-	//REQ: L inicializada
-	//MOD: L
-	void selecRecPila();
-
 	//EFE: Ordena L con Insercion
 	//REQ: L inicializada
 	//MOD: L
-	void insercion();
-
-	//EFE: Ordena L con Quick Sort de Aho
-	//REQ: L incializada
-	//MOD: L
-	void quickSortAho();
-
-	//EFE: Ordena L con Quick Sort
-	//REQ: L inicializada
-	//MOD: L
-	void quickSort();
+	void insercion(pos actual, pos ultima);
 
 	//EFE: Ordena L con Merge Sort, devuelve la Lista ordenada
 	//REQ: L incializada y el numero de elementos de L sea mayor a 1
@@ -930,9 +915,9 @@ void Lista_Posicionada_DE::SeleccionRecursivoPila(pos primera) {
 				while (posicion != 0) {
 					if (this->recuperar(posicion) < this->recuperar(minimo))
 						minimo = posicion;
-					posicion = this->siguiente(posicion)
+					posicion = this->siguiente(posicion);
 				}
-				this->intercambiar(indiceActual, minimo);
+				this->intercambiar(posicionActual, minimo);
 			}
 		}
 	}

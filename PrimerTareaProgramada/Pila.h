@@ -1,7 +1,12 @@
 #ifndef PILA_H
 #define PILA_H
+#include "Lista_Posicionada_Arreglo.h"
+#include "Lista_Posicionada_SE.h"
+#include "Lista_Posicionada_DE.h"
 
-typedef int elemento;
+typedef pos elemento;
+typedef posA elemento;
+typedef posS elemento;
 
 class Pila {
 public:
