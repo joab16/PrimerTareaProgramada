@@ -255,7 +255,7 @@ Modifica:
 */
 elemento ListaIndexadaSE::Recuperar(int i)
 {
-	NodoI* temp = inicio->sgt;
+	NodoI* temp = this->inicio->sgt;
 	while (temp != NodoNulo && temp->indice < i)
 	{
 		temp = temp->sgt;

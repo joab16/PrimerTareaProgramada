@@ -13,3 +13,7 @@
 
 
 // TODO: mencionar aquí los encabezados adicionales que el programa necesita
+#include <iostream>
+#include <ctime> 
+#include <cstdlib>
+#include <cmath>

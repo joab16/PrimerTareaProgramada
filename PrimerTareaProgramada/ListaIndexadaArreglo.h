@@ -21,7 +21,7 @@ public:
 	int NumElem();
 
 protected:
-	static const int M = 100;
+	static const int M = 20000;
 	int numElem;
 	int lista[M];
 private:
