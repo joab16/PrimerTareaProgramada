@@ -24,31 +24,10 @@
     <ClInclude Include="targetver.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="Lista_Posicionada_Arreglo.h">
+    <ClInclude Include="Grafo_Lista.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="Lista_Posicionada_DE.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Lista_Posicionada_SE.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="ListaIndexadaArreglo.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="ListaIndexadaSE.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="ListaOrdenadaArreglo.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="ListaOrdenadaLSE.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Pila.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Posicion.h">
+    <ClInclude Include="Diccionario.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>

@@ -139,15 +139,8 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ListaIndexadaArreglo.h" />
-    <ClInclude Include="ListaIndexadaSE.h" />
-    <ClInclude Include="ListaOrdenadaArreglo.h" />
-    <ClInclude Include="ListaOrdenadaLSE.h" />
-    <ClInclude Include="Lista_Posicionada_Arreglo.h" />
-    <ClInclude Include="Lista_Posicionada_DE.h" />
-    <ClInclude Include="Lista_Posicionada_SE.h" />
-    <ClInclude Include="Pila.h" />
-    <ClInclude Include="Posicion.h" />
+    <ClInclude Include="Diccionario.h" />
+    <ClInclude Include="Grafo_Lista.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>

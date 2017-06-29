@@ -145,16 +145,11 @@ class Lista_Posicionada_Arreglo
 		//MOD: L
 		void selectRec();
 
-		//EFE: Ordena L con Seleccion de forma recursiva pero con una Pila
-		//REQ: L inicializada
-		//MOD: L
-		void selecRecPila();
-
 		//EFE: Ordena L con Insercion
 		//REQ: L inicializada
 		//MOD: L
 		void insercion(posA actual, posA ultima);
-		
+
 		//EFE: Ordena L con Merge Sort, devuelve la Lista ordenada
 		//REQ: L incializada y el numero de elementos de L sea mayor a 1
 		//MOD: L
