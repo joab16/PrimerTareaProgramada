@@ -139,13 +139,22 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Caja.h" />
+    <ClInclude Include="ColaDePrioridad.h" />
+    <ClInclude Include="Conjunto de Conjuntos.h" />
+    <ClInclude Include="Conjunto.h" />
     <ClInclude Include="Diccionario.h" />
+    <ClInclude Include="Dupletas.h" />
+    <ClInclude Include="GrafoMatrizDeAdyacencia.h" />
     <ClInclude Include="Grafo_Lista.h" />
+    <ClInclude Include="Par.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="Vertice.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PrimerTareaProgramada.cpp" />
+    <ClCompile Include="revisar.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
