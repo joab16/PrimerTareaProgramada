@@ -1,8 +1,8 @@
 #ifndef GRAFO_LISTA_H
 #define GRAFO_LISTA_H
-using namespace std;
 #include <string>
 #include <iostream>
+using namespace std;
 
 struct Arista;
 struct Vertice;
@@ -24,12 +24,14 @@ struct Vertice {
 	Vertice(string x) : etiqueta(x), sgt(0), aristas(0) {
 	};
 };
-typedef Vertice* Vrt;
 
 
 class Grafo_Lista
 {
 public:
+
+	Vertice* verticeNulo;
+
 	//EFE: Crea el grafo G
 	//REQ:
 	//MOD:
@@ -58,62 +60,62 @@ public:
 	//EFE: Elimina el vertice v del Grafo G
 	//REQ: G inicializado y v valido
 	//MOD: G
-	void eliminarVertice(Vrt v);
+	void eliminarVertice(Vertice* v);
 
 	//EFE: Modifica la etiqueta del vertice v en G
 	//REQ: G inicializado y v valido
 	//MOD: G
-	void modificarEtiqueta(string e, Vrt v);
+	void modificarEtiqueta(Vertice* v, string e);
 
 	//EFE: Devuelve la etiqueta del vertice v en G
 	//REQ: G inicializado y v valido
 	//MOD:
-	string etiqueta(Vrt v);
+	string etiqueta(Vertice* v);
 
 	//EFE: Agrega la arista v1,v2 con el peso p en el grafo G
 	//REQ: G inicializado, y v1 y v2 incializados
 	//MOD: G
-	void agregarArista(Vrt v1, Vrt v2, int p);
+	void agregarArista(Vertice* v1, Vertice* v2, int p);
 
 	//EFE: Elimina la arista v1,v2 del grafo G
 	//REQ: G incializada y la arista v1,v2 valida
 	//MOD: G
-	void eliminarArista(Vrt v1, Vrt v2);
+	void eliminarArista(Vertice* v1, Vertice* v2);
 
 	//EFE: Modifica el peso de la arista v1,v2 en el grafo G
 	//REQ: G inicializado y v1 y v2 validos
 	//MOD: G
-	void modificarPeso(Vrt v1, Vrt v2, int p);
+	void modificarPeso(Vertice* v1, Vertice* v2, int p);
 
 	//EFE: Devuelve el peso de la arista v1,v2 en el grafo G
 	//REQ: G inicializado y la arista v1,v2 valida
 	//MOD:
-	int peso(Vrt v1, Vrt v2);
+	int peso(Vertice* v1, Vertice* v2);
 
 	//EFE: Devuelve verdadero si v1 y v2 son adyacentes, de lo contrario devuelve falso
 	//REQ: G inicializado y v1 y v2 inicializados
 	//MOD:
-	bool adyacentes(Vrt v1, Vrt v2);
+	bool adyacentes(Vertice* v1, Vertice* v2);
 
 	//EFE: Devuelve el primer vertice en el grafo G
 	//REQ: G inicializado
 	//MOD:
-	Vrt primerVertice();
+	Vertice* primerVertice();
 
 	//EFE: Devuelve el siguiente vertice de v en el grafo G
 	//REQ: G inicializado y v valido
 	//MOD:
-	Vrt siguienteVertice(Vrt v);
+	Vertice* siguienteVertice(Vertice* v);
 
 	//EFE: Devuelve el primer vertice adyacente de v en el grafo G
 	//REQ: G inicializado y v valido
 	//MOD:
-	Vrt primerVerticeAdyacente(Vrt v);
+	Vertice* primerVerticeAdyacente(Vertice* v);
 
 	//EFE: Devuelve el siguiente vertice adyacente de v2 en v1, en el grafo G
 	//REQ: G inicializado y v1 y v2 validos
 	//MOD:
-	Vrt siguienteVerticeAdyacente(Vrt v1, Vrt v2); //
+	Vertice* siguienteVerticeAdyacente(Vertice* v1, Vertice* v2); //
 
 												   //EFE: Devuelve el numero de vertices en G
 												   //REQ: G inicializado
@@ -123,82 +125,83 @@ public:
 	//EFE: Devuelve el numero de vertices adyacente del vertice v en G
 	//REQ: G inicializado y v valido
 	//MOD:
-	int numVerticesAdyacentes(Vrt v);
+	int numVerticesAdyacentes(Vertice* v);
 
 	//EFE: Averigua si el grafo tiene ciclos, devuelve verdadero si es cierto, de lo contrario devuelve falso
 	//REQ: G inicializado
 	//MOD:
-	bool recorridoProfundidadPrimero();
+	//bool recorridoProfundidadPrimero();
 
 	//EFE: Encuentra el camino mas corto desde v hacia los demas vertices del grafo G
 	//REQ: G inicializado y v valido
 	//MOD:
-	void algoritmoDijkstra(Vrt v);
+	//void algoritmoDijkstra(Vertice v);
 
 	//EFE: Encuentra el camino mas corto entre todo par de vertices en G
 	//REQ: G inicializdo
 	//MOD:
-	void algortimoFloyd();
+	//void algortimoFloyd();
 
 	//EFE: Devuelve verdadero si G y G2 son iguales, de lo contrario devuelve falso;
 	//REQ: G y G2 inicializados
 	//MOD:
-	bool iguales(Grafo_Lista* G2);
+	//bool iguales(Grafo_Lista* G2);
 
 	//EFE: Copia el grafo G
 	//REQ: G inicializado
 	//MOD:
-	Grafo_Lista* copiar();
+	//Grafo_Lista* copiar();
 
 	//EFE: Elimina v (un vertice no aislado) de G
 	//REQ: G inicializado y v valido
 	//MOD: G
-	void eliminarVrtNoAislado(Vrt v);
+	//void eliminarVerticeNoAislado(Vertice v);
 
 	//EFE: Devuelve el peso total de todas las aristas del grafo
 	//REQ: G inicializado
 	//MOD:
-	int totalizarPesosAristas();
+	//int totalizarPesosAristas();
 
 	//EFE: Muestra el grafo G
 	//REQ: G inicializado
 	//MOD:
-	void mostrar();
+	//void mostrar();
 
 	//EFE: Resuelve el problema de coloreo de grafos en G, usando busqueda eshaustiva pura
 	//REQ: G inicializado
 	//MOD:
-	void coloreoDeGrafos();
+	//void coloreoDeGrafos();
 
 	//EFE: Resuelve el problema del vendedor usando busqueda exhaustiva pura
 	//REQ:
 	//MOD:
-	void circuitoHamiltonMenorCosto();
+	//void circuitoHamiltonMenorCosto();
 
 protected:
 	//EFE: Metodo Complementario a copiar(), copia los vertices del grafo
 	//REQ:
 	//MOD:
-	void copiarVertices(Vrt v);
+	//void copiarVertices(Vertice v);
 
 	//EFE: Metodo Complementario a totalizarPesosAristas(), devuelve el total de pesos
 	// de las aristas del vertice v en el grafo G
 	//REQ:
 	//MOD:
-	int totalPesos(Vrt v);
+	//int totalPesos(Vertice v);
 
 private:
-	Vrt inicio;
+	Vertice* inicio;
 };
 #endif // GRAFO_LISTA_H
 
 Grafo_Lista::Grafo_Lista() {//LISTO
-	inicio = 0;
+	inicio = new Vertice(0);
+	verticeNulo = new Vertice(0);
 }
 
 Grafo_Lista::~Grafo_Lista() {
-	Vrt v1 = inicio;
-	Vrt v2 = 0;
+	Vertice* v1 = inicio;
+	Vertice* v2 = 0;
 	Arista* a1;
 	Arista* a2;
 
@@ -216,8 +219,8 @@ Grafo_Lista::~Grafo_Lista() {
 }
 
 void Grafo_Lista::vaciar() {
-	Vrt v1 = inicio;
-	Vrt v2 = 0;
+	Vertice* v1 = inicio;
+	Vertice* v2 = 0;
 	Arista* a1;
 	Arista* a2;
 
@@ -244,14 +247,14 @@ bool Grafo_Lista::vacio() {//LISTO
 }
 
 void Grafo_Lista::agregarVertice(string e) {//LISTO
-	Vrt p = inicio;
-	Vrt v = new Vertice(e);
+	Vertice* p = inicio;
+	Vertice* v = new Vertice(e);
 	v->sgt = p;
 	inicio = v;
 }
 
-void Grafo_Lista::eliminarVertice(Vrt v) {//LISTO
-	Vrt v1 = inicio;
+void Grafo_Lista::eliminarVertice(Vertice* v) {//LISTO
+	Vertice* v1 = inicio;
 	if (v == inicio) {
 		inicio = v1->sgt;
 		delete v;
@@ -271,15 +274,15 @@ void Grafo_Lista::eliminarVertice(Vrt v) {//LISTO
 	}
 }
 
-void Grafo_Lista::modificarEtiqueta(string e, Vrt v) {//LISTO
+void Grafo_Lista::modificarEtiqueta(Vertice* v, string e) {//LISTO
 	v->etiqueta = e;
 }
 
-string Grafo_Lista::etiqueta(Vrt v) {//LISTO
+string Grafo_Lista::etiqueta(Vertice* v) {//LISTO
 	return v->etiqueta;
 }
 
-void Grafo_Lista::agregarArista(Vrt v1, Vrt v2, int p) {//LISTO
+void Grafo_Lista::agregarArista(Vertice* v1, Vertice* v2, int p) {//LISTO
 	Arista* a1 = new Arista(v2, p);
 	Arista* a2 = new Arista(v1, p);
 	a1->sgt = v1->aristas;
@@ -288,7 +291,7 @@ void Grafo_Lista::agregarArista(Vrt v1, Vrt v2, int p) {//LISTO
 	v2->aristas = a2;
 }
 
-void Grafo_Lista::eliminarArista(Vrt v1, Vrt v2) {//LISTO
+void Grafo_Lista::eliminarArista(Vertice* v1, Vertice* v2) {//LISTO
 	bool eliminada1 = false;
 	Arista* a1 = v1->aristas;
 	while (!eliminada1) {
@@ -337,7 +340,7 @@ void Grafo_Lista::eliminarArista(Vrt v1, Vrt v2) {//LISTO
 	}
 }
 
-void Grafo_Lista::modificarPeso(Vrt v1, Vrt v2, int p) {//LISTO
+void Grafo_Lista::modificarPeso(Vertice* v1, Vertice* v2, int p) {//LISTO
 	bool modificada1 = false;
 	Arista* a1 = v1->aristas;
 	while (!modificada1) {
@@ -362,7 +365,7 @@ void Grafo_Lista::modificarPeso(Vrt v1, Vrt v2, int p) {//LISTO
 	}
 }
 
-int Grafo_Lista::peso(Vrt v1, Vrt v2) {//LISTO
+int Grafo_Lista::peso(Vertice* v1, Vertice* v2) {//LISTO
 	bool encontrada = false;
 	int peso;
 	Arista* a = v1->aristas;
@@ -378,7 +381,7 @@ int Grafo_Lista::peso(Vrt v1, Vrt v2) {//LISTO
 	return peso;
 }
 
-bool Grafo_Lista::adyacentes(Vrt v1, Vrt v2) { //LISTO
+bool Grafo_Lista::adyacentes(Vertice* v1, Vertice* v2) { //LISTO
 	bool encontrada = false;
 	Arista* a = v1->aristas;
 	while (a != 0 && !encontrada) {
@@ -392,20 +395,20 @@ bool Grafo_Lista::adyacentes(Vrt v1, Vrt v2) { //LISTO
 	return encontrada;
 }
 
-Vrt Grafo_Lista::primerVertice() {//LISTO
+Vertice* Grafo_Lista::primerVertice() {//LISTO
 	return inicio;
 }
 
-Vrt Grafo_Lista::siguienteVertice(Vrt v) {//LISTO
+Vertice* Grafo_Lista::siguienteVertice(Vertice* v) {//LISTO
 	return v->sgt;
 }
 
-Vrt Grafo_Lista::primerVerticeAdyacente(Vrt v) {//LISTO
+Vertice* Grafo_Lista::primerVerticeAdyacente(Vertice* v) {//LISTO
 	return v->aristas->vertice;
 }
 
-Vrt Grafo_Lista::siguienteVerticeAdyacente(Vrt v1, Vrt v2) {//LISTO
-	Vrt siguiente = 0;
+Vertice* Grafo_Lista::siguienteVerticeAdyacente(Vertice* v1, Vertice* v2) {//LISTO
+	Vertice* siguiente = 0;
 	bool encontrada = false;
 	Arista* a = v1->aristas;
 	while (!encontrada) {
@@ -423,7 +426,7 @@ Vrt Grafo_Lista::siguienteVerticeAdyacente(Vrt v1, Vrt v2) {//LISTO
 }
 
 int Grafo_Lista::numVertices() {//LISTO
-	Vrt v = inicio;
+	Vertice* v = inicio;
 	int cnt = 0;
 	while (v != 0) {
 		cnt++;
@@ -433,7 +436,7 @@ int Grafo_Lista::numVertices() {//LISTO
 	return cantidad;
 }
 
-int Grafo_Lista::numVerticesAdyacentes(Vrt v) {//LISTO
+int Grafo_Lista::numVerticesAdyacentes(Vertice* v) {//LISTO
 	Arista* a = v->aristas;
 	int cnt = 0;
 	while (a != 0) {
@@ -443,52 +446,15 @@ int Grafo_Lista::numVerticesAdyacentes(Vrt v) {//LISTO
 	return cnt;
 }
 
-bool Grafo_Lista::recorridoProfundidadPrimero() {
-}
-
-void Grafo_Lista::algoritmoDijkstra(Vrt v) {
-	Vrt v2;
-	int numVrt = (this->numVertices() - 1);
-	string vertices[numVrt];
-	Vrt camino[numVrt];
-	int pesos[numVrt];
-	Diccionario* recorridos = new Diccionario();
-	v2 = this->primerVertice();
-	int inicializar = 0;
-	while (inicializar < numVrt) { //Inicializacion de Estructuras Auxiliares
-		if (v2 != v) {
-			vertices[inicializar] = this->etiqueta(v2);
-			camino[inicializar] = 0;
-			pesos[inicializar] = this->totalizarPesosAristas();
-			inicializar++;
-		}
-		v2 = this->siguienteVertice(v2);
-	}
-	int numArst = 0;
-	while (recorridos->numElem() <= (numVrt + 1)) {
-		recorridos->agregar(v);
-		numArst = this->numVerticesAdyacentes(v);
-		v2 = this->primerVerticeAdyacente(v);
-		for (int i = 0; i < numArst; i++) {
-			if (recorridos->pertenece(v2)) {
-				v2 = this->siguienteVerticeAdyacente(v, v2);
-			}
-			else {
-				bool encontrado;
-			}
-		}
-	}
-}
-
-void Grafo_Lista::algortimoFloyd() {
+/*bool Grafo_Lista::recorridoProfundidadPrimero() {
 }
 
 bool Grafo_Lista::iguales(Grafo_Lista* g2) {//LISTO
 	bool iguales = false;
 
 	if (this->numVertices() == g2->numVertices()) {
-		Vrt v1 = this->primerVertice();
-		Vrt v2;
+		Vertice v1 = this->primerVertice();
+		Vertice v2;
 		iguales = true;
 		while (v1 != 0 && iguales) {
 			iguales = false;
@@ -506,8 +472,8 @@ bool Grafo_Lista::iguales(Grafo_Lista* g2) {//LISTO
 		if (iguales) {
 			v1 = this->primerVertice();
 			v2 = g2->primerVertice();
-			Vrt ady1;
-			Vrt ady2;
+			Vertice ady1;
+			Vertice ady2;
 			int numArst;
 			while (v1 != 0 && iguales) {
 				ady1 = this->primerVerticeAdyacente(v1);
@@ -541,8 +507,8 @@ bool Grafo_Lista::iguales(Grafo_Lista* g2) {//LISTO
 }
 
 Grafo_Lista* Grafo_Lista::copiar() {//LISTO
-	Vrt v1 = inicio;
-	Vrt v2;
+	Vertice v1 = inicio;
+	Vertice v2;
 	Arista* a;
 	Grafo_Lista* copiado = new Grafo_Lista();
 	copiado->copiarVertices(v1);
@@ -550,7 +516,7 @@ Grafo_Lista* Grafo_Lista::copiar() {//LISTO
 	while (v1 != 0) {
 		a = v1->aristas;
 		while (a != 0) {
-			Vrt adyacente = copiado->primerVertice();
+			Vertice adyacente = copiado->primerVertice();
 			while (a->vertice->etiqueta != adyacente->etiqueta) {
 				adyacente = adyacente->sgt;
 			}
@@ -566,14 +532,14 @@ Grafo_Lista* Grafo_Lista::copiar() {//LISTO
 	return copiado;
 }
 
-void Grafo_Lista::copiarVertices(Vrt v) {//LISTO
+void Grafo_Lista::copiarVertices(Vertice v) {//LISTO
 	if (v != 0) {
 		this->copiarVertices(this->siguienteVertice(v));
 		this->agregarVertice(v->etiqueta);
 	}
 }
 
-void Grafo_Lista::eliminarVrtNoAislado(Vrt v) {//LISTO
+void Grafo_Lista::eliminarVerticeNoAislado(Vertice v) {//LISTO
 	Arista* a = v->aristas;
 	while (a != 0) {
 		this->eliminarArista(v, a->vertice);
@@ -583,7 +549,7 @@ void Grafo_Lista::eliminarVrtNoAislado(Vrt v) {//LISTO
 }
 
 int Grafo_Lista::totalizarPesosAristas() {
-	Vrt v = inicio;
+	Vertice v = inicio;
 	int total = 0;
 	while (v != 0) {
 		total += this->totalPesos(v);
@@ -592,7 +558,7 @@ int Grafo_Lista::totalizarPesosAristas() {
 	return total / 2;
 }
 
-int Grafo_Lista::totalPesos(Vrt v) {
+int Grafo_Lista::totalPesos(Vertice v) {
 	int pesos = 0;
 	Arista* a = v->aristas;
 	while (a != 0) {
@@ -610,3 +576,37 @@ void Grafo_Lista::coloreoDeGrafos() {
 
 void Grafo_Lista::circuitoHamiltonMenorCosto() {
 }
+
+void Grafo_Lista::algoritmoDijkstra(Vertice* v) {
+	Vertice* v2;
+	int numVertice = (this->numVertices() - 1);
+	string vertices[numVertice];
+	Vertice camino[numVertice];
+	int pesos[numVertice];
+	Diccionario* recorridos = new Diccionario();
+	v2 = this->primerVertice();
+	int inicializar = 0;
+	while (inicializar < numVertice) { //Inicializacion de Estructuras Auxiliares
+		if (v2 != v) {
+			vertices[inicializar] = this->etiqueta(v2);
+			camino[inicializar] = 0;
+			pesos[inicializar] = this->totalizarPesosAristas();
+			inicializar++;
+		}
+		v2 = this->siguienteVertice(v2);
+	}
+	int numArst = 0;
+	while (recorridos->numElem() <= (numVertice + 1)) {
+		recorridos->agregar(v);
+		numArst = this->numVerticesAdyacentes(v);
+		v2 = this->primerVerticeAdyacente(v);
+		for (int i = 0; i < numArst; i++) {
+			if (recorridos->pertenece(v2)) {
+				v2 = this->siguienteVerticeAdyacente(v, v2);
+			}
+			else {
+				bool encontrado;
+			}
+		}
+	}
+}*/

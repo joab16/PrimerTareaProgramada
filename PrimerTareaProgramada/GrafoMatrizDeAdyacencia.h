@@ -3,35 +3,37 @@
 #include <vector>
 #define maximo 100
 #include <iostream>
+#include <string>
+#include <iostream>
 
-typedef int vertice;
+typedef int* vertice;
 using namespace std;
 
-class Grafo
+class GrafoMatriz
 {
 public:
-    Grafo();
-    virtual ~Grafo();
-    void Iniciar();
-    void Destruir();
-    void Vaciar();
-    bool Vacio();
+	GrafoMatriz();
+    virtual ~GrafoMatriz();
+    void iniciar();
+    void destruir();
+    void vaciar();
+    bool vacio();
     int pesoNulo = -1;
-    vertice AgregarVertice(string);
-    void EliminarVertice(vertice);
-    void ModificarEtiqueta(vertice, string);
-    string Etiqueta(vertice);
-    void AgregarArista(vertice,vertice,int);
-    void EliminarArista(vertice, vertice);
-    void ModificarPeso(vertice,vertice,int);
-    int Peso(vertice,vertice);
-    bool Adyacentes(vertice,vertice);
-    vertice PrimerVertice();
-    vertice SiguienteVertice(vertice);
-    vertice PrimerVerticeAdyacente(vertice);
-    vertice SiguienteVerticeAdyacente(vertice,vertice);
-    int NumVertices();
-    int NumVerticesAdyacentes(vertice);
+    vertice agregarVertice(string);
+    void eliminarVertice(vertice);
+    void modificarEtiqueta(vertice, string);
+    string etiqueta(vertice);
+    void agregarArista(vertice,vertice,int);
+    void eliminarArista(vertice, vertice);
+    void modificarPeso(vertice,vertice,int);
+    int peso(vertice,vertice);
+    bool adyacentes(vertice,vertice);
+    vertice primerVertice();
+    vertice siguienteVertice(vertice);
+    vertice primerVerticeAdyacente(vertice);
+    vertice siguienteVerticeAdyacente(vertice,vertice);
+    int numVertices();
+    int numVerticesAdyacentes(vertice);
     string vec[maximo];
     int matriz[maximo][maximo];
     int ultimo;
@@ -54,11 +56,11 @@ Requiere: Grafo no inicializado
 Modifica:
 
 */
-Grafo::Grafo()
+GrafoMatriz::GrafoMatriz()
 {
 
 }
-Grafo::~Grafo()
+GrafoMatriz::~GrafoMatriz()
 {
 
 }
@@ -70,7 +72,7 @@ Requiere: Grafo no inicializado
 Modifica:
 
 */
-void Grafo::Iniciar()
+void GrafoMatriz::iniciar()
 {
     ultimo = -1;
     vertices = 0;
@@ -84,7 +86,7 @@ Requiere: Grafo inicializado
 Modifica:
 
 */
-void Grafo::Destruir()
+void GrafoMatriz::destruir()
 {
   /**  delete vec;
     delete matriz;*/
@@ -97,7 +99,7 @@ Requiere: Grafo inicializado
 Modifica: Grafo, numVert
 
 */
-void Grafo::Vaciar()
+void GrafoMatriz::vaciar()
 {
     ultimo = -1;
 }
@@ -109,7 +111,7 @@ Requiere: Grafo inicializado
 Modifica:
 
 */
-bool Grafo::Vacio()
+bool GrafoMatriz::vacio()
 {
     if(ultimo == -1)
     {
@@ -128,7 +130,7 @@ Requiere: Grafo inicializado
 Modifica: Grafo, numVert
 
 */
-vertice Grafo::AgregarVertice(string etiq)
+vertice GrafoMatriz::agregarVertice(string etiq)
 {
     if(ultimo == -1)
     {
@@ -158,7 +160,7 @@ Requiere: Grafo inicializado, v debe existir en el grafo
 Modifica: Grafo, numVert
 
 */
-void Grafo::EliminarVertice(vertice v)
+void GrafoMatriz::eliminarVertice(vertice v)
 {
     if(v == ultimo)
     {
@@ -189,7 +191,7 @@ Requiere: Grafo inicializado, v debe ser un vértice existente en el grafo
 Modifica: etiqueta
 
 */
-void Grafo::ModificarEtiqueta(vertice v, string etiq)
+void GrafoMatriz::modificarEtiqueta(vertice v, string etiq)
 {
     vec[v] = etiq;
 }
@@ -201,7 +203,7 @@ Requiere: Grafo inicializado, v debe existir en el grafo
 Modifica:
 
 */
-string Grafo::Etiqueta(vertice v)
+string GrafoMatriz::etiqueta(vertice v)
 {
     return vec[v];
 }
@@ -213,7 +215,7 @@ Requiere: Grafo inicializado
 Modifica: Grafo
 
 */
-void Grafo::AgregarArista(vertice v1,vertice v2,int peso)
+void GrafoMatriz::agregarArista(vertice v1,vertice v2,int peso)
 {
     matriz[v1][v2] = peso;
     matriz[v2][v1] = peso;
@@ -225,7 +227,7 @@ Efecto: Elimina la arista que une v1 y v2 en el grafo
 Requiere: Grafo inicializado, la arista debe existir en el grafo
 Modifica: Grafo
 */
-void Grafo::EliminarArista(vertice v1, vertice v2)
+void GrafoMatriz::eliminarArista(vertice v1, vertice v2)
 {
     matriz[v1][v2] = -1;
     matriz[v2][v1] = -1;
@@ -238,7 +240,7 @@ Requiere: Grafo inicializado, v1 y v2 deben existir en el grafo y además ser ady
 Modifica: peso
 
 */
-void Grafo::ModificarPeso(vertice v1,vertice v2,int peso)
+void GrafoMatriz::modificarPeso(vertice v1,vertice v2,int peso)
 {
     matriz[v1][v2] = peso;
     matriz[v2][v1] = peso;
@@ -252,7 +254,7 @@ Requiere: Grafo inicializado, v1 y v2 deben existir en el grafo y además ser ady
 Modifica:
 
 */
-int Grafo::Peso(vertice v1,vertice v2)
+int GrafoMatriz::peso(vertice v1,vertice v2)
 {
     return matriz[v1][v2];
 }
@@ -263,7 +265,7 @@ Efecto: devuelve un booleano si los vértices v1 y v2 son o no adyacentes
 Requiere: Grafo inicializado, v1 y v2 existentes en el grafo.
 Modifica:
 */
-bool Grafo::Adyacentes(vertice v1,vertice v2)
+bool GrafoMatriz::adyacentes(vertice v1,vertice v2)
 {
     if(matriz[v1][v2] == -1)
     {
@@ -282,7 +284,7 @@ Requiere: Grafo inicializado
 Modifica:
 
 */
-vertice Grafo::PrimerVertice()
+vertice GrafoMatriz::primerVertice()
 {
     if(ultimo == -1)
     {
@@ -301,7 +303,7 @@ Requiere: Grafo inicializado, v debe ser existente en el grafo
 Modifica:
 
 */
-vertice Grafo::SiguienteVertice(vertice v)
+vertice GrafoMatriz::siguienteVertice(vertice v)
 {
     if(v+1 <= ultimo)
     {
@@ -321,7 +323,7 @@ Requiere: Grafo inicializado, v debe ser existente en el grafo
 Modifica:
 
 */
-vertice Grafo::PrimerVerticeAdyacente(vertice v)
+vertice GrafoMatriz::primerVerticeAdyacente(vertice v)
 {
     for(int i = 0; i <= ultimo; i++)
     {
@@ -341,7 +343,7 @@ Requiere: Grafo inicializado, v1 y v2 deben ser existentes en el grafo
 Modifica:
 
 */
-vertice Grafo::SiguienteVerticeAdyacente(vertice v1,vertice v2)
+vertice GrafoMatriz::siguienteVerticeAdyacente(vertice v1,vertice v2)
 {
     for(int i = v2+1; i <= ultimo; i++)
     {
@@ -361,7 +363,7 @@ Requiere: Grafo inicializado
 Modifica:
 
 */
-int Grafo::NumVertices()
+int GrafoMatriz::numVertices()
 {
     return vertices;
 }
@@ -373,7 +375,7 @@ Requiere: Grafo inicializado, v debe ser existente en el grafo
 Modifica:
 
 */
-int Grafo::NumVerticesAdyacentes(vertice v)
+int GrafoMatriz::numVerticesAdyacentes(vertice v)
 {
     int verticesady = 0;
     for(int i = 0; i <= ultimo; i++)

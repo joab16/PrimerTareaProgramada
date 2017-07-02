@@ -1,7 +1,7 @@
 #ifndef CONJUNTO_H
 #define CONJUNTO_H
 #include <list>
-typedef int elemento;
+typedef string elemento;
 class Conjunto
 {
     public:

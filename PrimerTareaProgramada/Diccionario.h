@@ -1,138 +1,235 @@
 #ifndef DICCIONARIO_H
 #define DICCIONARIO_H
+#include "Caja.h"
+
+#include <iostream>
+
 using namespace std;
-#include"Grafo_Lista.h"
-
-typedef Vrt elemento;
-
-struct Nodo {
-	elemento elm;
-	Nodo* sgt;
-
-	Nodo(elemento x) : elm(x), sgt(0) {
-	};
-};
-
+template <class Z>
 class Diccionario
 {
 public:
-
-public:
-	//EFE: Inicializa el diccionario D
-	//REQ: 
-	//MOD: 
 	Diccionario();
-	//EFE: Destruye el diccionario D
-	//REQ: D inicializado
-	//MOD: 
 	virtual ~Diccionario();
-	//EFE: Elimina los elementos de D
-	//REQ: D inicializado
-	//MOD: D
+	void crear();
+	void destruir();
 	void vaciar();
-	//EFE: Devuelve verdadero cuando D esta vacio, de lo contrario devuelve falso
-	//REQ: D inicializado
-	//MOD: 
 	bool vacio();
-	//EFE: Agrega el elemento e al diccionario D
-	//REQ: D inicializado
-	//MOD: D
-	void agregar(elemento e);
-	//EFE: Elimina el elemento e del diccionario D
-	//REQ: D inicializado
-	//MOD: D
-	void eliminar(elemento e);
-	//EFE: Devuelve verdadero si e pertenece a D
-	//REQ: D inicializado
-	//MOD: 
-	bool pertenece(elemento e);
-	//EFE: Devuelve el numero de elementos de D
-	//REQ: D inicializado
-	//MOD: 
+	void agregar(Z);
+	void eliminar(Z);
+	bool pertenece(Z);
+	Z siguiente(Z);
 	int numElem();
+	int cantidad;
+	Caja<Z> *primero;
+
+protected:
+
 private:
-	Nodo* inicio;
 };
-#endif // DICCIONARIO_H
-Diccionario::Diccionario() {
-	inicio = 0;
-}
+template <class Z>
+Diccionario<Z>::Diccionario()
+{
 
-Diccionario::~Diccionario() {
-	Nodo* p = inicio;
-	Nodo* q = 0;
-	while (p != 0) {
-		q = p->sgt;
-		delete p;
-		p = q;
+}
+template <class Z>
+Diccionario<Z>::~Diccionario()
+{
+
+}
+/**
+Nombre: Crear
+Parámetros:
+Efecto: Inicializa el diccionario
+Requiere: Diccionario no inicializado
+Modifica:
+
+*/
+template <class Z>
+void Diccionario<Z>::crear()
+{
+	primero = 0;
+	cantidad = 0;
+}
+/**
+Nombre: Destruir
+Parámetros:
+Efecto: Destruye el diccionario
+Requiere: Diccionario inicializado
+Modifica:
+
+*/
+template <class Z>
+void Diccionario<Z>::destruir()
+{
+
+}
+/**
+Nombre: Vaciar
+Parámetros:
+Efecto: Vacia el diccionario
+Requiere: Diccionario inicializado
+Modifica:
+
+*/
+template <class Z>
+void Diccionario<Z>::vaciar()
+{
+
+}
+/**
+Nombre: Vacio
+Parámetros:
+Efecto: Devuelve un bool si el diccionario esta vacío o no
+Requiere: Diccionario inicializado
+Modifica:
+
+*/
+template <class Z>
+bool Diccionario<Z>::vacio()
+{
+	if (cantidad == 0)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
 	}
 }
+/**
+Nombre: Pertenece
+Parámetros: elem
+Efecto: Devuelve un bool para saber si el elemento existe o no en el diccionario
+Requiere: Diccionario inicializado
+Modifica: Diccionario,
 
-void Diccionario::vaciar() {
-	Nodo* p = inicio;
-	Nodo* q = 0;
-	while (p != 0) {
-		q = p->sgt;
-		delete p;
-		p = q;
+*/
+
+template <class Z>
+bool Diccionario<Z>::pertenece(Z elem)
+{
+	Caja<Z> *mover = primero;
+	while (mover != 0)
+	{
+		if (mover->dato == elem)
+		{
+			return true;
+		}
+		else
+		{
+			mover = mover->ptr;
+		}
+
 	}
-	inicio = 0;
+	return false;
 }
+/**
+Nombre: Agregar
+Parámetros: elem
+Efecto: Agrega un elemento al diccionario
+Requiere: Diccionario inicializado
+Modifica: Diccionario, NumElem
 
-bool Diccionario::vacio() {
-	bool vacia = false;
-	if (inicio == 0) {
-		vacia = true;
+*/
+template <class Z>
+void Diccionario<Z>::agregar(Z elem)
+{
+	if (pertenece(elem) == false)
+	{
+		Caja<Z> *caja = new Caja<Z>();
+		caja->dato = elem;
+		caja->ptr = 0;
+		if (cantidad == 0)
+		{
+			primero = caja;
+			cantidad++;
+		}
+		else
+		{
+			Caja<Z> *mover = primero;
+			while (mover->ptr != 0)
+			{
+				mover = mover->ptr;
+			}
+			mover->ptr = caja;
+			cantidad++;
+		}
+
 	}
-	return vacia;
-}
 
-void Diccionario::agregar(elemento e) {
-	Nodo* n = new Nodo(e);
-	n->sgt = inicio;
-	inicio = n;
 }
+/**
+Nombre: Eliminar
+Parámetros: elem
+Efecto: Elimina un elemento al diccionario
+Requiere: Diccionario inicializado
+Modifica: Diccionario, NumElem
 
-void Diccionario::eliminar(elemento e) {
-	Nodo* d = inicio;
+*/
+template <class Z>
+void Diccionario<Z>::eliminar(Z elem)
+{
+	Caja<Z> *mover = primero;
+	Caja<Z> *contenedor = 0;
+	Caja<Z> *borrar;
 	bool eliminado = false;
-	if (d->elm == e && d == inicio) {
-		inicio = d->sgt;
-		delete d;
+	if (primero->dato == elem)
+	{
+		borrar = primero;
+		primero = primero->ptr;
+		delete borrar;
 	}
-	else {
-		while (d != 0 && !eliminado) {
-			if (d->sgt->elm == e) {
-				Nodo* eliminado = d->sgt;
-				d->sgt = d->sgt->sgt;
-				delete eliminado;
+	else
+	{
+		while (mover->ptr != 0 && !eliminado)
+		{
+			if (mover->ptr->dato == elem) {
+				borrar = mover->ptr;
+				mover->ptr = borrar->ptr;
+				delete borrar;
+				eliminado = true;
 			}
 			else {
-				d = d->sgt;
+				mover = mover->ptr;
 			}
 		}
 	}
+	cantidad--;
 }
 
-bool Diccionario::pertenece(elemento e) {
-	Nodo* d = inicio;
-	bool encontrado = false;
-	while (d != 0 && !encontrado) {
-		if (d->elm == e) {
-			encontrado = true;
-		}
-		else {
-			d = d->sgt;
-		}
-	}
-	return encontrado;
+/**
+Nombre: NumElem
+Parámetros:
+Efecto: Devuelve la cantidad de elementos en el diccionario
+Requiere: Diccionario inicializado
+Modifica:
+
+*/
+template <class Z>
+int Diccionario<Z>::numElem()
+{
+	return cantidad;
 }
 
-int Diccionario::numElem() {
-	Nodo* d = inicio;
-	int elementos = 0;
-	while (d != 0) {
-		elementos++;
-		d = d->sgt;
+template <class Z>
+Z Diccionario<Z>::siguiente(Z elem)
+{
+	Caja<Z> *mover = primero;
+
+	while ((mover != 0) && (mover->dato != elem))
+	{
+		mover = mover->ptr;
 	}
+	if (mover->ptr != 0)
+	{
+		cout << mover->ptr->dato << endl;
+		return mover->ptr->dato;
+	}
+	else
+	{
+		return 0;
+	}
+
 }
+#endif // DICCIONARIO_H

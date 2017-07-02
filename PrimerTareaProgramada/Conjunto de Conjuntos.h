@@ -19,7 +19,7 @@ class ConjuntodeConjuntos
         bool Vacio();
         void AgregarElementoAConjunto(elemento, int);
         void EliminarElemento(elemento);
-        elemento ConjuntoAlQuePertenece(elemento);
+        int ConjuntoAlQuePertenece(elemento);
         void AgregarConjunto(Conjunto);
         void EliminarConjunto(int);
         void UnirConjuntos(int, int);
@@ -99,7 +99,7 @@ void ConjuntodeConjuntos::EliminarElemento(elemento elem)
         it++;
     }
 }
-elemento ConjuntodeConjuntos::ConjuntoAlQuePertenece(elemento elem)
+int ConjuntodeConjuntos::ConjuntoAlQuePertenece(elemento elem)
 {
     std::list<elemento> c;
     std::list<elemento>::iterator itC;

@@ -1,24 +1,31 @@
 #ifndef DUPLETAS_H
 #define DUPLETAS_H
 
+#include <iostream>
+
+using namespace std;
+template <class Z>
 class Dupletas
 {
     public:
         Dupletas();
-        Dupletas(vertice, vertice);
+        Dupletas(Z, Z);
         //virtual ~Dupletas();
-        vertice origen;
-        vertice adyacente;
+		Z origen;
+		Z adyacente;
     protected:
 
     private:
 };
 
-Dupletas::Dupletas()
+template <class Z>
+Dupletas<Z>::Dupletas()
 {
 
 }
-Dupletas::Dupletas(vertice v, vertice u)
+
+template <class Z>
+Dupletas<Z>::Dupletas(Z v, Z u)
 {
     origen = v;
     adyacente = u;
