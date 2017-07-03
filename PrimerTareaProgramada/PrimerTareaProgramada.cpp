@@ -580,9 +580,8 @@ void menu(Grafo* grafo)
 	while (salida != -1)
 	{
 		cout << "                   Que desea utilizar" << endl;
-		cout << "Operadores basicos: 1 = Agregar Vertice, 2 = Eliminar Vertice, 3 = Modificar Etiqueta,\n 4 = Etiqueta, 5 = Agregar Arista, 6 = Eliminar Arista, " << endl;
-		cout << "7 = Modificar Peso, 8 = Peso, 9 = Adyacentes,\n 10 = Primer Vertice, 11 = SiguienteVertice, 12 = Primer Vertice Adyacente,\n 13 = Siguiente Vertice Adyacente" << endl;
-		cout << "Algoritmos: 14 = Averiguar si el grafo tiene ciclos, 15 = Dijkstra, 16 = Floyd,\n 17 = Vendedor 18 = Imprimir grafo" << endl;
+		cout << "Operadores basicos: 1 = Agregar Vertice, 2 = Eliminar Vertice, 3 = Modificar Etiqueta,\n 4 = Etiqueta, 5 = Agregar Arista, 6 = Eliminar Arista,\n 7 = Modificar Peso, 8 = Peso, 9 = Adyacentes,\n 10 = Primer Vertice, 11 = SiguienteVertice, 12 = Primer Vertice Adyacente,\n 13 = Siguiente Vertice Adyacente" << endl;
+		cout << "Algoritmos: 14 = Averiguar si el grafo tiene ciclos, 15 = Dijkstra, 16 = Floyd,\n 17 = Averiguar si dos grafos son iguales, 18 = Copiar, 19 = Eliminar vertice no aislado, \n 20 = Totalizar pesos, 21 = Mostrar grafo, 22 = Coloreo de Grafo, 23 = Vendedor" << endl;
 		cin >> salida;
 		switch (salida)
 		{
@@ -743,6 +742,19 @@ void menu(Grafo* grafo)
 
 			break;
 		case 17:
+			Copiar(grafo);
+			break;
+		case 18:
+			break;
+		case 19:
+			break;
+		case 20:
+			break;
+		case 21:
+			break;
+		case 22:
+			break;
+		case 23:
 			cout << "A partir de cual vertice desea empezar Vendedor?" << endl;
 			cin >> vertic;
 			vert = Buscar(grafo, vertic);
