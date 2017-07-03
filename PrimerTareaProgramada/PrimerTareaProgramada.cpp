@@ -742,17 +742,38 @@ void menu(Grafo* grafo)
 
 			break;
 		case 17:
-			Copiar(grafo);
+			if (Iguales(grafo, grafo))
+			{
+				cout << "Los grafos son iguales" << endl;
+			}
+			else
+			{
+				cout << "Los grafos son diferentes" << endl;
+			}
 			break;
 		case 18:
+			Copiar(grafo);
+			cout << "Mostrando el nuevo grafo:" << endl;
+			imprimirGrafo(grafo);
 			break;
 		case 19:
+			cout << "Cual vertice no aislado desea eliminar?" << endl;
+			cin >> vertic;
+			vert = Buscar(grafo, vertic);
+			EliminarVerticeNoAislado(grafo, vert);
 			break;
 		case 20:
+			cout << "La suma de todos los pesos de las aristas es: " << TotalizarPesosAristas(grafo) <<endl;
 			break;
 		case 21:
+			cout << "Imprimimos el grafo como matriz de adyacencia" << endl;
+			imprimirGrafo(grafo);
 			break;
 		case 22:
+			cout << "Apartir de cual vertice desea colorear el grafo?" << endl;
+			cin >> vertic;
+			vert = Buscar(grafo, vertic);
+			ColorearVertice(grafo, vert);
 			break;
 		case 23:
 			cout << "A partir de cual vertice desea empezar Vendedor?" << endl;
@@ -776,9 +797,6 @@ void menu(Grafo* grafo)
 
 
 			break;
-		case 18:
-			cout << "Imprimimos el grafo como matriz de adyacencia" << endl;
-			imprimirGrafo(grafo);
 		default:
 			cout << "Digito una opcion invalida" << endl;
 
