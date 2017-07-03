@@ -8,10 +8,10 @@ class Conjunto
         Conjunto();
         std::list <elemento> conjunto;
         std::list<elemento>::iterator it;
-        int numconjunto;
+        string numconjunto;
         void AgregarElemento(elemento);
         void EliminarElemento(elemento);
-        void SetNumeroDelConjunto(int);
+        void SetNumeroDelConjunto(string);
     protected:
 
     private:
@@ -28,7 +28,7 @@ void Conjunto::EliminarElemento(elemento elem)
 {
     conjunto.remove(elem);
 }
-void Conjunto::SetNumeroDelConjunto(int num)
+void Conjunto::SetNumeroDelConjunto(string num)
 {
     numconjunto = num;
 }

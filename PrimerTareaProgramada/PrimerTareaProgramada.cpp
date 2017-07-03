@@ -7,7 +7,7 @@
 #include "ColaDePrioridad.h"
 #include "Conjunto de Conjuntos.h"
 #include "Dupletas.h"
-#define maximo 100
+#include "Conjunto.h"
 
 typedef Grafo_Lista Grafo;
 //typedef GrafoMatriz Grafo;
@@ -18,7 +18,7 @@ typedef Vertice VerticeGen;
 using namespace std;
 
 int contador = 0;
-int color;
+//int color;
 int i;
 ConjuntodeConjuntos VerticesColoreados;
 ConjuntodeConjuntos VerticesAdyacentes;
@@ -440,36 +440,60 @@ int TotalizarPesosAristas(Grafo* g1)
 	return total / 2;
 }
 
-//Colorear no sirve
-/*void ColorearVertice(Grafo grafo, VerticeGen v)
+void llenarConjuntoVA(Grafo* g1)
 {
+	VerticesAdyacentes.Crear();
+	
+	Vertice* v = g1->primerVertice();
+	Vertice* va = g1->primerVerticeAdyacente(v);
+	while (v != 0) {
+		v = v->sgt;
+		Conjunto adyacentes;
+		//adyacentes.SetNumeroDelConjunto(g1->etiqueta(v));
+		while (va != 0)
+		{
+			adyacentes.AgregarElemento(g1->etiqueta(va));
+			va = g1->siguienteVerticeAdyacente(v, va);
+		}
+		VerticesAdyacentes.AgregarConjunto(adyacentes, g1->etiqueta(v));		
+	}
+}
+
+
+
+//Colorear no sirve
+void ColorearVertice(Grafo* g1, Vertice* v)
+{
+	llenarConjuntoVA(g1);
+	VerticesColoreados.Crear();
 	bool factible = true;
-	VerticeGen va;
-	for (color = 0; color < grafo->numVertices() - 1; color++)
+	Vertice* va;
+	while (v!= 0)
 	{
 		factible = true;
-		va = grafo->primerVerticeAdyacente(v);
-		while (va != grafo->verticeNulo && factible == true)
+		va = g1->primerVerticeAdyacente(v);
+		while (va != g1->verticeNulo && factible == true)
 		{
-			if (VerticesAdyacentes.ConjuntoAlQuePertenece(va->etiqueta) == i)
+			if (VerticesAdyacentes.ConjuntoAlQuePertenece(va->etiqueta) == g1->etiqueta(v))
 			{
 				factible = false;
 			}
-			va = grafo->siguienteVerticeAdyacente(v, va);
+			va = g1->siguienteVerticeAdyacente(v, va);
 		}
 		if (factible)
 		{
-			VerticesColoreados.AgregarElementoAConjunto(v, color);
-			if (color == grafo->numVertices())
+			VerticesColoreados.AgregarElementoAConjunto(v, g1->etiqueta(v));
+			if (color == g1->numVertices())
 			{
 
 			}
 			else {
-				ColorearVertice(grafo, va);
+				ColorearVertice(g1, va);
 			}
 		}
+		v = v->sgt;
 	}
-}*/
+}
 
 /* diccionarioVerticesVisitados.Agregar(v);
 vertice va = grafo->PrimerVerticeAdyacente(v);

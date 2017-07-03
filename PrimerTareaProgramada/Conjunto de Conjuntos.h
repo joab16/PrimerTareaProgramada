@@ -17,18 +17,18 @@ class ConjuntodeConjuntos
         void Destruir();
         void Vaciar ();
         bool Vacio();
-        void AgregarElementoAConjunto(elemento, int);
+        void AgregarElementoAConjunto(elemento, string);
         void EliminarElemento(elemento);
-        int ConjuntoAlQuePertenece(elemento);
-        void AgregarConjunto(Conjunto);
+        string ConjuntoAlQuePertenece(elemento);
+        void AgregarConjunto(Conjunto, string);
         void EliminarConjunto(int);
-        void UnirConjuntos(int, int);
-        int NumConjuntos();
+        //void UnirConjuntos(int, int);
+        string NumConjuntos();
 
         void ImprimirConjuntos();
 
 
-        int numConj;
+        string numConj;
         bool pertenece;
         std::list<Conjunto>CC;
         std::list<Conjunto>::iterator it;
@@ -39,7 +39,7 @@ class ConjuntodeConjuntos
 };
 ConjuntodeConjuntos::ConjuntodeConjuntos()
 {
-    numConj = 0;
+    numConj = "0";
 }
 void ConjuntodeConjuntos::Crear()
 {
@@ -55,7 +55,7 @@ void ConjuntodeConjuntos::Vaciar ()
 }
 bool ConjuntodeConjuntos::Vacio()
 {
-    if (numConj == 0)
+    if (numConj == "0")
     {
         return true;
     }
@@ -64,15 +64,22 @@ bool ConjuntodeConjuntos::Vacio()
         return false;
     }
 }
-void ConjuntodeConjuntos::AgregarElementoAConjunto(elemento elem, int numDelConjunto)
+void ConjuntodeConjuntos::AgregarElementoAConjunto(elemento elem, string numDelConjunto)
 {
-    it = CC.begin();
-    int contador = 1;
-    while (contador < numDelConjunto)
-    {
-        it++;
-    }
-    it->conjunto.push_back(elem);
+	std::list<elemento> c;
+	string numeroDelConjunto;
+	it = CC.begin();
+	while (it != CC.end())
+	{
+		c = it->conjunto;
+		numeroDelConjunto = it->numconjunto;
+		if (numeroDelConjunto == numDelConjunto)
+		{
+			it->conjunto.push_back(elem);
+		}
+		it++;
+	}
+
 }
 void ConjuntodeConjuntos::EliminarElemento(elemento elem)
 {
@@ -99,16 +106,17 @@ void ConjuntodeConjuntos::EliminarElemento(elemento elem)
         it++;
     }
 }
-int ConjuntodeConjuntos::ConjuntoAlQuePertenece(elemento elem)
+string ConjuntodeConjuntos::ConjuntoAlQuePertenece(elemento elem)
 {
     std::list<elemento> c;
     std::list<elemento>::iterator itC;
     bool encontrado = false;
-    int numeroDelConjunto = 1;
+    string numeroDelConjunto;
     it = CC.begin();
     while ( (!encontrado) && (it != CC.end()) )
     {
         c = it->conjunto;
+		numeroDelConjunto = it->numconjunto;
         itC = c.begin();
         while ((itC != c.end()) && (!encontrado) )
         {
@@ -121,15 +129,18 @@ int ConjuntodeConjuntos::ConjuntoAlQuePertenece(elemento elem)
             }
         }
         it++;
-        numeroDelConjunto++;
     }
-    return numeroDelConjunto;
+	if (encontrado)
+	{
+		return numeroDelConjunto;
+	}
+	return "0";
 }
-void ConjuntodeConjuntos::AgregarConjunto(Conjunto conj)
+void ConjuntodeConjuntos::AgregarConjunto(Conjunto conj, string numConjunto)
 {
     CC.push_back(conj);
-    numConj++;
-    conj.SetNumeroDelConjunto(numConj);
+   
+    conj.SetNumeroDelConjunto(numConjunto);
 }
 void ConjuntodeConjuntos::EliminarConjunto(int numConjunto)
 {
@@ -142,35 +153,35 @@ void ConjuntodeConjuntos::EliminarConjunto(int numConjunto)
     CC.erase(it);
     numConjunto--;
 }
-void ConjuntodeConjuntos::UnirConjuntos(int Conjunto1, int Conjunto2)
-{
-
-    it = CC.begin();
-    std::list<Conjunto>::iterator it2 = CC.begin();
-    int posicionActual = 1;
-    int posicionActual2 = 1;
-    while (posicionActual < Conjunto1)
-    {
-        it++;
-        posicionActual++;
-    }
-    while(posicionActual2 < Conjunto2)
-    {
-        it2++;
-        posicionActual2++;
-    }
-    std::list<elemento> c;
-    c = it2->conjunto;
-    std::list<elemento>::iterator itC = c.begin();
-    while(itC != c.end())
-    {
-        it->conjunto.push_back(*itC);
-        itC++;
-    }
-    CC.erase(it2);
-    numConj--;
-}
-int ConjuntodeConjuntos::NumConjuntos()
+//void ConjuntodeConjuntos::UnirConjuntos(int Conjunto1, int Conjunto2)
+//{
+//
+//    it = CC.begin();
+//    std::list<Conjunto>::iterator it2 = CC.begin();
+//    int posicionActual = 1;
+//    int posicionActual2 = 1;
+//    while (posicionActual < Conjunto1)
+//    {
+//        it++;
+//        posicionActual++;
+//    }
+//    while(posicionActual2 < Conjunto2)
+//    {
+//        it2++;
+//        posicionActual2++;
+//    }
+//    std::list<elemento> c;
+//    c = it2->conjunto;
+//    std::list<elemento>::iterator itC = c.begin();
+//    while(itC != c.end())
+//    {
+//        it->conjunto.push_back(*itC);
+//        itC++;
+//    }
+//    CC.erase(it2);
+//    numConj--;
+//}
+string ConjuntodeConjuntos::NumConjuntos()
 {
     return numConj;
 }
