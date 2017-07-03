@@ -373,6 +373,8 @@ bool Iguales(Grafo* g1, Grafo* g2)
 	return iguales;
 }
 
+/*
+*/
 void copiarVertices(Grafo* g1, Vertice* v)
 {
 	if (v != 0) {
@@ -381,6 +383,14 @@ void copiarVertices(Grafo* g1, Vertice* v)
 	}
 }
 
+/**
+Nombre: Copiar
+Parámetros: G1(grafo)
+Efecto: Hace una copia de un grafo
+Requiere: Grafo inicializado
+Modifica: G2, el nuevo grafo, NumElem de G2
+
+**/
 Grafo* Copiar(Grafo* g1) 
 {
 	VerticeGen* v1 = g1->primerVertice();
@@ -408,6 +418,14 @@ Grafo* Copiar(Grafo* g1)
 	return copiado;
 }
 
+/**
+Nombre: EliminarVerticeNoAislado
+Parámetros: v (vértice), G (grafo)
+Efecto: Elimina un vértice no aislado del grafo
+Requiere: Grafo inicializado
+Modifica: NumElem, G
+
+**/
 void EliminarVerticeNoAislado(Grafo* g1, Vertice* v) 
 {
 	Arista* a = v->aristas;
@@ -418,6 +436,8 @@ void EliminarVerticeNoAislado(Grafo* g1, Vertice* v)
 	g1->eliminarVertice(v);
 }
 
+/*
+*/
 int TotalPesos(Grafo* g1, Vertice* v)
 {
 	int pesos = 0;
@@ -429,6 +449,14 @@ int TotalPesos(Grafo* g1, Vertice* v)
 	return pesos;
 }
 
+/**
+Nombre: TotalizarPesosAristas
+Parámetros: G(grafo)
+Efecto: Totaliza los pesos de todas las aristas del grafo
+Requiere: Grafo inicializado
+Modifica:
+
+**/
 int TotalizarPesosAristas(Grafo* g1) 
 {
 	VerticeGen* v = g1->primerVertice();
@@ -440,6 +468,8 @@ int TotalizarPesosAristas(Grafo* g1)
 	return total / 2;
 }
 
+/*
+*/
 void llenarConjuntoVA(Grafo* g1)
 {
 	VerticesAdyacentes.Crear();
@@ -459,7 +489,14 @@ void llenarConjuntoVA(Grafo* g1)
 	}
 }
 
+/**
+Nombre: ColorearVertice
+Parámetros: v (vértice), G (Grafo)
+Efecto: Busca el menor número de colores que se necesitan para colorear el grafo
+Requiere: Grafo inicializado.
+Modifica:
 
+**/
 
 //Colorear no sirve
 void ColorearVertice(Grafo* g1, Vertice* v)
@@ -533,6 +570,14 @@ va = grafo->SiguienteVerticeAdyacente(v,va);
 // cout << va << endl;
 }*/
 
+/**
+Nombre: imprimirGrafo
+Parámetros: G (grafo)
+Efecto: Imprime el grafo
+Requiere: Grafo inicializado
+Modifica:
+
+**/
 void imprimirGrafo(Grafo* g)
 {
 	VerticeGen* v = g->primerVertice();
