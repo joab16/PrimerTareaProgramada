@@ -126,77 +126,16 @@ public:
 	//REQ: G inicializado y v valido
 	//MOD:
 	int numVerticesAdyacentes(Vertice* v);
-
-	//EFE: Averigua si el grafo tiene ciclos, devuelve verdadero si es cierto, de lo contrario devuelve falso
-	//REQ: G inicializado
-	//MOD:
-	//bool recorridoProfundidadPrimero();
-
-	//EFE: Encuentra el camino mas corto desde v hacia los demas vertices del grafo G
-	//REQ: G inicializado y v valido
-	//MOD:
-	//void algoritmoDijkstra(Vertice v);
-
-	//EFE: Encuentra el camino mas corto entre todo par de vertices en G
-	//REQ: G inicializdo
-	//MOD:
-	//void algortimoFloyd();
-
-	//EFE: Devuelve verdadero si G y G2 son iguales, de lo contrario devuelve falso;
-	//REQ: G y G2 inicializados
-	//MOD:
-	//bool iguales(Grafo_Lista* G2);
-
-	//EFE: Copia el grafo G
-	//REQ: G inicializado
-	//MOD:
-	//Grafo_Lista* copiar();
-
-	//EFE: Elimina v (un vertice no aislado) de G
-	//REQ: G inicializado y v valido
-	//MOD: G
-	//void eliminarVerticeNoAislado(Vertice v);
-
-	//EFE: Devuelve el peso total de todas las aristas del grafo
-	//REQ: G inicializado
-	//MOD:
-	//int totalizarPesosAristas();
-
-	//EFE: Muestra el grafo G
-	//REQ: G inicializado
-	//MOD:
-	//void mostrar();
-
-	//EFE: Resuelve el problema de coloreo de grafos en G, usando busqueda eshaustiva pura
-	//REQ: G inicializado
-	//MOD:
-	//void coloreoDeGrafos();
-
-	//EFE: Resuelve el problema del vendedor usando busqueda exhaustiva pura
-	//REQ:
-	//MOD:
-	//void circuitoHamiltonMenorCosto();
-
-protected:
-	//EFE: Metodo Complementario a copiar(), copia los vertices del grafo
-	//REQ:
-	//MOD:
-	//void copiarVertices(Vertice v);
-
-	//EFE: Metodo Complementario a totalizarPesosAristas(), devuelve el total de pesos
-	// de las aristas del vertice v en el grafo G
-	//REQ:
-	//MOD:
-	//int totalPesos(Vertice v);
+	
 
 private:
 	Vertice* inicio;
 };
 #endif // GRAFO_LISTA_H
 
-Grafo_Lista::Grafo_Lista() {//LISTO
-	inicio = new Vertice(0);
-	verticeNulo = new Vertice(0);
+Grafo_Lista::Grafo_Lista() {
+	inicio = new Vertice("0");
+	verticeNulo = new Vertice("0");
 }
 
 Grafo_Lista::~Grafo_Lista() {
@@ -426,7 +365,7 @@ Vertice* Grafo_Lista::siguienteVerticeAdyacente(Vertice* v1, Vertice* v2) {//LIS
 }
 
 int Grafo_Lista::numVertices() {//LISTO
-	Vertice* v = inicio;
+	Vertice* v = inicio->sgt;
 	int cnt = 0;
 	while (v != 0) {
 		cnt++;

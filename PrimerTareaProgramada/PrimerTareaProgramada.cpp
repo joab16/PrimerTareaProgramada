@@ -1,5 +1,4 @@
 #include <iostream>
-#include <stdlib.h>
 #include <cstdlib>
 #include "stdafx.h"
 #include "Diccionario.h"
@@ -8,6 +7,7 @@
 #include "ColaDePrioridad.h"
 #include "Conjunto de Conjuntos.h"
 #include "Dupletas.h"
+#define maximo 100
 
 typedef Grafo_Lista Grafo;
 //typedef GrafoMatriz Grafo;
@@ -29,7 +29,7 @@ std::vector<Par<VerticeGen*, int>> Colores;
 Diccionario<VerticeGen*> d;
 Diccionario<VerticeGen*> verticesRecorridos;
 //Diccionario<Par<vertice,vertice>> aristas;
-Grafo grafo;
+Grafo* grafo;
 bool ciclo = false;
 int costos[20];
 VerticeGen* mapeo[20];
@@ -48,7 +48,7 @@ int costo;
 std::vector<Dupletas<VerticeGen>> conjuntoAristas;
 int menorPeso;
 
-VerticeGen* Buscar(string etiqueta);
+VerticeGen* Buscar(Grafo* g, string etiqueta);
 
 int imax = std::numeric_limits<int>::max();
 
@@ -64,21 +64,21 @@ bool AveriguarCiclos(VerticeGen* a)
 {
 	contador++;
 	verticesRecorridos.agregar(a);
-	VerticeGen* b = grafo.primerVerticeAdyacente(a);
+	VerticeGen* b = grafo->primerVerticeAdyacente(a);
 	Par<VerticeGen*, VerticeGen*> arista(a, b);
 	//aristas.Agregar(arista);
-	while (b != grafo.verticeNulo)
+	while (b != grafo->verticeNulo)
 	{
 		if (verticesRecorridos.pertenece(b) == false)
 		{
 			AveriguarCiclos(b);
 		}
-		b = grafo.siguienteVerticeAdyacente(a, b);
+		b = grafo->siguienteVerticeAdyacente(a, b);
 		Par<VerticeGen*, VerticeGen*> arista(a, b);
 		//aristas.Agregar(arista);
 		if (verticesRecorridos.pertenece(b) == true)
 		{
-			contador = grafo.numVertices();
+			contador = grafo->numVertices();
 			ciclo = true;
 			return true;
 		}
@@ -86,20 +86,28 @@ bool AveriguarCiclos(VerticeGen* a)
 	return false;
 }
 
+/**
+Nombre: ProfPrimero
+Parámetros: v(vértice)
+Efecto: Realiza un recorrido en profundidad primero a partir de un vértice dado
+Requiere: Árbol inicializado, vértice válido
+Modifica:
+
+**/
 void ProfPrimero(VerticeGen* v)
 {
 	ciclo = false;
 	AveriguarCiclos(v);
-	if (contador != grafo.numVertices())
+	if (contador != grafo->numVertices())
 	{
-		VerticeGen* v2 = grafo.primerVertice();
-		while (contador <= grafo.numVertices())
+		VerticeGen* v2 = grafo->primerVertice();
+		while (contador <= grafo->numVertices())
 		{
 			if (verticesRecorridos.pertenece(v2) == false)
 			{
 				AveriguarCiclos(v2);
 			}
-			v2 = grafo.siguienteVertice(v2);
+			v2 = grafo->siguienteVertice(v2);
 		}
 	}
 }
@@ -113,20 +121,20 @@ Modifica:
 **/
 void Floyd()
 {
-	int total = grafo.numVertices();
-	VerticeGen* aux = grafo.primerVertice();
+	int total = grafo->numVertices();
+	VerticeGen* aux = grafo->primerVertice();
 	for (int i = 0; i< total; i++)
 	{
 		mapa[i] = aux;
-		aux = grafo.siguienteVertice(aux);
+		aux = grafo->siguienteVertice(aux);
 	}
 	for (int i = 0; i < total; i++)
 	{
 		for (int j = 0; j< total; j++)
 		{
-			if (grafo.adyacentes(mapa[i], mapa[j]) == true)
+			if (grafo->adyacentes(mapa[i], mapa[j]) == true)
 			{
-				adyacentes[i][j] = grafo.peso(mapa[i], mapa[j]);
+				adyacentes[i][j] = grafo->peso(mapa[i], mapa[j]);
 			}
 			else
 			{
@@ -183,69 +191,70 @@ void Dijkstra(VerticeGen* v, Diccionario<VerticeGen*> D)
 {
 	D.crear();
 	contador = 0;
-	for (VerticeGen* i = grafo.primerVertice(); i != grafo.verticeNulo; i = grafo.siguienteVertice(i))
+	for (VerticeGen* i = grafo->primerVertice(); i != grafo->verticeNulo; i = grafo->siguienteVertice(i))
 	{
 		mapeo[contador] = i;
 		contador++;
 	}
 	D.agregar(v);
-	for (int i = 0; i< grafo.numVertices(); i++)
+	for (int i = 0; i< grafo->numVertices(); i++)
 	{
-		if (grafo.etiqueta(mapeo[i]) != grafo.etiqueta(v))
+		if (grafo->etiqueta(mapeo[i]) != grafo->etiqueta(v))
 		{
-			if (grafo.adyacentes(v, mapeo[i]) == false)
+			if (grafo->adyacentes(v, mapeo[i]) == false)
 			{
 				costos[i] = imax;
 			}
 			else
 			{
-				costos[i] = grafo.peso(v, mapeo[i]);
+				costos[i] = grafo->peso(v, mapeo[i]);
 			}
 		}
 	}
-	for (int j = 0; j<grafo.numVertices(); j++)
+	for (int j = 0; j<grafo->numVertices(); j++)
 	{
 		if (D.pertenece(mapeo[j]) == false)
 		{
 			D.agregar(mapeo[j]);
-			for (int h = 0; h<grafo.numVertices(); h++)
+			for (int h = 0; h<grafo->numVertices(); h++)
 			{
 				if (D.pertenece(mapeo[h]) == false)
 				{
-					if (grafo.peso(mapeo[j], mapeo[h]) + costos[j] < costos[h] && grafo.peso(mapeo[j], mapeo[h]) != -1) //hacer pesonulo en grafolista
+					if (grafo->peso(mapeo[j], mapeo[h]) + costos[j] < costos[h] && grafo->peso(mapeo[j], mapeo[h]) != -1) //hacer pesonulo en grafolista
 					{
-						costos[h] = grafo.peso(mapeo[j], mapeo[h]) + costos[j];
+						costos[h] = grafo->peso(mapeo[j], mapeo[h]) + costos[j];
 					}
 				}
 			}
 		}
 	}
 }
+
 /**
 Nombre: Vendedor
-Parámetros: v (vértice), g (grafo)
+Parámetros: g (grafo), v (vértice)
 Efecto: Encuentra la solución al problema del vendedor mediante búsqueda exhaustiva pura
 Requiere: Árbol inicializado.
 Modifica:
 
 **/
-void Vendedor(VerticeGen* v)
+void Vendedor(Grafo* g, VerticeGen* v)
 {
 	diccionarioVerticesVisitados.agregar(v);
-	VerticeGen* va = grafo.primerVerticeAdyacente(v);
-	while (va != grafo.verticeNulo)
+	VerticeGen* va = g->primerVerticeAdyacente(v);
+	while (va != g->verticeNulo)
 	{
 		if (!diccionarioVerticesVisitados.pertenece(va))
 		{
 			//cout << "A" << endl;
 			diccionarioVerticesVisitados.agregar(va);
 			SolucionActual.push_back(va);
-			costoActual += grafo.peso(v, va);
-			if (diccionarioVerticesVisitados.numElem() == grafo.numVertices())
+			costoActual += g->peso(v, va);
+			if (diccionarioVerticesVisitados.numElem() == g->numVertices())
 			{
-				if (grafo.adyacentes(va, grafo.primerVertice()))
+				if (g->adyacentes(va, g->primerVertice()))
 				{
-					costo = costoActual + grafo.peso(va, grafo.primerVertice());
+					costo = costoActual + g->peso(va, g->primerVertice());
 					if ((costo < menorCosto) || (menorCosto == -1))
 					{
 						SolucionMejor = SolucionActual;
@@ -256,41 +265,56 @@ void Vendedor(VerticeGen* v)
 			}
 			else
 			{
-				Vendedor(va);
+				Vendedor(g, va);
 			}
 			//cout<< menorCosto <<endl;
 			diccionarioVerticesVisitados.eliminar(va);
 			//cout<< diccionarioVerticesVisitados.NumElem() <<endl;
-			costoActual = costoActual - grafo.peso(v, va);
+			costoActual = costoActual - g->peso(v, va);
 			SolucionActual.pop_back();
 		}
-		va = grafo.siguienteVerticeAdyacente(v, va);
+		va = g->siguienteVerticeAdyacente(v, va);
 		//cout << "caca" << endl;
 		// cout << va << endl;
 	}
 }
 
-VerticeGen* Buscar(string etiqueta)
+/**
+Nombre: Buscar
+Parámetros: g grafo, etiqueta (string)
+Efecto: Busca un vértice de acuerdo a su etiqueta, devuelve el vértice
+Requiere: grafo inicializado.
+Modifica:
+**/
+VerticeGen* Buscar(Grafo* g, string etiqueta)
 {
-	if (!grafo.vacio())
+	if (!g->vacio())
 	{
-		VerticeGen* encontrar = grafo.primerVertice();
-		while (encontrar != grafo.verticeNulo)
+		VerticeGen* encontrar = g->primerVertice();
+		while (encontrar != g->verticeNulo)
 		{
-			if (etiqueta == grafo.etiqueta(encontrar))
+			if (etiqueta == g->etiqueta(encontrar))
 			{
 				return encontrar;
 			}
 			else
 			{
-				encontrar = grafo.siguienteVertice(encontrar);
+				encontrar = g->siguienteVertice(encontrar);
 			}
 		}
-		return grafo.verticeNulo;
+		return g->verticeNulo;
 	}
-	return grafo.verticeNulo;
+	return g->verticeNulo;
 }
 
+/**
+Nombre: Iguales
+Parámetros: g1 (grafo), g2 (grafo)
+Efecto: Verifica si los dos grafos son iguales
+Requiere: grafos inicializado.
+Modifica:
+
+**/
 bool Iguales(Grafo* g1, Grafo* g2) 
 {
 	bool iguales = false;
@@ -359,8 +383,8 @@ void copiarVertices(Grafo* g1, Vertice* v)
 
 Grafo* Copiar(Grafo* g1) 
 {
-	Vertice* v1 = g1->primerVertice();
-	Vertice* v2;
+	VerticeGen* v1 = g1->primerVertice();
+	VerticeGen* v2;
 	Arista* a;
 	Grafo* copiado = new Grafo();
 	copiarVertices(copiado, v1);
@@ -368,7 +392,7 @@ Grafo* Copiar(Grafo* g1)
 	while (v1 != 0) {
 		a = v1->aristas;
 		while (a != 0) {
-			Vertice* adyacente = copiado->primerVertice();
+			VerticeGen* adyacente = copiado->primerVertice();
 			while (a->vertice->etiqueta != adyacente->etiqueta) {
 				adyacente = adyacente->sgt;
 			}
@@ -407,39 +431,36 @@ int TotalPesos(Grafo* g1, Vertice* v)
 
 int TotalizarPesosAristas(Grafo* g1) 
 {
-	Vertice* v = g1->primerVertice();
+	VerticeGen* v = g1->primerVertice();
 	int total = 0;
-	while (v != 0) {
+	while (v->etiqueta != "0") {
 		total += TotalPesos(g1, v);
 		v = v->sgt;
 	}
 	return total / 2;
 }
 
-
-
-
 //Colorear no sirve
 /*void ColorearVertice(Grafo grafo, VerticeGen v)
 {
 	bool factible = true;
 	VerticeGen va;
-	for (color = 0; color < grafo.numVertices() - 1; color++)
+	for (color = 0; color < grafo->numVertices() - 1; color++)
 	{
 		factible = true;
-		va = grafo.primerVerticeAdyacente(v);
-		while (va != grafo.verticeNulo && factible == true)
+		va = grafo->primerVerticeAdyacente(v);
+		while (va != grafo->verticeNulo && factible == true)
 		{
 			if (VerticesAdyacentes.ConjuntoAlQuePertenece(va->etiqueta) == i)
 			{
 				factible = false;
 			}
-			va = grafo.siguienteVerticeAdyacente(v, va);
+			va = grafo->siguienteVerticeAdyacente(v, va);
 		}
 		if (factible)
 		{
 			VerticesColoreados.AgregarElementoAConjunto(v, color);
-			if (color == grafo.numVertices())
+			if (color == grafo->numVertices())
 			{
 
 			}
@@ -451,20 +472,20 @@ int TotalizarPesosAristas(Grafo* g1)
 }*/
 
 /* diccionarioVerticesVisitados.Agregar(v);
-vertice va = grafo.PrimerVerticeAdyacente(v);
-while (va != grafo.verticeNulo)
+vertice va = grafo->PrimerVerticeAdyacente(v);
+while (va != grafo->verticeNulo)
 {
 if (!diccionarioVerticesVisitados.Pertenece(va))
 {
 //cout << "A" << endl;
 diccionarioVerticesVisitados.Agregar(va);
 SolucionActual.push_back(va);
-costoActual += grafo.Peso(v,va);
-if (i == grafo.NumVertices()-1)
+costoActual += grafo->Peso(v,va);
+if (i == grafo->NumVertices()-1)
 {
-if (grafo.Adyacentes(va, grafo.PrimerVertice()))
+if (grafo->Adyacentes(va, grafo->PrimerVertice()))
 {
-int costo = costoActual + grafo.Peso(va,grafo.PrimerVertice());
+int costo = costoActual + grafo->Peso(va,grafo->PrimerVertice());
 if((costo < menorCosto) || (menorCosto == -1))
 {
 SolucionMejor = SolucionActual;
@@ -480,21 +501,50 @@ Vendedor(va,i+1);
 //cout<< menorCosto <<endl;
 diccionarioVerticesVisitados.Eliminar(va);
 //cout<< diccionarioVerticesVisitados.NumElem() <<endl;
-costoActual = costoActual - grafo.Peso(v,va);
+costoActual = costoActual - grafo->Peso(v,va);
 SolucionActual.pop_back();
 }
-va = grafo.SiguienteVerticeAdyacente(v,va);
+va = grafo->SiguienteVerticeAdyacente(v,va);
 //cout << "caca" << endl;
 // cout << va << endl;
 }*/
 
-
-void imprimirGrafo(Grafo* g) 
+void imprimirGrafo(Grafo* g)
 {
-	
+	VerticeGen* v = g->primerVertice();
+	VerticeGen* sig = v;	
+	int numVert = g->numVertices();
+	int n = 0;	
+	cout << "	";
+	while (v->etiqueta != g->verticeNulo->etiqueta)
+	{
+		cout << g->etiqueta(v) << "	";		
+		v = g->siguienteVertice(v);
+	}
+	cout << endl;
+	v = g->primerVertice();
+	while (v->etiqueta != g->verticeNulo->etiqueta)
+	{
+		cout << g->etiqueta(v) << "	";
+		sig = g->primerVertice();
+		while (sig->etiqueta != g->verticeNulo->etiqueta)
+		{
+			if (g->adyacentes(v, sig))
+			{
+				cout << g->peso(v, sig) << "	";				
+			}
+			else
+			{
+				cout << "0	";
+			}
+			sig = g->siguienteVertice(sig);
+		}
+		cout << endl;
+		v = g->siguienteVertice(v);
+	}
 }
 
-void menu()
+void menu(Grafo* grafo)
 {
 	int salida = 0;
 
@@ -506,35 +556,36 @@ void menu()
 	while (salida != -1)
 	{
 		cout << "                   Que desea utilizar" << endl;
-		cout << "Operadores basicos: 1 = Agregar Vertice, 2 = Eliminar Vertice, 3 = Modificar Etiqueta,\n 4 = Etiqueta, 5 = Agregar Arista, 6 = Eliminar Arista,\n 7 = Modificar Peso, 8 = Peso, 9 = Adyacentes,\n 10 = Primer Vertice, 11 = SiguienteVertice, 12 = Primer Vertice Adyacente,\n 13 = Siguiente Vertice Adyacente" << endl;
-		cout << "Algoritmos: 14 = Averiguar si el grafo tiene ciclos, 15 = Dijkstra, 16 = Floyd,\n 17 = Vendedor" << endl;
+		cout << "Operadores basicos: 1 = Agregar Vertice, 2 = Eliminar Vertice, 3 = Modificar Etiqueta,\n 4 = Etiqueta, 5 = Agregar Arista, 6 = Eliminar Arista, " << endl;
+		cout << "7 = Modificar Peso, 8 = Peso, 9 = Adyacentes,\n 10 = Primer Vertice, 11 = SiguienteVertice, 12 = Primer Vertice Adyacente,\n 13 = Siguiente Vertice Adyacente" << endl;
+		cout << "Algoritmos: 14 = Averiguar si el grafo tiene ciclos, 15 = Dijkstra, 16 = Floyd,\n 17 = Vendedor 18 = Imprimir grafo" << endl;
 		cin >> salida;
 		switch (salida)
 		{
 		case 1:
 			cout << "Que etiqueta le quieres poner al vertice?" << endl;
 			cin >> vertic;
-			grafo.agregarVertice(vertic);
+			grafo->agregarVertice(vertic);
 			break;
 		case 2:
 			cout << "Que vertice desea eliminar?" << endl;
 			cin >> vertic;
-			vert = Buscar(vertic);
-			grafo.eliminarVertice(vert);
+			vert = Buscar(grafo, vertic);
+			grafo->eliminarVertice(vert);
 			break;
 		case 3:
 			cout << "A cual vertice desea cambiarle su etiqueta?" << endl;
 			cin >> vertic;
 			cout << "Cual etiqueta desea ponerle?" << endl;
 			cin >> etiq;
-			vert = Buscar(vertic);
-			grafo.modificarEtiqueta(vert, etiq);
+			vert = Buscar(grafo, vertic);
+			grafo->modificarEtiqueta(vert, etiq);
 			break;
 		case 4:
 			cout << "De que vertice desea saber la etiqueta?" << endl;
 			cin >> vertic;
-			vert = Buscar(vertic);
-			grafo.etiqueta(vert);
+			vert = Buscar(grafo, vertic);
+			grafo->etiqueta(vert);
 			break;
 		case 5:
 			cout << "De que vertice a que vertice desea agregar una arista?" << endl;
@@ -544,9 +595,9 @@ void menu()
 			cin >> etiq;
 			cout << "Que peso desea ponerle?" << endl;
 			cin >> peso;
-			vert = Buscar(vertic);
-			vert2 = Buscar(etiq);
-			grafo.agregarArista(vert, vert2, peso);
+			vert = Buscar(grafo, vertic);
+			vert2 = Buscar(grafo, etiq);
+			grafo->agregarArista(vert, vert2, peso);
 			break;
 		case 6:
 			cout << "La arista de que vertice a que vertice desea eliminar?" << endl;
@@ -554,9 +605,9 @@ void menu()
 			cin >> vertic;
 			cout << "Vertice entrada: ";
 			cin >> etiq;
-			vert = Buscar(vertic);
-			vert2 = Buscar(etiq);
-			grafo.eliminarArista(vert, vert2);
+			vert = Buscar(grafo, vertic);
+			vert2 = Buscar(grafo, etiq);
+			grafo->eliminarArista(vert, vert2);
 			break;
 		case 7:
 			cout << "A que aristas le desea modificar el peso?" << endl;
@@ -566,9 +617,9 @@ void menu()
 			cin >> etiq;
 			cout << "Que peso desea ponerle?" << endl;
 			cin >> peso;
-			vert = Buscar(vertic);
-			vert2 = Buscar(etiq);
-			grafo.modificarPeso(vert, vert2, peso);
+			vert = Buscar(grafo, vertic);
+			vert2 = Buscar(grafo, etiq);
+			grafo->modificarPeso(vert, vert2, peso);
 			break;
 		case 8:
 			cout << "De cual arista desea saber el peso?" << endl;
@@ -576,9 +627,9 @@ void menu()
 			cin >> vertic;
 			cout << "Vertice entrada: ";
 			cin >> etiq;
-			vert = Buscar(vertic);
-			vert2 = Buscar(etiq);
-			grafo.peso(vert, vert2);
+			vert = Buscar(grafo, vertic);
+			vert2 = Buscar(grafo, etiq);
+			grafo->peso(vert, vert2);
 			break;
 		case 9:
 			cout << "Que vertices desea averiguar si son adyacentes?" << endl;
@@ -586,9 +637,9 @@ void menu()
 			cin >> vertic;
 			cout << "Vertice entrada: ";
 			cin >> etiq;
-			vert = Buscar(vertic);
-			vert2 = Buscar(etiq);
-			if (grafo.adyacentes(vert, vert2) == true)
+			vert = Buscar(grafo, vertic);
+			vert2 = Buscar(grafo, etiq);
+			if (grafo->adyacentes(vert, vert2) == true)
 			{
 				cout << "Los vertices " << vertic << ", " << etiq << " son adyacentes" << endl;
 			}
@@ -598,35 +649,35 @@ void menu()
 			}
 			break;
 		case 10:
-			cout << "El primer vertice es: " << grafo.etiqueta(grafo.primerVertice()) << endl;
+			cout << "El primer vertice es: " << grafo->etiqueta(grafo->primerVertice()) << endl;
 			break;
 		case 11:
 			cout << "A partir de cual vertice desea averigurar el siguiente?" << endl;
 			cin >> vertic;
-			vert = Buscar(vertic);
-			cout << "El siguiente vertice a partir de: " << grafo.etiqueta(vert) << " es: " << grafo.etiqueta(grafo.siguienteVertice(vert)) << endl;
+			vert = Buscar(grafo, vertic);
+			cout << "El siguiente vertice a partir de: " << grafo->etiqueta(vert) << " es: " << grafo->etiqueta(grafo->siguienteVertice(vert)) << endl;
 			break;
 		case 12:
 			cout << "De que vertice desea averiguar su primer vertice adyacente?" << endl;
 			cin >> vertic;
-			vert = Buscar(vertic);
-			cout << "El primer vertice adyacente de" << grafo.etiqueta(vert) << "es: " << grafo.etiqueta(grafo.primerVerticeAdyacente(vert)) << endl;
+			vert = Buscar(grafo, vertic);
+			cout << "El primer vertice adyacente de" << grafo->etiqueta(vert) << "es: " << grafo->etiqueta(grafo->primerVerticeAdyacente(vert)) << endl;
 			break;
 		case 13:
 			cout << "Que vertice desea eliminar?" << endl;
 			cout << "Vertice salida: ";
 			cin >> vertic;
-			vert = Buscar(vertic);
-			cout << "Vertice adyacente a" << grafo.etiqueta(vert) << ": ";
+			vert = Buscar(grafo, vertic);
+			cout << "Vertice adyacente a" << grafo->etiqueta(vert) << ": ";
 			cin >> etiq;
-			vert2 = Buscar(etiq);
-			cout << "El siguiente vertice adyacente de " << grafo.etiqueta(vert) << " despues de: " << grafo.etiqueta(vert2) << " es: " << grafo.etiqueta(grafo.siguienteVerticeAdyacente(vert, vert2));
+			vert2 = Buscar(grafo, etiq);
+			cout << "El siguiente vertice adyacente de " << grafo->etiqueta(vert) << " despues de: " << grafo->etiqueta(vert2) << " es: " << grafo->etiqueta(grafo->siguienteVerticeAdyacente(vert, vert2));
 			break;
 		case 14:
 			verticesRecorridos.crear();
 			cout << "A partir de cual vertice desea empezar la busqueda de un ciclo?" << endl;
 			cin >> vertic;
-			vert = Buscar(vertic);
+			vert = Buscar(grafo, vertic);
 			ProfPrimero(vert);
 			if (ciclo == true)
 			{
@@ -641,13 +692,13 @@ void menu()
 		case 15:
 			cout << "Desde cual vertice desea saber el menor costo con respecto a todos los demas?" << endl;
 			cin >> vertic;
-			vert = Buscar(vertic);
+			vert = Buscar(grafo, vertic);
 			Dijkstra(vert, d);
-			for (int i = 0; i < grafo.numVertices(); i++)
+			for (int i = 0; i < grafo->numVertices(); i++)
 			{
 				if (mapeo[i] != vert)
 				{
-					cout << "El camino de menor costo de " << grafo.etiqueta(vert) << " hasta " << grafo.etiqueta(mapeo[i]) << " es: " << costos[i] << endl;
+					cout << "El camino de menor costo de " << grafo->etiqueta(vert) << " hasta " << grafo->etiqueta(mapeo[i]) << " es: " << costos[i] << endl;
 				}
 
 			}
@@ -655,13 +706,13 @@ void menu()
 			break;
 		case 16:
 			Floyd();
-			for (int i = 0; i<grafo.numVertices(); i++)
+			for (int i = 0; i<grafo->numVertices(); i++)
 			{
-				for (int j = 0; j<grafo.numVertices(); j++)
+				for (int j = 0; j<grafo->numVertices(); j++)
 				{
 					if (i != j)
 					{
-						cout << "El camino de menor costo de " << grafo.etiqueta(mapa[i]) << " hasta " << grafo.etiqueta(mapa[j]) << " es: " << costosF[i][j] << endl;
+						cout << "El camino de menor costo de " << grafo->etiqueta(mapa[i]) << " hasta " << grafo->etiqueta(mapa[j]) << " es: " << costosF[i][j] << endl;
 					}
 				}
 			}
@@ -670,26 +721,28 @@ void menu()
 		case 17:
 			cout << "A partir de cual vertice desea empezar Vendedor?" << endl;
 			cin >> vertic;
-			vert = Buscar(vertic);
+			vert = Buscar(grafo, vertic);
 			menorCosto = -1;
 			costoActual = 0;
 			contadorV = 0;
 			SolucionActual.clear();
 			SolucionMejor.clear();
-			Vendedor(vert);
+			Vendedor(grafo, vert);
 			cout << "La mejor solucion es: ";
-			cout << grafo.etiqueta(vert) << " -> ";
+			cout << grafo->etiqueta(vert) << " -> ";
 			for (it = SolucionMejor.begin(); it < SolucionMejor.end(); it++)
 			{
-				cout << grafo.etiqueta(*it) << " -> ";
+				cout << grafo->etiqueta(*it) << " -> ";
 			}
-			cout << grafo.etiqueta(vert) << endl;
+			cout << grafo->etiqueta(vert) << endl;
 			cout << "\n Esta tiene un costo de: " << menorCosto << endl;
 			cout << "La cantidad total de soluciones factibles son " << contadorV << endl;
 
 
 			break;
-
+		case 18:
+			cout << "Imprimimos el grafo como matriz de adyacencia" << endl;
+			imprimirGrafo(grafo);
 		default:
 			cout << "Digito una opcion invalida" << endl;
 
@@ -729,7 +782,7 @@ int main(int argc, char** argv) {
 	VerticeGen* v1 = grafo->siguienteVertice(v2); //new Vertice("v4");
 
 	cout << "Agregamos las aristas: v2,v4,5; v4,v3,7; v3,v1,2; v3,v2,1" << endl;
-	grafo->agregarArista(v1, v4, 5);
+	grafo->agregarArista(v2, v4, 5);
 	grafo->agregarArista(v4, v3, 7);
 	grafo->agregarArista(v3, v1, 2);
 	grafo->agregarArista(v3, v2, 1);
@@ -740,6 +793,8 @@ int main(int argc, char** argv) {
 	cout << "Preguntamos por la etiqueta del primer vertice, deberia ser v4" << endl;
 	cout << "La etiqueta del primer vertice es: " << grafo->primerVertice()->etiqueta << endl;
 
+	menu(grafo);
+	/*
 	Grafo* grafo2 = Copiar(grafo);
 	imprimirGrafo(grafo);
 	cout << "-------------------------------------------------------------------" << endl;
@@ -770,7 +825,7 @@ int main(int argc, char** argv) {
 
 	cout << "Vaciamos el grafo y preguntamos por el numero de vertices" << endl;
 	grafo->vaciar();
-	cout << "El numero de vertices es: " << grafo->numVertices() << endl;
+	cout << "El numero de vertices es: " << grafo->numVertices() << endl;*/
 	return 0;
 }
 
