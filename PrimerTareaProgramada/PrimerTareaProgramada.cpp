@@ -2,18 +2,18 @@
 #include <cstdlib>
 #include "stdafx.h"
 #include "Diccionario.h"
-//#include "Grafo_Lista.h"
-#include "GrafoMatrizDeAdyacencia.h"
+#include "Grafo_Lista.h"
+//#include "GrafoMatrizDeAdyacencia.h"
 #include "ColaDePrioridad.h"
 #include "Conjunto de Conjuntos.h"
 #include "Dupletas.h"
 #include "Conjunto.h"
 
-typedef GrafoMatriz Grafo;
-//typedef Grafo_Lista Grafo;
+//typedef GrafoMatriz Grafo;
+typedef Grafo_Lista Grafo;
 
-typedef vertice VerticeGen;
-//typedef Vertice VerticeGen;
+//typedef vertice VerticeGen;
+typedef Vertice VerticeGen;
 
 
 using namespace std;
