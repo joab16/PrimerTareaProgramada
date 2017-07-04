@@ -6,8 +6,8 @@
 #include <string>
 #include <iostream>
 
-typedef int* vertice;
 using namespace std;
+typedef string vertice;
 
 class GrafoMatriz
 {
@@ -19,22 +19,24 @@ public:
     void vaciar();
     bool vacio();
     int pesoNulo = -1;
-    vertice agregarVertice(string);
-    void eliminarVertice(vertice);
-    void modificarEtiqueta(vertice, string);
-    string etiqueta(vertice);
-    void agregarArista(vertice,vertice,int);
-    void eliminarArista(vertice, vertice);
-    void modificarPeso(vertice,vertice,int);
-    int peso(vertice,vertice);
-    bool adyacentes(vertice,vertice);
-    vertice primerVertice();
-    vertice siguienteVertice(vertice);
-    vertice primerVerticeAdyacente(vertice);
-    vertice siguienteVerticeAdyacente(vertice,vertice);
+    void agregarVertice(string);
+    void eliminarVertice(vertice*);
+    void modificarEtiqueta(vertice*, string);
+    string etiqueta(vertice*);
+    void agregarArista(vertice*, vertice*, int);
+    void eliminarArista(vertice*, vertice*);
+    void modificarPeso(vertice*, vertice*, int);
+    int peso(vertice*, vertice*);
+    bool adyacentes(vertice*, vertice*);
+    vertice* primerVertice();
+    vertice* siguienteVertice(vertice*);
+    vertice* primerVerticeAdyacente(vertice*);
+    vertice* siguienteVerticeAdyacente(vertice*, vertice*);
+	int buscarVertice(vertice*);
     int numVertices();
-    int numVerticesAdyacentes(vertice);
-    string vec[maximo];
+    int numVerticesAdyacentes(vertice*);
+	vertice* VerticeNulo();
+	string vec[maximo];
     int matriz[maximo][maximo];
     int ultimo;
     int vertices;
@@ -58,11 +60,11 @@ Modifica:
 */
 GrafoMatriz::GrafoMatriz()
 {
-
+	iniciar();
 }
 GrafoMatriz::~GrafoMatriz()
 {
-
+	
 }
 /**
 Nombre: Iniciar
@@ -76,7 +78,11 @@ void GrafoMatriz::iniciar()
 {
     ultimo = -1;
     vertices = 0;
-    verticeNulo = -1;
+	verticeNulo = std::to_string(NULL);
+	for (int i = 0; i < maximo; i++)
+	{
+		vec[i] = verticeNulo;
+	}
 }
 /**
 Nombre: Destruir
@@ -114,13 +120,8 @@ Modifica:
 bool GrafoMatriz::vacio()
 {
     if(ultimo == -1)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+		return true;  
+	return false;
 }
 /**
 Nombre: AgregarVértice
@@ -130,7 +131,7 @@ Requiere: Grafo inicializado
 Modifica: Grafo, numVert
 
 */
-vertice GrafoMatriz::agregarVertice(string etiq)
+void GrafoMatriz::agregarVertice(string etiq)
 {
     if(ultimo == -1)
     {
@@ -150,7 +151,7 @@ vertice GrafoMatriz::agregarVertice(string etiq)
         }
     }
     vertices++;
-    return ultimo;
+    //return ultimo;
 }
 /**
 Nombre: EliminarVértice
@@ -160,19 +161,20 @@ Requiere: Grafo inicializado, v debe existir en el grafo
 Modifica: Grafo, numVert
 
 */
-void GrafoMatriz::eliminarVertice(vertice v)
+void GrafoMatriz::eliminarVertice(vertice* v)
 {
-    if(v == ultimo)
+	if (*v == vec[ultimo])
     {
         ultimo--;
     }
     else
     {
-        for(int h = v; h < ultimo; h++)
+		int aux = buscarVertice(v);
+        for(int h = aux; h < ultimo; h++)
         {
             vec[h] = vec[h+1];
         }
-        for(int i = v; i < ultimo; i++)
+        for(int i = aux; i < ultimo; i++)
         {
             for(int j = 0; j < ultimo; j++)
             {
@@ -191,9 +193,10 @@ Requiere: Grafo inicializado, v debe ser un vértice existente en el grafo
 Modifica: etiqueta
 
 */
-void GrafoMatriz::modificarEtiqueta(vertice v, string etiq)
+void GrafoMatriz::modificarEtiqueta(vertice* v, string etiq)
 {
-    vec[v] = etiq;
+	int aux = buscarVertice(v);
+    vec[aux] = etiq;
 }
 /**
 Nombre: Etiqueta
@@ -203,9 +206,12 @@ Requiere: Grafo inicializado, v debe existir en el grafo
 Modifica:
 
 */
-string GrafoMatriz::etiqueta(vertice v)
+string GrafoMatriz::etiqueta(vertice* v)
 {
-    return vec[v];
+	int aux = buscarVertice(v);
+	if (aux == -1)
+		return "-1";
+    return vec[aux];
 }
 /**
 Nombre: AgregarArista
@@ -215,10 +221,12 @@ Requiere: Grafo inicializado
 Modifica: Grafo
 
 */
-void GrafoMatriz::agregarArista(vertice v1,vertice v2,int peso)
+void GrafoMatriz::agregarArista(vertice* v1, vertice* v2,int peso)
 {
-    matriz[v1][v2] = peso;
-    matriz[v2][v1] = peso;
+	int aux1 = buscarVertice(v1);
+	int aux2 = buscarVertice(v2);
+    matriz[aux1][aux2] = peso;
+    matriz[aux2][aux1] = peso;
 }
 /**
 Nombre: EliminarArista
@@ -227,10 +235,12 @@ Efecto: Elimina la arista que une v1 y v2 en el grafo
 Requiere: Grafo inicializado, la arista debe existir en el grafo
 Modifica: Grafo
 */
-void GrafoMatriz::eliminarArista(vertice v1, vertice v2)
+void GrafoMatriz::eliminarArista(vertice* v1, vertice* v2)
 {
-    matriz[v1][v2] = -1;
-    matriz[v2][v1] = -1;
+	int aux1 = buscarVertice(v1);
+	int aux2 = buscarVertice(v2);
+	matriz[aux1][aux2] = -1;
+	matriz[aux2][aux1] = -1;
 }
 /**
 Nombre: ModificarPeso
@@ -240,10 +250,12 @@ Requiere: Grafo inicializado, v1 y v2 deben existir en el grafo y además ser ady
 Modifica: peso
 
 */
-void GrafoMatriz::modificarPeso(vertice v1,vertice v2,int peso)
+void GrafoMatriz::modificarPeso(vertice* v1, vertice* v2, int peso)
 {
-    matriz[v1][v2] = peso;
-    matriz[v2][v1] = peso;
+	int aux1 = buscarVertice(v1);
+	int aux2 = buscarVertice(v2);
+	matriz[aux1][aux2] = peso;
+	matriz[aux2][aux1] = peso;
 
 }
 /**
@@ -254,9 +266,11 @@ Requiere: Grafo inicializado, v1 y v2 deben existir en el grafo y además ser ady
 Modifica:
 
 */
-int GrafoMatriz::peso(vertice v1,vertice v2)
+int GrafoMatriz::peso(vertice* v1, vertice* v2)
 {
-    return matriz[v1][v2];
+	int aux1 = buscarVertice(v1);
+	int aux2 = buscarVertice(v2);
+    return matriz[aux1][aux2];
 }
 /**
 Nombre: Adyacentes
@@ -265,16 +279,14 @@ Efecto: devuelve un booleano si los vértices v1 y v2 son o no adyacentes
 Requiere: Grafo inicializado, v1 y v2 existentes en el grafo.
 Modifica:
 */
-bool GrafoMatriz::adyacentes(vertice v1,vertice v2)
+bool GrafoMatriz::adyacentes(vertice* v1, vertice* v2)
 {
-    if(matriz[v1][v2] == -1)
-    {
+	int aux1 = buscarVertice(v1);
+	int aux2 = buscarVertice(v2);
+    if(matriz[aux1][aux2] == -1)
         return false;
-    }
-    else
-    {
-        return true;
-    }
+    return true;
+
 }
 /**
 Nombre: PrimerVértice
@@ -284,16 +296,11 @@ Requiere: Grafo inicializado
 Modifica:
 
 */
-vertice GrafoMatriz::primerVertice()
+vertice* GrafoMatriz::primerVertice()
 {
     if(ultimo == -1)
-    {
-        return verticeNulo;
-    }
-    else
-    {
-        return 0;
-    }
+        return &verticeNulo;
+    return &vec[0];
 }
 /**
 Nombre: SiguienteVértice
@@ -303,16 +310,16 @@ Requiere: Grafo inicializado, v debe ser existente en el grafo
 Modifica:
 
 */
-vertice GrafoMatriz::siguienteVertice(vertice v)
+vertice* GrafoMatriz::siguienteVertice(vertice* v)
 {
-    if(v+1 <= ultimo)
+	int aux = buscarVertice(v);
+    if(aux+1 <= ultimo)
     {
-        return v+1;
+        return &vec[aux+1];
     }
     else
     {
-        //cout << "No quedan más vertices" << endl;
-        return -1;
+        return &verticeNulo;
     }
 }
 /**
@@ -323,17 +330,17 @@ Requiere: Grafo inicializado, v debe ser existente en el grafo
 Modifica:
 
 */
-vertice GrafoMatriz::primerVerticeAdyacente(vertice v)
+vertice* GrafoMatriz::primerVerticeAdyacente(vertice* v)
 {
+	int aux = buscarVertice(v);
     for(int i = 0; i <= ultimo; i++)
     {
-        if(matriz[v][i] != -1)
+        if(matriz[aux][i] != -1)
         {
-            return i;
+            return &vec[i];
         }
-    }
-    //cout << "El vertice " << v << " no tiene vertices adyacentes" << endl;
-    return -1;
+    }    
+    return &verticeNulo;
 }
 /**
 Nombre: SiguienteVérticeAdyacente
@@ -343,17 +350,40 @@ Requiere: Grafo inicializado, v1 y v2 deben ser existentes en el grafo
 Modifica:
 
 */
-vertice GrafoMatriz::siguienteVerticeAdyacente(vertice v1,vertice v2)
+vertice* GrafoMatriz::siguienteVerticeAdyacente(vertice* v1, vertice* v2)
 {
-    for(int i = v2+1; i <= ultimo; i++)
+	int aux1 = buscarVertice(v1);
+	int aux2 = buscarVertice(v2);
+    for(int i = aux2+1; i <= ultimo; i++)
     {
-        if(matriz[v1][i] != -1)
+        if(matriz[aux1][i] != -1)
         {
-            return i;
+            return &vec[i];
         }
     }
     //cout << "El vertice " << v1 << " no tiene vertices adyacentes despues del vertice " << v2 << endl;
-    return -1;
+    return &verticeNulo;
+}
+/**
+Nombre: buscarVertice
+Parámetros: v (vertice)
+Efecto: retorna el indice donde se localiza el vertice dentro de la matriz
+Requiere: Grafo inicializado, vertice debe ser valido
+Modifica:
+
+*/
+int GrafoMatriz::buscarVertice(vertice* v)
+{
+	int k = 0, aux = -1;
+	while (k <= ultimo)
+	{
+		if (vec[k] == *v)
+		{
+			aux = k;
+		}
+		k++;
+	}
+	return aux;
 }
 /**
 Nombre: NumVertices
@@ -375,17 +405,23 @@ Requiere: Grafo inicializado, v debe ser existente en el grafo
 Modifica:
 
 */
-int GrafoMatriz::numVerticesAdyacentes(vertice v)
+int GrafoMatriz::numVerticesAdyacentes(vertice* v)
 {
+	int aux = buscarVertice(v);
     int verticesady = 0;
     for(int i = 0; i <= ultimo; i++)
     {
-        if(matriz[v][i] != -1)
+        if(matriz[aux][i] != -1)
         {
             verticesady++;
         }
     }
     return verticesady;
+}
+
+vertice* GrafoMatriz::VerticeNulo()
+{
+	return &verticeNulo;
 }
 
 #endif // Grafo_H

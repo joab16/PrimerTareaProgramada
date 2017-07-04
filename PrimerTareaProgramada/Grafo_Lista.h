@@ -127,6 +127,7 @@ public:
 	//MOD:
 	int numVerticesAdyacentes(Vertice* v);
 	
+	Vertice* VerticeNulo();
 
 private:
 	Vertice* inicio;
@@ -230,18 +231,24 @@ void Grafo_Lista::agregarArista(Vertice* v1, Vertice* v2, int p) {//LISTO
 	v2->aristas = a2;
 }
 
-void Grafo_Lista::eliminarArista(Vertice* v1, Vertice* v2) {//LISTO
+void Grafo_Lista::eliminarArista(Vertice* v1, Vertice* v2) 
+{
 	bool eliminada1 = false;
 	Arista* a1 = v1->aristas;
-	while (!eliminada1) {
-		if (a1->vertice == v2) {
-			if (a1 == v1->aristas) {
+	while (!eliminada1) 
+	{
+		if (a1->vertice == v2) 
+		{
+			if (a1 == v1->aristas) 
+			{
 				v1->aristas = a1->sgt;
 				delete a1;
 				eliminada1 = true;
 			}
-			else {
-				if (a1->sgt->vertice == v2) {
+			else 
+			{
+				if (a1->sgt->vertice == v2) 
+				{
 					Arista* eliminada = a1->sgt;
 					a1->sgt = a1->sgt->sgt;
 					v1->aristas = a1;
@@ -254,17 +261,22 @@ void Grafo_Lista::eliminarArista(Vertice* v1, Vertice* v2) {//LISTO
 			a1 = a1->sgt;
 		}
 	}
-	bool eliminada2 = false;
-	Arista* a2 = v2->aristas;
-	while (!eliminada2) {
-		if (a2->vertice == v1) {
-			if (a2 == v2->aristas) {
+	//bool eliminada2 = false;
+	/*Arista* a2 = v2->aristas;
+	while (!eliminada2) 
+	{
+		if (a2->vertice == v1) 
+		{
+			if (a2 == v2->aristas) 
+			{
 				v2->aristas = a2->sgt;
 				delete a2;
 				eliminada2 = true;
 			}
-			else {
-				if (a2->sgt->vertice == v1) {
+			else 
+			{
+				if (a2->sgt->vertice == v1) 
+				{
 					Arista* eliminada = a2->sgt;
 					a2->sgt = a2->sgt->sgt;
 					v2->aristas = a2;
@@ -276,10 +288,10 @@ void Grafo_Lista::eliminarArista(Vertice* v1, Vertice* v2) {//LISTO
 		else {
 			a2 = a2->sgt;
 		}
-	}
+	}*/
 }
 
-void Grafo_Lista::modificarPeso(Vertice* v1, Vertice* v2, int p) {//LISTO
+void Grafo_Lista::modificarPeso(Vertice* v1, Vertice* v2, int p) {
 	bool modificada1 = false;
 	Arista* a1 = v1->aristas;
 	while (!modificada1) {
@@ -304,11 +316,11 @@ void Grafo_Lista::modificarPeso(Vertice* v1, Vertice* v2, int p) {//LISTO
 	}
 }
 
-int Grafo_Lista::peso(Vertice* v1, Vertice* v2) {//LISTO
+int Grafo_Lista::peso(Vertice* v1, Vertice* v2) {
 	bool encontrada = false;
-	int peso;
+	int peso = -1;
 	Arista* a = v1->aristas;
-	while (!encontrada) {
+	while (!encontrada && a != NULL) {
 		if (a->vertice == v2) {
 			peso = a->Peso;
 			encontrada = true;
@@ -320,7 +332,7 @@ int Grafo_Lista::peso(Vertice* v1, Vertice* v2) {//LISTO
 	return peso;
 }
 
-bool Grafo_Lista::adyacentes(Vertice* v1, Vertice* v2) { //LISTO
+bool Grafo_Lista::adyacentes(Vertice* v1, Vertice* v2) { 
 	bool encontrada = false;
 	Arista* a = v1->aristas;
 	while (a != 0 && !encontrada) {
@@ -334,23 +346,27 @@ bool Grafo_Lista::adyacentes(Vertice* v1, Vertice* v2) { //LISTO
 	return encontrada;
 }
 
-Vertice* Grafo_Lista::primerVertice() {//LISTO
+Vertice* Grafo_Lista::primerVertice() 
+{
 	return inicio;
 }
 
-Vertice* Grafo_Lista::siguienteVertice(Vertice* v) {//LISTO
+Vertice* Grafo_Lista::siguienteVertice(Vertice* v) 
+{
 	return v->sgt;
 }
 
-Vertice* Grafo_Lista::primerVerticeAdyacente(Vertice* v) {//LISTO
+Vertice* Grafo_Lista::primerVerticeAdyacente(Vertice* v) 
+{
 	return v->aristas->vertice;
 }
 
-Vertice* Grafo_Lista::siguienteVerticeAdyacente(Vertice* v1, Vertice* v2) {//LISTO
-	Vertice* siguiente = 0;
+Vertice* Grafo_Lista::siguienteVerticeAdyacente(Vertice* v1, Vertice* v2) {
+	Vertice* siguiente = verticeNulo;
 	bool encontrada = false;
 	Arista* a = v1->aristas;
-	while (!encontrada) {
+	while (!encontrada && a != NULL) 
+	{
 		if (a->vertice == v2) {
 			encontrada = true;
 			if (a->sgt != 0) {
@@ -383,6 +399,11 @@ int Grafo_Lista::numVerticesAdyacentes(Vertice* v) {//LISTO
 		a = a->sgt;
 	}
 	return cnt;
+}
+
+inline Vertice * Grafo_Lista::VerticeNulo()
+{
+	return verticeNulo;
 }
 
 /*bool Grafo_Lista::recorridoProfundidadPrimero() {
