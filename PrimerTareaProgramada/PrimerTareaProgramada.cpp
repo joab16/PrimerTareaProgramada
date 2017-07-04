@@ -17,6 +17,10 @@ typedef Vertice VerticeGen;
 
 using namespace std;
 
+
+int cantVertPintados = 0, cantColoresUsados = 0, mejorSol = INT16_MAX;
+Diccionario<int> coloresUsados;
+
 int contador = 0;
 //int color;
 int i;
@@ -473,19 +477,20 @@ int TotalizarPesosAristas(Grafo* g1)
 void llenarConjuntoVA(Grafo* g1)
 {
 	VerticesAdyacentes.Crear();
-	
 	Vertice* v = g1->primerVertice();
-	Vertice* va = g1->primerVerticeAdyacente(v);
-	while (v != 0) {
-		v = v->sgt;
+	Vertice* va;
+	while (g1->etiqueta(v) != g1->verticeNulo->etiqueta) 
+	{		
+		va = g1->primerVerticeAdyacente(v);
 		Conjunto adyacentes;
 		//adyacentes.SetNumeroDelConjunto(g1->etiqueta(v));
-		while (va != 0)
+		while (va != NULL)
 		{
 			adyacentes.AgregarElemento(g1->etiqueta(va));
 			va = g1->siguienteVerticeAdyacente(v, va);
 		}
-		VerticesAdyacentes.AgregarConjunto(adyacentes, g1->etiqueta(v));		
+		VerticesAdyacentes.AgregarConjunto(adyacentes, g1->etiqueta(v));
+		v = g1->siguienteVertice(v);
 	}
 }
 
@@ -497,21 +502,19 @@ Requiere: Grafo inicializado.
 Modifica:
 
 **/
-
-//Colorear no sirve
 void ColorearVertice(Grafo* g1, Vertice* v)
-{
-	llenarConjuntoVA(g1);
-	VerticesColoreados.Crear();
-	bool factible = true;
-	Vertice* va;
-	while (v!= 0)
-	{
+{	
+	cantVertPintados++;
+	bool factible = true, colorNuevo = false;
+	Vertice* va;	
+	Conjunto conjuntoVerticesColor;
+	for(int C = 0; C < g1->numVertices() - 1; C++)
+	{		
 		factible = true;
 		va = g1->primerVerticeAdyacente(v);
-		while (va != g1->verticeNulo && factible == true)
+		while (va != NULL && factible)
 		{
-			if (VerticesAdyacentes.ConjuntoAlQuePertenece(va->etiqueta) == g1->etiqueta(v))
+			if (VerticesColoreados.ConjuntoAlQuePertenece(g1->etiqueta(va)) == std::to_string(C))
 			{
 				factible = false;
 			}
@@ -519,17 +522,66 @@ void ColorearVertice(Grafo* g1, Vertice* v)
 		}
 		if (factible)
 		{
-			VerticesColoreados.AgregarElementoAConjunto(v, g1->etiqueta(v));
-			if (color == g1->numVertices())
+			if (!(coloresUsados.pertenece(C)))
 			{
-
+				coloresUsados.agregar(C);
+				cantColoresUsados++;
+				colorNuevo = true;				
+				conjuntoVerticesColor.SetNumeroDelConjunto(std::to_string(C));
+				conjuntoVerticesColor.AgregarElemento(g1->etiqueta(v));
+				VerticesColoreados.AgregarConjunto(conjuntoVerticesColor, std::to_string(C));
 			}
-			else {
-				ColorearVertice(g1, va);
+			else
+			{
+				VerticesColoreados.AgregarElementoAConjunto(g1->etiqueta(v), std::to_string(C));
 			}
+			if (cantVertPintados == g1->numVertices()) 
+			{
+				if (cantColoresUsados < mejorSol)
+				{
+					mejorSol = cantColoresUsados;
+				}
+			}
+			else
+			{
+				ColorearVertice(g1, g1->siguienteVertice(v));				
+			}
+			if (colorNuevo)
+			{
+				coloresUsados.eliminar(C);
+				cantColoresUsados--;
+				colorNuevo = false;
+				VerticesColoreados.EliminarConjunto(std::to_string(C));
+				conjuntoVerticesColor.EliminarElemento(g1->etiqueta(v));
+			}
+			else
+			{
+				VerticesColoreados.EliminarElemento(g1->etiqueta(v));				
+			}			
 		}
-		v = v->sgt;
 	}
+	cantVertPintados--;
+}
+
+/**
+Nombre: ColorearGrafo
+Parámetros: G (Grafo)
+Efecto: Busca el menor número de colores que se necesitan para colorear el grafo
+Requiere: Grafo inicializado.
+Modifica:
+
+**/
+void ColorearGrafo(Grafo* g)
+{
+	llenarConjuntoVA(g);
+	cantVertPintados = 0;
+	cantColoresUsados = 0;
+	coloresUsados.crear();
+	VerticesColoreados.Crear();
+	ColorearVertice(g, g->primerVertice());
+	VerticesColoreados.Crear();
+	coloresUsados.destruir();
+	VerticesAdyacentes.Destruir();
 }
 
 /* diccionarioVerticesVisitados.Agregar(v);
@@ -815,10 +867,12 @@ void menu(Grafo* grafo)
 			imprimirGrafo(grafo);
 			break;
 		case 22:
-			cout << "Apartir de cual vertice desea colorear el grafo?" << endl;
+			/*cout << "Apartir de cual vertice desea colorear el grafo?" << endl;
 			cin >> vertic;
 			vert = Buscar(grafo, vertic);
-			ColorearVertice(grafo, vert);
+			ColorearVertice(grafo, vert);*/
+			ColorearGrafo(grafo);
+			cout << "La cantidad minima de colores es: " << mejorSol << endl;
 			break;
 		case 23:
 			cout << "A partir de cual vertice desea empezar Vendedor?" << endl;
@@ -861,11 +915,18 @@ int main(int argc, char** argv) {
 	else {
 		cout << "El grafo no esta vacio" << endl;
 	}
-	cout << "Agregamos los vertices v1,v2,v3,v4" << endl;
+	cout << "Agregamos los vertices v1,v2,v3,v4,v5" << endl;
 	grafo->agregarVertice("v1");
 	grafo->agregarVertice("v2");
 	grafo->agregarVertice("v3");
 	grafo->agregarVertice("v4");
+	grafo->agregarVertice("v5");
+	/*
+	grafo->agregarVertice("v6");
+	grafo->agregarVertice("v7");
+	grafo->agregarVertice("v8");
+	grafo->agregarVertice("v9");
+	grafo->agregarVertice("v10");*/
 	cout << "Volvemos a preguntar si esta vacio, lo cual es falso ahora, y preguntamos el numero de vertices en el grafo" << endl;
 	if (grafo->vacio()) {
 		cout << "El grafo esta vacio" << endl;
@@ -875,16 +936,59 @@ int main(int argc, char** argv) {
 	}
 	cout << "El numero de vertices es: " << grafo->numVertices() << endl;
 
-	VerticeGen* v4 = grafo->primerVertice(); //new Vertice("v1");
+	//VerticeGen* v10 = grafo->primerVertice(); //new Vertice("v1");
+	//VerticeGen* v9 = grafo->siguienteVertice(v10); //new Vertice("v2");
+	//VerticeGen* v8 = grafo->siguienteVertice(v9); //new Vertice("v1");
+	//VerticeGen* v7 = grafo->siguienteVertice(v8); //new Vertice("v2");
+	//VerticeGen* v6 = grafo->siguienteVertice(v7); //new Vertice("v3");
+	VerticeGen* v5 = grafo->primerVertice(); //new Vertice("v4");
+	VerticeGen* v4 = grafo->siguienteVertice(v5); //new Vertice("v1");
 	VerticeGen* v3 = grafo->siguienteVertice(v4); //new Vertice("v2");
 	VerticeGen* v2 = grafo->siguienteVertice(v3); //new Vertice("v3");
 	VerticeGen* v1 = grafo->siguienteVertice(v2); //new Vertice("v4");
 
-	cout << "Agregamos las aristas: v2,v4,5; v4,v3,7; v3,v1,2; v3,v2,1" << endl;
-	grafo->agregarArista(v2, v4, 5);
-	grafo->agregarArista(v4, v3, 7);
-	grafo->agregarArista(v3, v1, 2);
-	grafo->agregarArista(v3, v2, 1);
+	/*cout << "Agregamos las aristas: v10,v7,8; v10,v8,5; v10,v5,8;" << endl;
+	grafo->agregarArista(v10, v7, 8);
+	grafo->agregarArista(v10, v8, 5);
+	grafo->agregarArista(v10, v5, 8);	
+	cout << "Agregamos las aristas: v9,v7,6; v9,v6,9; v9,v4,2;" << endl;
+	grafo->agregarArista(v9, v7, 6);
+	grafo->agregarArista(v9, v6, 9);
+	grafo->agregarArista(v9, v4, 2);
+	cout << "Agregamos las aristas: v8,v6,7; v8,v3,4;" << endl;
+	grafo->agregarArista(v8, v6, 7);
+	grafo->agregarArista(v8, v3, 4);
+	cout << "Agregamos las aristas: v7,v2,6;" << endl;
+	grafo->agregarArista(v7, v2, 6);
+	cout << "Agregamos las aristas: v6,v1,3;" << endl;
+	grafo->agregarArista(v6, v1, 3);
+	cout << "Agregamos las aristas: v5,v4,1; v5,v1,4;" << endl;
+	grafo->agregarArista(v5, v1, 4);
+	grafo->agregarArista(v5, v4, 1);
+	cout << "Agregamos las aristas: v4,v3,3;" << endl;
+	grafo->agregarArista(v4, v3, 3);
+	cout << "Agregamos las aristas: v3,v2,2;" << endl;
+	grafo->agregarArista(v3, v2, 2);
+	cout << "Agregamos las aristas: v2,v1,1;" << endl;
+	grafo->agregarArista(v2, v1, 1);*/
+
+	cout << "Agregamos las aristas: v5,v1,7; v5,v4,6; v5,v3,1" << endl;
+	grafo->agregarArista(v5, v4, 7);
+	grafo->agregarArista(v5, v1, 6);
+	grafo->agregarArista(v5, v3, 1);
+
+	cout << "Agregamos las aristas: v4,v1,5; v4,v3,4;" << endl;
+	grafo->agregarArista(v4, v1, 5);
+	grafo->agregarArista(v4, v3, 4);
+
+	cout << "Agregamos las aristas: v3,v1,3; v3,v2,2;" << endl;
+	grafo->agregarArista(v3, v1, 3);
+	grafo->agregarArista(v3, v2, 2);
+
+	cout << "Agregamos las aristas: v2,v1,1;" << endl;
+	grafo->agregarArista(v2, v1, 1);
+
+
 
 	cout << "Preguntamos por el numero de aristas de v3, lo cual es 3" << endl;
 	cout << "El numero de aristas de v3 es: " << grafo->numVerticesAdyacentes(v3) << endl;

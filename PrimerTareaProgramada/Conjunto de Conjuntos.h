@@ -21,7 +21,7 @@ class ConjuntodeConjuntos
         void EliminarElemento(elemento);
         string ConjuntoAlQuePertenece(elemento);
         void AgregarConjunto(Conjunto, string);
-        void EliminarConjunto(int);
+        void EliminarConjunto(string);
         //void UnirConjuntos(int, int);
         string NumConjuntos();
 
@@ -134,7 +134,7 @@ string ConjuntodeConjuntos::ConjuntoAlQuePertenece(elemento elem)
 	{
 		return numeroDelConjunto;
 	}
-	return "0";
+	return "-1";
 }
 void ConjuntodeConjuntos::AgregarConjunto(Conjunto conj, string numConjunto)
 {
@@ -142,16 +142,22 @@ void ConjuntodeConjuntos::AgregarConjunto(Conjunto conj, string numConjunto)
    
     conj.SetNumeroDelConjunto(numConjunto);
 }
-void ConjuntodeConjuntos::EliminarConjunto(int numConjunto)
+void ConjuntodeConjuntos::EliminarConjunto(string numConjunto)
 {
     it = CC.begin();
     int contador = 1;
-    while (contador < numConjunto)
+    while (it != CC.end())
     {
-        it++;
+		if ((it->numconjunto) == numConjunto)
+		{
+			CC.erase(it);
+			it = CC.end();
+		}
+		else
+		{
+			it++;
+		}
     }
-    CC.erase(it);
-    numConjunto--;
 }
 //void ConjuntodeConjuntos::UnirConjuntos(int Conjunto1, int Conjunto2)
 //{
