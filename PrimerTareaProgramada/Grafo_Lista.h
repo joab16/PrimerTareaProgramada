@@ -235,7 +235,7 @@ void Grafo_Lista::eliminarArista(Vertice* v1, Vertice* v2)
 {
 	bool eliminada1 = false;
 	Arista* a1 = v1->aristas;
-	while (!eliminada1) 
+	while (!eliminada1 && a1 != NULL) 
 	{
 		if (a1->vertice == v2) 
 		{
