@@ -838,9 +838,7 @@ void menu(Grafo* grafo)
 			cin >> vertic;
 			cout << endl;
 			vert = Buscar(grafo, vertic);
-			start = clock();
-			Dijkstra(grafo, vert, d);
-			cout << "El algoritmo ha tardado: " << ((double)((double)clock() - start) / CLOCKS_PER_SEC) << " segundos." << endl;
+			Dijkstra(grafo, vert, d);			
 			for (int i = 0; i < grafo->numVertices(); i++)
 			{
 				if (mapeo[i] != vert)
@@ -852,9 +850,7 @@ void menu(Grafo* grafo)
 
 			break;
 		case 16:
-			start = clock();
-			Floyd(grafo);
-			cout << "El algoritmo ha tardado: " << ((double)((double)clock() - start) / CLOCKS_PER_SEC) << " segundos." << endl;
+			Floyd(grafo);			
 			for (int i = 0; i<grafo->numVertices(); i++)
 			{
 				for (int j = 0; j<grafo->numVertices(); j++)
@@ -868,7 +864,6 @@ void menu(Grafo* grafo)
 
 			break;
 		case 17:
-			start = clock();
 			if (Iguales(grafo, grafo))
 			{
 				cout << "Los grafos son iguales" << endl;
@@ -877,7 +872,6 @@ void menu(Grafo* grafo)
 			{
 				cout << "Los grafos son diferentes" << endl;
 			}
-			cout << "El algoritmo ha tardado: " << ((double)((double)clock() - start) / CLOCKS_PER_SEC) << " segundos." << endl;
 			break;
 		case 18:
 			Copiar(grafo);
@@ -897,14 +891,8 @@ void menu(Grafo* grafo)
 			cout << "Imprimimos el grafo como matriz de adyacencia" << endl;
 			imprimirGrafo(grafo);
 			break;
-		case 22:
-			/*cout << "Apartir de cual vertice desea colorear el grafo?" << endl;
-			cin >> vertic;
-			vert = Buscar(grafo, vertic);
-			ColorearVertice(grafo, vert);*/
-			start = clock();
-			ColorearGrafo(grafo);
-			cout << "El algoritmo ha tardado: " << ((double)((double)clock() - start) / CLOCKS_PER_SEC) << " segundos." << endl;
+		case 22:			
+			ColorearGrafo(grafo);			
 			cout << "La cantidad minima de colores es: " << mejorSol << endl;
 			break;
 		case 23:
@@ -917,9 +905,7 @@ void menu(Grafo* grafo)
 			SolucionActual.clear();
 			SolucionMejor.clear();
 			primerVert = vert;
-			start = clock();
-			Vendedor(grafo, vert);
-			cout << "El algoritmo ha tardado: " << ((double)((double)clock() - start) / CLOCKS_PER_SEC) << " segundos." <<endl;
+			Vendedor(grafo, vert);			
 			cout << "La mejor solucion es: ";
 			cout << grafo->etiqueta(vert) << " -> ";
 			for (it = SolucionMejor.begin(); it < SolucionMejor.end(); it++)
