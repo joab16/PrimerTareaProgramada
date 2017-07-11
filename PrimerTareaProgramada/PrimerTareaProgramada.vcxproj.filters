@@ -59,7 +59,7 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
-    <ClCompile Include="PrimerTareaProgramada.cpp">
+    <ClCompile Include="SegundaTareaProgramada.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
   </ItemGroup>
