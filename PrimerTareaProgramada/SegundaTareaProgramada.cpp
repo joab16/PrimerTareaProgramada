@@ -334,7 +334,7 @@ bool Iguales(Grafo* g1, Grafo* g2)
 		VerticeGen* v1 = g1->primerVertice();
 		VerticeGen* v2;
 		iguales = true;
-		while (v1 != 0 && iguales) {
+		while (g1->etiqueta(v1) != "0" && iguales) {
 			iguales = false;
 			v2 = g2->primerVertice();
 			while (v2 != 0 && !iguales) {
@@ -353,7 +353,7 @@ bool Iguales(Grafo* g1, Grafo* g2)
 			VerticeGen* ady1;
 			VerticeGen* ady2;
 			int numArst;
-			while (v1 != 0 && iguales) {
+			while (g1->etiqueta(v1) != "0" && iguales) {
 				ady1 = g1->primerVerticeAdyacente(v1);
 				ady2 = g2->primerVerticeAdyacente(v2);
 				numArst = g1->numVerticesAdyacentes(v1);
@@ -420,7 +420,7 @@ Grafo* Copiar(Grafo* g) //Hacer metodo de obtener siguiente arista
 	{
 		//a = v1->aristas;
 		ady1 = g->primerVerticeAdyacente(v1);
-		while (ady1 != NULL) //a != 0
+		while (g->etiqueta(ady1) != "0") //a != 0
 		{
 			VerticeGen* ady2 = copiado->primerVertice();
 			while (g->etiqueta(ady1) != copiado->etiqueta(ady2)) 
